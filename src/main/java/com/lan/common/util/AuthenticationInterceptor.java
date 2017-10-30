@@ -2,6 +2,7 @@ package com.lan.common.util;
 
 import com.lan.common.annotation.OpenApi;
 import com.lan.common.exception.IChatException;
+import com.lan.ichat.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
     private String token;
     public static final String USER_KEY = "userId";
 
@@ -46,12 +47,17 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         if (StringUtils.isEmpty(token)) {
             throw new IChatException(this.getToken() + "不能为空", HttpStatus.UNAUTHORIZED.value());
         }
-        String str = redisTemplate.opsForValue().get(token);
-        if (str == null) {
+        Object obj = redisTemplate.opsForValue().get(token);
+        if (obj == null) {
             throw new IChatException(this.getToken() + "失效，请重新登录", HttpStatus.UNAUTHORIZED.value());
         }
+        // 1 为admin，禁止非管理员用户访问/console/**
+        UserEntity userEntity = (UserEntity) obj;
+        if (userEntity.getRoleId() != 1 && request.getRequestURI().startsWith("/console")) {
+            throw new IChatException("没有访问权限", HttpStatus.FORBIDDEN.value());
+        }
         // 将登录用户的id存入request，当有@LoginUser注解时，通过id拉取用户信息
-        request.setAttribute(USER_KEY, Long.parseLong(str));
+        request.setAttribute(USER_KEY, userEntity.getId());
         return true;
     }
 
