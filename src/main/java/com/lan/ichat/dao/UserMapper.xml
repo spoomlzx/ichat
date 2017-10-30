@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lan.ichat.dao.UserMapper">
+
+    <sql id="Base_Column_List">
+        `id`,
+        `username`,
+        `nick_name`,
+        `role_id`,
+        `create_time`,
+        `enabled`,
+        `last_login_time`,
+        `avatar`,
+        `gender`
+    </sql>
+
+    <select id="getUserList" resultType="com.lan.ichat.model.UserEntity">
+        SELECT <include refid="Base_Column_List"/>
+        FROM ichat_user
+    </select>
+
+    <select id="getUserById" resultType="com.lan.ichat.model.UserEntity">
+        SELECT <include refid="Base_Column_List"/>
+        FROM ichat_user
+        WHERE id = #{id}
+    </select>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userEntity.id">
+        INSERT INTO ichat_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userEntity.id!=null">`id`,</if>
+            <if test="userEntity.username!=null">`username`,</if>
+            <if test="userEntity.nickName!=null">`nick_name`,</if>
+            <if test="userEntity.password!=null">`password`,</if>
+            <if test="userEntity.roleId!=null">`role_id`,</if>
+            <if test="userEntity.createTime!=null">`create_time`,</if>
+            <if test="userEntity.enabled!=null">`enabled`,</if>
+            <if test="userEntity.lastLoginTime!=null">`last_login_time`,</if>
+            <if test="userEntity.avatar!=null">`avatar`,</if>
+            <if test="userEntity.gender!=null">`gender`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userEntity.id!=null">#{userEntity.id,jdbcType=BIGINT},
+            </if>
+            <if test="userEntity.username!=null">#{userEntity.username,jdbcType=VARCHAR},
+            </if>
+            <if test="userEntity.nickName!=null">#{userEntity.nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="userEntity.password!=null">#{userEntity.password,jdbcType=VARCHAR},
+            </if>
+            <if test="userEntity.roleId!=null">#{userEntity.roleId,jdbcType=BIGINT},
+            </if>
+            <if test="userEntity.createTime!=null">#{userEntity.createTime,jdbcType=DATE},
+            </if>
+            <if test="userEntity.enabled!=null">#{userEntity.enabled,jdbcType=TINYINT},
+            </if>
+            <if test="userEntity.lastLoginTime!=null">#{userEntity.lastLoginTime,jdbcType=DATE},
+            </if>
+            <if test="userEntity.avatar!=null">#{userEntity.avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="userEntity.gender!=null">#{userEntity.gender,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO ichat_user (<include refid="Base_Column_List"/>,`password`)VALUES
+        <foreach collection="userEntitys" item="userEntity" index="index" separator=",">
+            (
+            #{userEntity.id,jdbcType=BIGINT},
+            #{userEntity.username,jdbcType=VARCHAR},
+            #{userEntity.nickName,jdbcType=VARCHAR},
+            #{userEntity.roleId,jdbcType=BIGINT},
+            #{userEntity.createTime,jdbcType=DATE},
+            #{userEntity.enabled,jdbcType=TINYINT},
+            #{userEntity.lastLoginTime,jdbcType=DATE},
+            #{userEntity.avatar,jdbcType=VARCHAR},
+            #{userEntity.gender,jdbcType=VARCHAR},
+            #{userEntity.password,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE ichat_user
+        <set>
+            <if test="userEntity.id != null">`id`= #{userEntity.id,jdbcType=BIGINT},</if>
+            <if test="userEntity.username != null">`username`= #{userEntity.username,jdbcType=VARCHAR},</if>
+            <if test="userEntity.nickName != null">`nick_name`= #{userEntity.nickName,jdbcType=VARCHAR},</if>
+            <if test="userEntity.password != null">`password`= #{userEntity.password,jdbcType=VARCHAR},</if>
+            <if test="userEntity.roleId != null">`role_id`= #{userEntity.roleId,jdbcType=BIGINT},</if>
+            <if test="userEntity.createTime != null">`create_time`= #{userEntity.createTime,jdbcType=DATE},</if>
+            <if test="userEntity.enabled != null">`enabled`= #{userEntity.enabled,jdbcType=TINYINT},</if>
+            <if test="userEntity.lastLoginTime != null">`last_login_time`= #{userEntity.lastLoginTime,jdbcType=DATE},</if>
+            <if test="userEntity.avatar != null">`avatar`= #{userEntity.avatar,jdbcType=VARCHAR},</if>
+            <if test="userEntity.gender != null">`gender`= #{userEntity.gender,jdbcType=VARCHAR}</if>
+        </set>
+        WHERE `id` = #{userEntity.id,jdbcType=BIGINT}
+    </update>
+</mapper>
+
