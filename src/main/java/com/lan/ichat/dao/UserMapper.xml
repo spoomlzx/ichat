@@ -2,25 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lan.ichat.dao.UserMapper">
 
-    <sql id="Base_Column_List">
-        `id`,
-        `username`,
-        `nick_name`,
-        `role_id`,
-        `create_time`,
-        `enabled`,
-        `last_login_time`,
-        `avatar`,
-        `gender`
-    </sql>
-
     <select id="getUserList" resultType="com.lan.ichat.model.UserEntity">
-        SELECT <include refid="Base_Column_List"/>
+        SELECT
+            `id`,
+            `username`,
+            `nick_name`,
+            `role_id`,
+            `create_time`,
+            `enabled`,
+            `last_login_time`,
+            `avatar`,
+            `gender`
         FROM ichat_user
     </select>
 
+    <select id="getUserByUsername" resultType="com.lan.ichat.model.UserEntity">
+        SELECT
+            `id`,
+            `username`,
+            `password`,
+            `nick_name`,
+            `role_id`,
+            `create_time`,
+            `enabled`,
+            `last_login_time`,
+            `avatar`,
+            `gender`
+        FROM ichat_user
+        WHERE username = #{username}
+    </select>
+
     <select id="getUserById" resultType="com.lan.ichat.model.UserEntity">
-        SELECT <include refid="Base_Column_List"/>
+        SELECT
+            `id`,
+            `username`,
+            `nick_name`,
+            `role_id`,
+            `create_time`,
+            `enabled`,
+            `last_login_time`,
+            `avatar`,
+            `gender`
         FROM ichat_user
         WHERE id = #{id}
     </select>
@@ -67,7 +89,7 @@
 
     <!--auto generated Code-->
     <insert id="insertList">
-        INSERT INTO ichat_user (<include refid="Base_Column_List"/>,`password`)VALUES
+        INSERT INTO ichat_user (`id`,`username`,`nick_name`,`role_id`,`create_time`,`enabled`,`last_login_time`,`avatar`,`gender`,`password`) VALUES
         <foreach collection="userEntitys" item="userEntity" index="index" separator=",">
             (
             #{userEntity.id,jdbcType=BIGINT},

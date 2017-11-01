@@ -1,5 +1,7 @@
 package com.lan.common.exception;
 
+import com.lan.common.util.IChatStatus;
+
 /**
  * package com.lan.common.exception
  * 自定义Exception
@@ -10,8 +12,8 @@ package com.lan.common.exception;
  */
 public class IChatException extends RuntimeException {
 
-    private String msg;
-    private int code = 500;
+    private String msg = IChatStatus.FAILURE.getReasonPhrase();
+    private int code = IChatStatus.FAILURE.value();
 
     public IChatException(String msg) {
         super(msg);
@@ -27,6 +29,12 @@ public class IChatException extends RuntimeException {
         super(msg);
         this.msg = msg;
         this.code = code;
+    }
+
+    public IChatException(IChatStatus status) {
+        super(status.getReasonPhrase());
+        this.msg = status.getReasonPhrase();
+        this.code = status.value();
     }
 
     public IChatException(String msg, int code, Throwable e) {

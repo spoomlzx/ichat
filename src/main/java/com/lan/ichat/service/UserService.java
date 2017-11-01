@@ -8,6 +8,8 @@ public interface UserService {
 
     List<UserEntity> getUserList();
 
+    UserEntity getUserByUsername(String username);
+
     UserEntity getUserById(Long id);
 
     int insert(UserEntity userEntity);

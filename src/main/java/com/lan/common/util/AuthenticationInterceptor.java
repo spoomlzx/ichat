@@ -3,10 +3,9 @@ package com.lan.common.util;
 import com.lan.common.annotation.OpenApi;
 import com.lan.common.exception.IChatException;
 import com.lan.ichat.model.UserEntity;
+import com.lan.ichat.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
@@ -26,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private TokenService tokenService;
     private String token;
     public static final String USER_KEY = "userId";
 
@@ -45,16 +44,15 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             token = request.getParameter(this.getToken());
         }
         if (StringUtils.isEmpty(token)) {
-            throw new IChatException(this.getToken() + "不能为空", HttpStatus.UNAUTHORIZED.value());
+            throw new IChatException(IChatStatus.TOKEN_EMPTY);
         }
-        Object obj = redisTemplate.opsForValue().get(token);
-        if (obj == null) {
-            throw new IChatException(this.getToken() + "失效，请重新登录", HttpStatus.UNAUTHORIZED.value());
+        UserEntity userEntity = tokenService.get(token);
+        if (userEntity == null) {
+            throw new IChatException(IChatStatus.TOKEN_INVALID);
         }
         // 1 为admin，禁止非管理员用户访问/console/**
-        UserEntity userEntity = (UserEntity) obj;
         if (userEntity.getRoleId() != 1 && request.getRequestURI().startsWith("/console")) {
-            throw new IChatException("没有访问权限", HttpStatus.FORBIDDEN.value());
+            throw new IChatException(IChatStatus.OVERSTEP_AUTHORITY);
         }
         // 将登录用户的id存入request，当有@LoginUser注解时，通过id拉取用户信息
         request.setAttribute(USER_KEY, userEntity.getId());

@@ -16,6 +16,6 @@ public class IChatExceptionHandler {
 
     @ExceptionHandler(IChatException.class)
     public BaseResult handleIChatException(IChatException e) {
-        return new BaseResult(e.getCode(), e.getMsg());
+        return new BaseResult(e.getMsg(), e.getCode());
     }
 }

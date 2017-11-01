@@ -2,7 +2,6 @@ package com.lan.ichat.service;
 
 import com.lan.ichat.dao.UserMapper;
 import com.lan.ichat.model.UserEntity;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,7 +19,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Cacheable(value = "user")
+    public UserEntity getUserByUsername(String username) {
+        return userMapper.getUserByUsername(username);
+    }
+
+    @Override
     public UserEntity getUserById(Long id) {
         UserEntity user = userMapper.getUserById(id);
         return user;

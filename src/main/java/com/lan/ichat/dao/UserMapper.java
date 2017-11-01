@@ -11,6 +11,8 @@ public interface UserMapper {
 
     List<UserEntity> getUserList();
 
+    UserEntity getUserByUsername(@Param("username") String username);
+
     UserEntity getUserById(@Param("id") Long id);
 
     int insert(@Param("userEntity") UserEntity userEntity);

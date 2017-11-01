@@ -2,7 +2,7 @@ package com.lan.common.util;
 
 /**
  * package com.lan.common.util
- *
+ * <p>
  * 200 success
  * 500 failure
  *
@@ -23,9 +23,14 @@ public class BaseResult {
         this.msg = msg;
     }
 
-    public BaseResult(int code, String msg) {
+    public BaseResult(String msg, int code) {
         this.code = code;
         this.msg = msg;
+    }
+
+    public void setStatus(IChatStatus status) {
+        this.code = status.value();
+        this.msg = status.getReasonPhrase();
     }
 
     public String getMsg() {
