@@ -13,6 +13,7 @@ public class UserEntity {
     private Long id;
     private String username;
     private String nickName;
+    private String motto;
     private String password;
     private Long roleId;
     private Date createTime;
@@ -20,6 +21,32 @@ public class UserEntity {
     private Date lastLoginTime;
     private String avatar;
     private String gender;
+    private String email;
+    private String telephone;
+
+    public String getMotto() {
+        return motto;
+    }
+
+    public void setMotto(String motto) {
+        this.motto = motto;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
     public Long getId() {
         return id;

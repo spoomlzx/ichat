@@ -19,11 +19,11 @@ public class MyCorsFilter extends CorsFilter {
     private static UrlBasedCorsConfigurationSource configurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:8080");
+        config.addAllowedOrigin("*"); // 为了方便使用postman调试，设置为*,部署时修改为后台的url
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration("/console/**", config); // 设置只有后台的api会进行CORS跨域，限制可以访问的origin
         return source;
     }
 }

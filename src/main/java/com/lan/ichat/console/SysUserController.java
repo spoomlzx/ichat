@@ -43,7 +43,7 @@ public class SysUserController {
             tokenService.delete(oldToken);
         }
         try {
-            userEntity = userService.getUserByUsername(user.getUsername());
+            userEntity = userService.getUserByUsername(user.getUsername(), 1);
         } catch (Exception e) {
             logger.error(e.getClass().getName() + ":" + e.getMessage());
             throw new IChatException(IChatStatus.SQL_EXCEPTION);
@@ -84,8 +84,8 @@ public class SysUserController {
     }
 
     @GetMapping(value = "/user/info")
-    public BaseResult getLoginUser(@LoginUser UserEntity user){
-        BaseResult baseResult=new BaseResult("获取当前登录用户成功");
+    public BaseResult getLoginUser(@LoginUser UserEntity user) {
+        BaseResult baseResult = new BaseResult("获取当前登录用户成功");
         baseResult.setData(user);
         return baseResult;
     }

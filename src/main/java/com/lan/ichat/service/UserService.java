@@ -8,7 +8,7 @@ public interface UserService {
 
     List<UserEntity> getUserList();
 
-    UserEntity getUserByUsername(String username);
+    UserEntity getUserByUsername(String username, Integer roleId);
 
     UserEntity getUserById(Long id);
 

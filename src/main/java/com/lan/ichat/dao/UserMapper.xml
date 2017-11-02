@@ -22,27 +22,34 @@
             `username`,
             `password`,
             `nick_name`,
+            `motto`,
             `role_id`,
             `create_time`,
             `enabled`,
             `last_login_time`,
             `avatar`,
-            `gender`
+            `gender`,
+            `email`,
+            `telephone`
         FROM ichat_user
-        WHERE username = #{username}
+        WHERE username = #{username} AND role_id = #{roleId}
     </select>
 
     <select id="getUserById" resultType="com.lan.ichat.model.UserEntity">
         SELECT
             `id`,
             `username`,
+            `password`,
             `nick_name`,
+            `motto`,
             `role_id`,
             `create_time`,
             `enabled`,
             `last_login_time`,
             `avatar`,
-            `gender`
+            `gender`,
+            `email`,
+            `telephone`
         FROM ichat_user
         WHERE id = #{id}
     </select>
@@ -54,6 +61,7 @@
             <if test="userEntity.id!=null">`id`,</if>
             <if test="userEntity.username!=null">`username`,</if>
             <if test="userEntity.nickName!=null">`nick_name`,</if>
+            <if test="userEntity.motto!=null">`motto`,</if>
             <if test="userEntity.password!=null">`password`,</if>
             <if test="userEntity.roleId!=null">`role_id`,</if>
             <if test="userEntity.createTime!=null">`create_time`,</if>
@@ -61,6 +69,8 @@
             <if test="userEntity.lastLoginTime!=null">`last_login_time`,</if>
             <if test="userEntity.avatar!=null">`avatar`,</if>
             <if test="userEntity.gender!=null">`gender`,</if>
+            <if test="userEntity.email!=null">`email`,</if>
+            <if test="userEntity.telephone!=null">`telephone`,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -70,6 +80,7 @@
             </if>
             <if test="userEntity.nickName!=null">#{userEntity.nickName,jdbcType=VARCHAR},
             </if>
+            <if test="userEntity.motto!=null">#{userEntity.motto,jdbcType=VARCHAR}</if>,
             <if test="userEntity.password!=null">#{userEntity.password,jdbcType=VARCHAR},
             </if>
             <if test="userEntity.roleId!=null">#{userEntity.roleId,jdbcType=BIGINT},
@@ -84,23 +95,28 @@
             </if>
             <if test="userEntity.gender!=null">#{userEntity.gender,jdbcType=VARCHAR},
             </if>
+            <if test="userEntity.email!=null">#{userEntity.email,jdbcType=VARCHAR}</if>,
+            <if test="userEntity.telephone!=null">#{userEntity.telephone,jdbcType=VARCHAR}</if>,
         </trim>
     </insert>
 
     <!--auto generated Code-->
     <insert id="insertList">
-        INSERT INTO ichat_user (`id`,`username`,`nick_name`,`role_id`,`create_time`,`enabled`,`last_login_time`,`avatar`,`gender`,`password`) VALUES
+        INSERT INTO ichat_user (`id`,`username`,`nick_name`,`motto`,`role_id`,`create_time`,`enabled`,`last_login_time`,`avatar`,`gender`,`email`,`telephone`,`password`) VALUES
         <foreach collection="userEntitys" item="userEntity" index="index" separator=",">
             (
             #{userEntity.id,jdbcType=BIGINT},
             #{userEntity.username,jdbcType=VARCHAR},
             #{userEntity.nickName,jdbcType=VARCHAR},
+            #{userEntity.motto,jdbcType=VARCHAR},
             #{userEntity.roleId,jdbcType=BIGINT},
             #{userEntity.createTime,jdbcType=DATE},
             #{userEntity.enabled,jdbcType=TINYINT},
             #{userEntity.lastLoginTime,jdbcType=DATE},
             #{userEntity.avatar,jdbcType=VARCHAR},
             #{userEntity.gender,jdbcType=VARCHAR},
+            #{userEntity.email,jdbcType=VARCHAR},
+            #{userEntity.telephone,jdbcType=VARCHAR},
             #{userEntity.password,jdbcType=VARCHAR}
             )
         </foreach>
@@ -113,13 +129,16 @@
             <if test="userEntity.id != null">`id`= #{userEntity.id,jdbcType=BIGINT},</if>
             <if test="userEntity.username != null">`username`= #{userEntity.username,jdbcType=VARCHAR},</if>
             <if test="userEntity.nickName != null">`nick_name`= #{userEntity.nickName,jdbcType=VARCHAR},</if>
+            <if test="userEntity.motto != null">`motto`= #{userEntity.motto,jdbcType=VARCHAR},</if>
             <if test="userEntity.password != null">`password`= #{userEntity.password,jdbcType=VARCHAR},</if>
             <if test="userEntity.roleId != null">`role_id`= #{userEntity.roleId,jdbcType=BIGINT},</if>
             <if test="userEntity.createTime != null">`create_time`= #{userEntity.createTime,jdbcType=DATE},</if>
             <if test="userEntity.enabled != null">`enabled`= #{userEntity.enabled,jdbcType=TINYINT},</if>
             <if test="userEntity.lastLoginTime != null">`last_login_time`= #{userEntity.lastLoginTime,jdbcType=DATE},</if>
             <if test="userEntity.avatar != null">`avatar`= #{userEntity.avatar,jdbcType=VARCHAR},</if>
-            <if test="userEntity.gender != null">`gender`= #{userEntity.gender,jdbcType=VARCHAR}</if>
+            <if test="userEntity.gender != null">`gender`= #{userEntity.gender,jdbcType=VARCHAR},</if>
+            <if test="userEntity.email != null">`email`= #{userEntity.email,jdbcType=VARCHAR},</if>
+            <if test="userEntity.telephone != null">`telephone`= #{userEntity.telephone,jdbcType=VARCHAR}</if>
         </set>
         WHERE `id` = #{userEntity.id,jdbcType=BIGINT}
     </update>

@@ -26,5 +26,4 @@ public class UserController {
         baseResult.setData(user);
         return baseResult;
     }
-
 }

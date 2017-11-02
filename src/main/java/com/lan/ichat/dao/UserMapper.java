@@ -11,7 +11,7 @@ public interface UserMapper {
 
     List<UserEntity> getUserList();
 
-    UserEntity getUserByUsername(@Param("username") String username);
+    UserEntity getUserByUsername(@Param("username") String username, @Param("roleId") Integer roleId);
 
     UserEntity getUserById(@Param("id") Long id);
 
