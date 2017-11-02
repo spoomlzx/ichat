@@ -5,6 +5,7 @@ import com.lan.common.annotation.Token;
 import com.lan.ichat.model.UserEntity;
 import com.lan.ichat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -21,8 +22,10 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * @author lanzongxiao
  * @date 2017/10/30
  */
+@ConfigurationProperties(prefix = "lan.ichat")
 @Component
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+    private String tokenName;
     @Autowired
     private UserService userService;
 
@@ -34,19 +37,26 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
     @Override
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer container,
                                   NativeWebRequest request, WebDataBinderFactory factory) throws Exception {
-        // token in request
-        Object obj = request.getAttribute(AuthenticationInterceptor.USER_KEY, RequestAttributes.SCOPE_REQUEST);
-        if (obj == null) {
-            return null;
-        }
         if (methodParameter.hasParameterAnnotation(LoginUser.class)) {
+            // token in request
+            Object obj = request.getAttribute(AuthenticationInterceptor.USER_KEY, RequestAttributes.SCOPE_REQUEST);
+            if (obj == null) {
+                return null;
+            }
             UserEntity user = userService.getUserById((Long) obj);
             return user;
         } else if (methodParameter.hasParameterAnnotation(Token.class)) {
-            return obj;
+            return request.getHeader(this.getTokenName());
         } else {
             return null;
         }
+    }
 
+    public String getTokenName() {
+        return tokenName;
+    }
+
+    public void setTokenName(String tokenName) {
+        this.tokenName = tokenName;
     }
 }

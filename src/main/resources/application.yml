@@ -8,7 +8,7 @@ logging:
 # request.header中的token的名称
 lan:
   ichat:
-    token: Token
+    token-name: token
 # spring 配置
 spring:
   http:

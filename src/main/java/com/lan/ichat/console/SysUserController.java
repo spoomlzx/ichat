@@ -1,5 +1,6 @@
 package com.lan.ichat.console;
 
+import com.lan.common.annotation.LoginUser;
 import com.lan.common.annotation.OpenApi;
 import com.lan.common.annotation.Token;
 import com.lan.common.exception.IChatException;
@@ -79,6 +80,13 @@ public class SysUserController {
             logger.error(e.getClass().getName() + ":" + e.getMessage());
             baseResult.setStatus(IChatStatus.TOKEN_DEL_FAILURE);
         }
+        return baseResult;
+    }
+
+    @GetMapping(value = "/user/info")
+    public BaseResult getLoginUser(@LoginUser UserEntity user){
+        BaseResult baseResult=new BaseResult("获取当前登录用户成功");
+        baseResult.setData(user);
         return baseResult;
     }
 

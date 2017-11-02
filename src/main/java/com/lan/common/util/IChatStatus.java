@@ -12,29 +12,29 @@ public enum IChatStatus {
 
     // series 2: success
     SUCCESS(200, "Success"),
-    LOGIN_SUCCESS(201,"Login success"),
-    LOGOUT_SUCCESS(202,"Logout success"),
-    GET_SUCCESS(210,"Get success"),
-    INSERT_SUCCESS(220,"Insert success"),
-    UPDATE_SUCCESS(230,"Update success"),
+    LOGIN_SUCCESS(201, "Login success"),
+    LOGOUT_SUCCESS(202, "Logout success"),
+    GET_SUCCESS(210, "Get success"),
+    INSERT_SUCCESS(220, "Insert success"),
+    UPDATE_SUCCESS(230, "Update success"),
 
     // series 3: exception
-    OVERSTEP_AUTHORITY(300, "verstep authority"),
-    TOKEN_EMPTY(301,"Token cannot be empty"),
-    TOKEN_INVALID(302,"Token is invalid"),
+    TOKEN_INVALID(300, "Token is invalid"),
+    OVERSTEP_AUTHORITY(302, "verstep authority"),
+    TOKEN_EMPTY(301, "Token cannot be empty"),
 
-    USER_NOT_EXIST(311,"User is not exist"),
-    CREDENTIAL_INVALID(312,"Credential is invalid"),
-    SQL_EXCEPTION(350,"Sql exception"),
+    USER_NOT_EXIST(311, "User is not exist"),
+    CREDENTIAL_INVALID(312, "Credential is invalid"),
+    SQL_EXCEPTION(350, "Sql exception"),
 
 
     // series 4: error
     FAILURE(400, "Failure"),
-    TOKEN_DEL_FAILURE(403,"Delete token failure"),
+    TOKEN_DEL_FAILURE(403, "Delete token failure"),
 
-    GET_FAILURE(410,"Get failure"),
-    INSERT_FAILURE(420,"Insert failure"),
-    UPDATE_FAILURE(4,"Update failure");
+    GET_FAILURE(410, "Get failure"),
+    INSERT_FAILURE(420, "Insert failure"),
+    UPDATE_FAILURE(430, "Update failure");
 
 
     private final int value;
@@ -54,14 +54,14 @@ public enum IChatStatus {
     }
 
     public String toString() {
-        return Integer.toString(this.value);
+        return "Code: " + this.value + ", reason: " + this.reasonPhrase;
     }
 
     public static IChatStatus valueOf(int statusCode) {
         IChatStatus[] var1 = values();
         int var2 = var1.length;
 
-        for(int var3 = 0; var3 < var2; ++var3) {
+        for (int var3 = 0; var3 < var2; ++var3) {
             IChatStatus status = var1[var3];
             if (status.value == statusCode) {
                 return status;
@@ -92,7 +92,7 @@ public enum IChatStatus {
             IChatStatus.Series[] var2 = values();
             int var3 = var2.length;
 
-            for(int var4 = 0; var4 < var3; ++var4) {
+            for (int var4 = 0; var4 < var3; ++var4) {
                 IChatStatus.Series series = var2[var4];
                 if (series.value == seriesCode) {
                     return series;

@@ -1,9 +1,11 @@
 package com.lan.common.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lan.common.annotation.OpenApi;
-import com.lan.common.exception.IChatException;
 import com.lan.ichat.model.UserEntity;
 import com.lan.ichat.service.TokenService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * package com.lan.common.util
@@ -24,9 +27,10 @@ import javax.servlet.http.HttpServletResponse;
 @ConfigurationProperties(prefix = "lan.ichat")
 @Component
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
+    private final static Logger logger= LoggerFactory.getLogger(AuthenticationInterceptor.class);
     @Autowired
     private TokenService tokenService;
-    private String token;
+    private String tokenName;
     public static final String USER_KEY = "userId";
 
     @Override
@@ -39,31 +43,42 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                 return true;
             }
         }
-        String token = request.getHeader(this.getToken());
+        String token = request.getHeader(this.getTokenName());
         if (StringUtils.isEmpty(token)) {
-            token = request.getParameter(this.getToken());
+            token = request.getParameter(this.getTokenName());
         }
         if (StringUtils.isEmpty(token)) {
-            throw new IChatException(IChatStatus.TOKEN_EMPTY);
+            responseReturn(IChatStatus.TOKEN_EMPTY, response);
+            return false;
         }
         UserEntity userEntity = tokenService.get(token);
         if (userEntity == null) {
-            throw new IChatException(IChatStatus.TOKEN_INVALID);
+            responseReturn(IChatStatus.TOKEN_INVALID, response);
+            return false;
         }
         // 1 为admin，禁止非管理员用户访问/console/**
         if (userEntity.getRoleId() != 1 && request.getRequestURI().startsWith("/console")) {
-            throw new IChatException(IChatStatus.OVERSTEP_AUTHORITY);
+            responseReturn(IChatStatus.OVERSTEP_AUTHORITY, response);
+            return false;
         }
         // 将登录用户的id存入request，当有@LoginUser注解时，通过id拉取用户信息
         request.setAttribute(USER_KEY, userEntity.getId());
         return true;
     }
 
-    public String getToken() {
-        return token;
+    private void responseReturn(IChatStatus status, HttpServletResponse response) throws IOException {
+        BaseResult baseResult = new BaseResult();
+        baseResult.setStatus(status);
+        ObjectMapper om = new ObjectMapper();
+        logger.error(status.toString());
+        response.getWriter().print(om.writeValueAsString(baseResult));
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public String getTokenName() {
+        return tokenName;
+    }
+
+    public void setTokenName(String tokenName) {
+        this.tokenName = tokenName;
     }
 }
