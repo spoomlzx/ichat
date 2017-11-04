@@ -7,6 +7,7 @@ import com.lan.common.exception.IChatException;
 import com.lan.common.util.AuthResult;
 import com.lan.common.util.BaseResult;
 import com.lan.common.util.IChatStatus;
+import com.lan.common.util.StringUtils;
 import com.lan.ichat.model.UserEntity;
 import com.lan.ichat.service.TokenService;
 import com.lan.ichat.service.UserService;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * package com.lan.ichat.console
@@ -53,7 +53,7 @@ public class SysUserController {
         }
         if (DigestUtils.sha256Hex(user.getPassword()).equals(userEntity.getPassword())) {
             // 使用UUID生成token
-            String token = UUID.randomUUID().toString().replaceAll("-", "");
+            String token = StringUtils.getUUID();
             // 将<token,userEntity>存入redis
             tokenService.add(token, userEntity);
             authResult.setStatus(IChatStatus.LOGIN_SUCCESS);
