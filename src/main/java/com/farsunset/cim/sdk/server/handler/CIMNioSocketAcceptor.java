@@ -59,7 +59,6 @@ public class CIMNioSocketAcceptor extends IoHandlerAdapter implements KeepAliveM
     private final int READ_BUFFER_SIZE = 1024;//byte
 
     public void bind() throws IOException {
-
         /**
          * 预制websocket握手请求的处理
          */
@@ -70,7 +69,6 @@ public class CIMNioSocketAcceptor extends IoHandlerAdapter implements KeepAliveM
         ((DefaultSocketSessionConfig) acceptor.getSessionConfig()).setKeepAlive(true);
         ((DefaultSocketSessionConfig) acceptor.getSessionConfig()).setTcpNoDelay(true);
 
-
         KeepAliveFilter keepAliveFilter = new KeepAliveFilter(this, IdleStatus.WRITER_IDLE);
         keepAliveFilter.setRequestInterval(IDLE_TIME);
         keepAliveFilter.setRequestTimeout(TIME_OUT);
@@ -80,9 +78,7 @@ public class CIMNioSocketAcceptor extends IoHandlerAdapter implements KeepAliveM
         acceptor.getFilterChain().addLast("logger", new LoggingFilter());
         acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(new ServerMessageCodecFactory()));
         acceptor.getFilterChain().addLast("heartbeat", keepAliveFilter);
-
         acceptor.setHandler(this);
-
         acceptor.bind(new InetSocketAddress(port));
     }
 

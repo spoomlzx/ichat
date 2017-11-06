@@ -1,10 +1,13 @@
 package com.lan.ichat.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.lan.ichat.dao.UserMapper;
 import com.lan.ichat.model.UserEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -14,8 +17,13 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public List<UserEntity> getUserList() {
-        return userMapper.getUserList();
+    public HashMap<String, Object> getUserList(Integer page, Integer limit, String name, Integer gender) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        PageHelper.startPage(page, limit);
+        List<UserEntity> userList = userMapper.getUserList(name, gender);
+        hashMap.put("item", userList);
+        hashMap.put("total", ((Page) userList).getTotal());
+        return hashMap;
     }
 
     @Override
@@ -39,6 +47,10 @@ public class UserServiceImpl implements UserService {
 
     public int update(UserEntity userEntity) {
         return userMapper.update(userEntity);
+    }
+
+    public int delete(Long id) {
+        return userMapper.delete(id);
     }
 }
 

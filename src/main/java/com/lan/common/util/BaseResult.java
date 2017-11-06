@@ -29,8 +29,8 @@ public class BaseResult {
     }
 
     public void setStatus(IChatStatus status) {
-        this.code = status.value();
-        this.msg = status.getReasonPhrase();
+        this.code = status.code();
+        this.msg = status.getInfo();
     }
 
     public String getMsg() {

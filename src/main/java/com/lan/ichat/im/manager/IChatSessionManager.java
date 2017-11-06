@@ -1,4 +1,4 @@
-package com.lan.ichat.service;
+package com.lan.ichat.im.manager;
 
 import com.farsunset.cim.sdk.server.constant.CIMConstant;
 import com.farsunset.cim.sdk.server.session.CIMSession;

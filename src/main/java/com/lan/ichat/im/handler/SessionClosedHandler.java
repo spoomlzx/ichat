@@ -5,7 +5,7 @@ import com.farsunset.cim.sdk.server.handler.CIMRequestHandler;
 import com.farsunset.cim.sdk.server.model.ReplyBody;
 import com.farsunset.cim.sdk.server.model.SentBody;
 import com.farsunset.cim.sdk.server.session.CIMSession;
-import com.lan.ichat.service.IChatSessionManager;
+import com.lan.ichat.im.manager.IChatSessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class SessionClosedHandler implements CIMRequestHandler {
     protected final Logger logger = LoggerFactory.getLogger(SessionClosedHandler.class);
 
     @Autowired
-    private IChatSessionManager iChatSessionManager;
+    private IChatSessionManager sessionManager;
 
     @Override
     public ReplyBody process(CIMSession session, SentBody message) {
@@ -32,7 +32,7 @@ public class SessionClosedHandler implements CIMRequestHandler {
             return null;
         }
         session.removeAttribute(CIMConstant.SESSION_KEY);
-        iChatSessionManager.remove(account.toString());
+        sessionManager.remove(account.toString());
         return null;
     }
 }

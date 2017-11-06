@@ -23,7 +23,8 @@ public class MyCorsFilter extends CorsFilter {
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/console/**", config); // 设置只有后台的api会进行CORS跨域，限制可以访问的origin
+        source.registerCorsConfiguration("/api/**", config); // 设置只有后台的api会进行CORS跨域，限制可以访问的origin
+        source.registerCorsConfiguration("/console/**", config);
         return source;
     }
 }

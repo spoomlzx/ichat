@@ -29,21 +29,14 @@ public interface CIMConstant {
     int DATA_HEADER_LENGTH = 3;
 
     public static interface ReturnCode {
-
         String CODE_200 = "200";
-
         String CODE_404 = "404";
-
         String CODE_403 = "403";
-
         String CODE_500 = "500";
-
     }
-
 
     String SESSION_KEY = "account";
     String HEARTBEAT_KEY = "heartbeat";
-
 
     public static interface ProtobufType {
         byte S_H_RQ = 1;
@@ -57,5 +50,4 @@ public interface CIMConstant {
         //被其他设备登录挤下线消息
         String ACTION_999 = "999";
     }
-
 }

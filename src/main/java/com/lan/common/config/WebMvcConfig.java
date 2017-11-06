@@ -27,7 +27,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         // 添加authentication拦截器，并放行login、register的url
         registry.addInterceptor(authenticationInterceptor).addPathPatterns("/**")
-                .excludePathPatterns("/console/login/**", "/api/register/**");
+                .excludePathPatterns("/console/admin/login/**", "/api/user/register/**");
     }
 
     @Override

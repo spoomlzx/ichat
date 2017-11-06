@@ -42,7 +42,6 @@ dependencies {
     runtime('mysql:mysql-connector-java')
 
     // 开发与测试
-    runtime('org.springframework.boot:spring-boot-devtools')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

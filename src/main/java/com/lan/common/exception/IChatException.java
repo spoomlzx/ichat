@@ -12,8 +12,8 @@ import com.lan.common.util.IChatStatus;
  */
 public class IChatException extends RuntimeException {
 
-    private String msg = IChatStatus.FAILURE.getReasonPhrase();
-    private int code = IChatStatus.FAILURE.value();
+    private String msg = IChatStatus.FAILURE.getInfo();
+    private int code = IChatStatus.FAILURE.code();
 
     public IChatException(String msg) {
         super(msg);
@@ -32,9 +32,9 @@ public class IChatException extends RuntimeException {
     }
 
     public IChatException(IChatStatus status) {
-        super(status.getReasonPhrase());
-        this.msg = status.getReasonPhrase();
-        this.code = status.value();
+        super(status.getInfo());
+        this.msg = status.getInfo();
+        this.code = status.code();
     }
 
     public IChatException(String msg, int code, Throwable e) {

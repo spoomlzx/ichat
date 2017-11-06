@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    List<UserEntity> getUserList();
+    List<UserEntity> getUserList(@Param("name") String name, @Param("gender") Integer gender);
 
     UserEntity getUserByUsername(@Param("username") String username, @Param("roleId") Integer roleId);
 
@@ -20,5 +20,7 @@ public interface UserMapper {
     int insertList(@Param("userEntitys") List<UserEntity> userEntitys);
 
     int update(@Param("userEntity") UserEntity userEntity);
+
+    int delete(@Param("id") Long id);
 }
 

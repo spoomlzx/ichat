@@ -1,121 +1,88 @@
 package com.lan.ichat.console;
 
-import com.lan.common.annotation.LoginUser;
-import com.lan.common.annotation.OpenApi;
-import com.lan.common.annotation.Token;
-import com.lan.common.exception.IChatException;
-import com.lan.common.util.AuthResult;
 import com.lan.common.util.BaseResult;
 import com.lan.common.util.IChatStatus;
-import com.lan.common.util.StringUtils;
+import com.lan.ichat.im.push.MessagePusher;
+import com.lan.ichat.model.Message;
 import com.lan.ichat.model.UserEntity;
-import com.lan.ichat.service.TokenService;
 import com.lan.ichat.service.UserService;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * package com.lan.ichat.console
+ * 只有admin才能访问的api在这里实现，可以由用户访问的api都在UserController中实现
+ * 管理ichat的普通用户，roleId=2
  *
  * @author lanzongxiao
- * @date 2017/10/31
+ * @date 2017/11/6
  */
 @RestController
-@RequestMapping(value = "/console")
+@RequestMapping("/console/user")
 public class SysUserController {
+
     private final static Logger logger = LoggerFactory.getLogger(SysUserController.class);
     @Autowired
     private UserService userService;
     @Autowired
-    private TokenService tokenService;
+    private MessagePusher messagePusher;
 
-    @PostMapping(value = "/login")
-    public AuthResult login(@RequestBody UserEntity user, @Token String oldToken) {
-        UserEntity userEntity;
-        AuthResult authResult = new AuthResult();
-        // 携带token重复登录的，先删除原有token
-        if (oldToken != null) {
-            tokenService.delete(oldToken);
-        }
-        try {
-            userEntity = userService.getUserByUsername(user.getUsername(), 1);
-        } catch (Exception e) {
-            logger.error(e.getClass().getName() + ":" + e.getMessage());
-            throw new IChatException(IChatStatus.SQL_EXCEPTION);
-        }
-        if (userEntity == null) {
-            throw new IChatException(IChatStatus.USER_NOT_EXIST);
-        }
-        if (DigestUtils.sha256Hex(user.getPassword()).equals(userEntity.getPassword())) {
-            // 使用UUID生成token
-            String token = StringUtils.getUUID();
-            // 将<token,userEntity>存入redis
-            tokenService.add(token, userEntity);
-            authResult.setStatus(IChatStatus.LOGIN_SUCCESS);
-            userEntity.setPassword(null);
-            authResult.setData(userEntity);
-            authResult.setToken(token);
-        } else {
-            throw new IChatException(IChatStatus.CREDENTIAL_INVALID);
-        }
-        return authResult;
-    }
-
-    @PostMapping(value = "/logout")
-    public BaseResult logout(@Token String token) {
-        BaseResult baseResult = new BaseResult();
-        if (token == null) {
-            baseResult.setStatus(IChatStatus.TOKEN_EMPTY);
-            return baseResult;
-        }
-        try {
-            tokenService.delete(token);
-            baseResult.setStatus(IChatStatus.LOGOUT_SUCCESS);
-        } catch (Exception e) {
-            logger.error(e.getClass().getName() + ":" + e.getMessage());
-            baseResult.setStatus(IChatStatus.TOKEN_DEL_FAILURE);
-        }
-        return baseResult;
-    }
-
-    @GetMapping(value = "/user/info")
-    public BaseResult getLoginUser(@LoginUser UserEntity user) {
-        BaseResult baseResult = new BaseResult("获取当前登录用户成功");
-        baseResult.setData(user);
-        return baseResult;
-    }
-
-    @OpenApi
-    @GetMapping(value = "/user/{id}")
-    public BaseResult getUser(@PathVariable Long id) {
+    @GetMapping(value = "/list")
+    public BaseResult getUserList(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit,
+                                  @RequestParam(value = "gender", required = false) Integer gender,
+                                  @RequestParam(value = "name", required = false) String name) {
         BaseResult baseResult = new BaseResult();
         try {
-            UserEntity userEntity = userService.getUserById(id);
+            HashMap<String, Object> hashMap = userService.getUserList(page, limit, name, gender);
             baseResult.setStatus(IChatStatus.GET_SUCCESS);
-            baseResult.setData(userEntity);
+            baseResult.setData(hashMap);
         } catch (Exception e) {
             baseResult.setStatus(IChatStatus.GET_FAILURE);
         }
         return baseResult;
     }
 
-    @GetMapping(value = "/user/list")
-    public BaseResult getUserList() {
+    @GetMapping(value = "/info/{id}")
+    public BaseResult getUserInfoById(@PathVariable Long id) {
         BaseResult baseResult = new BaseResult();
         try {
-            List<UserEntity> userList = userService.getUserList();
+            UserEntity user = userService.getUserById(id);
             baseResult.setStatus(IChatStatus.GET_SUCCESS);
-            baseResult.setData(userList);
+            baseResult.setData(user);
         } catch (Exception e) {
             baseResult.setStatus(IChatStatus.GET_FAILURE);
         }
         return baseResult;
     }
 
+    /**
+     * 只能由管理员才能删除用户
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping(value = "/delete/{id}")
+    public BaseResult deleteUser(@PathVariable Long id) {
+        BaseResult baseResult = new BaseResult();
+        try {
+            userService.delete(id);
+            baseResult.setStatus(IChatStatus.DELETE_SUCCESS);
+        } catch (Exception e) {
+            baseResult.setStatus(IChatStatus.DELETE_FAILURE);
+        }
+        return baseResult;
+    }
+
+    @PostMapping(value = "/pushMessage")
+    public BaseResult pushMessage(@RequestBody Message msg) {
+        BaseResult baseResult = new BaseResult();
+        messagePusher.push(msg);
+        baseResult.setMsg("Message send success");
+        return baseResult;
+    }
 
 }

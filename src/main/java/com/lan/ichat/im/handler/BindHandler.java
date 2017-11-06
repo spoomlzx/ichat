@@ -2,12 +2,12 @@ package com.lan.ichat.im.handler;
 
 import com.farsunset.cim.sdk.server.constant.CIMConstant;
 import com.farsunset.cim.sdk.server.handler.CIMRequestHandler;
-import com.farsunset.cim.sdk.server.model.Message;
 import com.farsunset.cim.sdk.server.model.ReplyBody;
 import com.farsunset.cim.sdk.server.model.SentBody;
 import com.farsunset.cim.sdk.server.session.CIMSession;
 import com.lan.common.util.StringUtils;
-import com.lan.ichat.service.IChatSessionManager;
+import com.lan.ichat.im.manager.IChatSessionManager;
+import com.lan.ichat.model.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class BindHandler implements CIMRequestHandler {
     protected final Logger logger = LoggerFactory.getLogger(BindHandler.class);
 
     @Autowired
-    private IChatSessionManager iChatSessionManager;
+    private IChatSessionManager sessionManager;
 
     @Override
     public ReplyBody process(CIMSession newSession, SentBody message) {
@@ -46,20 +46,21 @@ public class BindHandler implements CIMRequestHandler {
             newSession.setBindTime(System.currentTimeMillis());
             newSession.setPackageName(message.get("packageName"));
 
-            CIMSession oldSession = this.iChatSessionManager.get(account);
+            CIMSession oldSession = sessionManager.get(account);
             // 同一账号，不同设备上登录时，让原设备上的账号下线
             if (newSession.fromOtherDevice(oldSession)) {
                 sendForceOfflineMessage(oldSession, account, newSession.getDeviceModel());
             }
             if (newSession.equals(oldSession)) {
                 oldSession.setStatus(CIMSession.STATUS_ENABLED);
-                this.iChatSessionManager.update(oldSession);
+                sessionManager.update(oldSession);
                 reply.put("sid", oldSession.getGid());
                 return reply;
             }
             closeQuietly(oldSession);
             newSession.setBindTime(System.currentTimeMillis());
             newSession.setHeartbeat(System.currentTimeMillis());
+            sessionManager.add(newSession);
             logger.info("bind successful account:" + account + " nid:" + newSession.getNid());
         } catch (Exception e) {
             newSession.setStatus(CIMSession.STATUS_ENABLED);
