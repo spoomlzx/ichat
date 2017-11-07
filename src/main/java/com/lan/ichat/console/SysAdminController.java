@@ -53,7 +53,7 @@ public class SysAdminController {
             // 使用UUID生成token
             String token = StringUtils.getUUID();
             // 将<token,userEntity>存入redis
-            tokenService.add(token, userEntity);
+            tokenService.set(token, userEntity);
             authResult.setStatus(IChatStatus.LOGIN_SUCCESS);
             userEntity.setPassword(null);
             authResult.setData(userEntity);

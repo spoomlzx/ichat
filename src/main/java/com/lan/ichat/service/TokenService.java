@@ -27,12 +27,12 @@ public class TokenService implements BaseService<UserEntity> {
     private RedisTemplate<String, Object> redisTemplate;
 
     @Override
-    public void add(String token, UserEntity userEntity) {
+    public void set(String token, UserEntity userEntity) {
         this.redisTemplate.boundValueOps(token).set(userEntity);
         this.redisTemplate.expire(token, DEFAULT_EXPIRE, TimeUnit.SECONDS);
     }
 
-    public void add(String token, UserEntity userEntity, Long expire) {
+    public void set(String token, UserEntity userEntity, Long expire) {
         this.redisTemplate.boundValueOps(token).set(userEntity);
         if (expire != NOT_EXPIRE) {
             this.redisTemplate.expire(token, DEFAULT_EXPIRE, TimeUnit.SECONDS);

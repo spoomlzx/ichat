@@ -6,11 +6,13 @@ import com.lan.ichat.im.push.MessagePusher;
 import com.lan.ichat.model.Message;
 import com.lan.ichat.model.UserEntity;
 import com.lan.ichat.service.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -55,6 +57,26 @@ public class SysUserController {
             baseResult.setData(user);
         } catch (Exception e) {
             baseResult.setStatus(IChatStatus.GET_FAILURE);
+        }
+        return baseResult;
+    }
+
+    @PostMapping(value = "/add")
+    public BaseResult insertUser(@RequestBody UserEntity user) {
+        BaseResult baseResult = new BaseResult();
+        try {
+            if (user.getPassword() != null) {
+                user.setPassword(DigestUtils.sha256Hex(user.getPassword()));
+            } else {
+                user.setPassword(DigestUtils.sha256Hex("000000"));
+            }
+            user.setRoleId(2);
+            user.setCreateTime(new Date());
+            user.setEnabled(true);
+            userService.insert(user);
+            baseResult.setStatus(IChatStatus.INSERT_SUCCESS);
+        } catch (Exception e) {
+            baseResult.setStatus(IChatStatus.INSERT_FAILURE);
         }
         return baseResult;
     }

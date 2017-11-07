@@ -8,7 +8,7 @@ package com.lan.ichat.service;
  */
 public interface BaseService<T> {
 
-    void add(String str, T t);
+    void set(String str, T t);
 
     T get(String str);
 

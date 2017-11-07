@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lan.ichat.dao.SessionMapper">
+
+    <!--auto generated Code-->
+    <sql id="Base_Column_List">
+        `gid`,
+        `nid`,
+        `device_id`,
+        `host`,
+        `account`,
+        `channel`,
+        `device_model`,
+        `client_version`,
+        `system_version`,
+        `package_name`,
+        `bind_time`,
+        `heartbeat`,
+        `longitude`,
+        `latitude`,
+        `location`,
+        `apns_able`,
+        `status`
+    </sql>
+
+    <select id="getByAccount" resultType="com.farsunset.cim.sdk.server.session.CIMSession">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ichat_session WHERE account=#{account}
+    </select>
+
+    <select id="getSessionList" resultType="com.farsunset.cim.sdk.server.session.CIMSession">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ichat_session WHERE status=0
+    </select>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="session.gid">
+        INSERT INTO ichat_session
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="session.gid!=null">`gid`,</if>
+            <if test="session.nid!=null">`nid`,</if>
+            <if test="session.deviceId!=null">`device_id`,</if>
+            <if test="session.host!=null">`host`,</if>
+            <if test="session.account!=null">`account`,</if>
+            <if test="session.channel!=null">`channel`,</if>
+            <if test="session.deviceModel!=null">`device_model`,</if>
+            <if test="session.clientVersion!=null">`client_version`,</if>
+            <if test="session.systemVersion!=null">`system_version`,</if>
+            <if test="session.packageName!=null">`package_name`,</if>
+            <if test="session.bindTime!=null">`bind_time`,</if>
+            <if test="session.heartbeat!=null">`heartbeat`,</if>
+            <if test="session.longitude!=null">`longitude`,</if>
+            <if test="session.latitude!=null">`latitude`,</if>
+            <if test="session.location!=null">`location`,</if>
+            <if test="session.apnsAble!=null">`apns_able`,</if>
+            <if test="session.status!=null">`status`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="session.gid!=null">#{session.gid,jdbcType=VARCHAR},
+            </if>
+            <if test="session.nid!=null">#{session.nid,jdbcType=BIGINT},
+            </if>
+            <if test="session.deviceId!=null">#{session.deviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="session.host!=null">#{session.host,jdbcType=VARCHAR},
+            </if>
+            <if test="session.account!=null">#{session.account,jdbcType=VARCHAR},
+            </if>
+            <if test="session.channel!=null">#{session.channel,jdbcType=VARCHAR},
+            </if>
+            <if test="session.deviceModel!=null">#{session.deviceModel,jdbcType=VARCHAR},
+            </if>
+            <if test="session.clientVersion!=null">#{session.clientVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="session.systemVersion!=null">#{session.systemVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="session.packageName!=null">#{session.packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="session.bindTime!=null">#{session.bindTime,jdbcType=BIGINT},
+            </if>
+            <if test="session.heartbeat!=null">#{session.heartbeat,jdbcType=BIGINT},
+            </if>
+            <if test="session.longitude!=null">#{session.longitude,jdbcType=DOUBLE},
+            </if>
+            <if test="session.latitude!=null">#{session.latitude,jdbcType=DOUBLE},
+            </if>
+            <if test="session.location!=null">#{session.location,jdbcType=VARCHAR},
+            </if>
+            <if test="session.apnsAble!=null">#{session.apnsAble,jdbcType=INTEGER},
+            </if>
+            <if test="session.status!=null">#{session.status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE ichat_session
+        <set>
+            <if test="session.gid != null">`gid`= #{session.gid,jdbcType=VARCHAR},</if>
+            <if test="session.nid != null">`nid`= #{session.nid,jdbcType=BIGINT},</if>
+            <if test="session.deviceId != null">`device_id`= #{session.deviceId,jdbcType=VARCHAR},</if>
+            <if test="session.host != null">`host`= #{session.host,jdbcType=VARCHAR},</if>
+            <if test="session.account != null">`account`= #{session.account,jdbcType=VARCHAR},</if>
+            <if test="session.channel != null">`channel`= #{session.channel,jdbcType=VARCHAR},</if>
+            <if test="session.deviceModel != null">`device_model`= #{session.deviceModel,jdbcType=VARCHAR},</if>
+            <if test="session.clientVersion != null">`client_version`= #{session.clientVersion,jdbcType=VARCHAR},</if>
+            <if test="session.systemVersion != null">`system_version`= #{session.systemVersion,jdbcType=VARCHAR},</if>
+            <if test="session.packageName != null">`package_name`= #{session.packageName,jdbcType=VARCHAR},</if>
+            <if test="session.bindTime != null">`bind_time`= #{session.bindTime,jdbcType=BIGINT},</if>
+            <if test="session.heartbeat != null">`heartbeat`= #{session.heartbeat,jdbcType=BIGINT},</if>
+            <if test="session.longitude != null">`longitude`= #{session.longitude,jdbcType=DOUBLE},</if>
+            <if test="session.latitude != null">`latitude`= #{session.latitude,jdbcType=DOUBLE},</if>
+            <if test="session.location != null">`location`= #{session.location,jdbcType=VARCHAR},</if>
+            <if test="session.apnsAble != null">`apns_able`= #{session.apnsAble,jdbcType=INTEGER},</if>
+            <if test="session.status != null">`status`= #{session.status,jdbcType=INTEGER}</if>
+        </set>
+        WHERE `gid` = #{session.gid,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM ichat_session
+        WHERE account = #{account}
+    </delete>
+
+
+</mapper>
+

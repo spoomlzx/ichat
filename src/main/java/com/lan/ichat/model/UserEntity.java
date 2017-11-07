@@ -23,7 +23,7 @@ public class UserEntity implements Serializable {
     private Boolean enabled;
     private Date lastLoginTime;
     private String avatar;
-    private String gender;
+    private Integer gender;
     private String email;
     private String telephone;
 
@@ -131,11 +131,11 @@ public class UserEntity implements Serializable {
         this.avatar = avatar;
     }
 
-    public String getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 }
