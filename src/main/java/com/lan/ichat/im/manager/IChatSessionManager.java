@@ -1,14 +1,14 @@
 package com.lan.ichat.im.manager;
 
-import com.farsunset.cim.sdk.server.constant.CIMConstant;
 import com.farsunset.cim.sdk.server.session.CIMSession;
 import com.farsunset.cim.sdk.server.session.SessionManager;
+import com.lan.common.util.StringUtils;
+import com.lan.ichat.dao.SessionMapper;
+import com.lan.ichat.service.SessionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * package com.lan.ichat.im.manager
@@ -19,41 +19,50 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 public class IChatSessionManager implements SessionManager {
 
-    private static HashMap<String, CIMSession> sessions = new HashMap<>();
-    private static final AtomicInteger connectionsCounter = new AtomicInteger(0);
+    private static final String CACHE_PREFIX = "ichat_session_";
+    @Autowired
+    private SessionService sessionService;
+    @Autowired
+    private SessionMapper sessionMapper;
 
+    @Override
     public void add(CIMSession session) {
-        if (session != null) {
-            session.setAttribute(CIMConstant.SESSION_KEY, session.getAccount());
-            sessions.put(session.getAccount(), session);
-            connectionsCounter.incrementAndGet();
-        }
-    }
-
-    public CIMSession get(String account) {
-        return sessions.get(account);
-    }
-
-    public List<CIMSession> queryAll() {
-        List<CIMSession> list = new ArrayList<CIMSession>();
-        list.addAll(sessions.values());
-        return list;
-    }
-
-    public void remove(CIMSession session) {
-        sessions.remove(session.getAttribute(CIMConstant.SESSION_KEY));
-    }
-
-    public void remove(String account) {
-        sessions.remove(account);
-    }
-
-    public boolean containsCIMSession(String account) {
-        return sessions.containsKey(account);
+        session.setGid(StringUtils.getUUID());
+        sessionMapper.delete(session.getAccount());
+        sessionMapper.insert(session);
+        String key = CACHE_PREFIX + session.getAccount();
+        sessionService.set(key, session);
     }
 
     @Override
     public void update(CIMSession session) {
-        sessions.put(session.getAccount(), session);
+        sessionMapper.update(session);
+        String key = CACHE_PREFIX + session.getAccount();
+        sessionService.set(key, session);
     }
+
+    @Override
+    public CIMSession get(String account) {
+        String key = CACHE_PREFIX + account;
+        CIMSession session = sessionService.get(key);
+        if (session == null) {
+            session = sessionMapper.getByAccount(account);
+            sessionService.set(key, session);
+        }
+        return session;
+    }
+
+    @Override
+    public List<CIMSession> queryAll() {
+        List<CIMSession> sessions = sessionMapper.getSessionList();
+        return sessions;
+    }
+
+    @Override
+    public void remove(String account) {
+        String key = CACHE_PREFIX + account;
+        sessionMapper.delete(account);
+        sessionService.delete(key);
+    }
+
 }

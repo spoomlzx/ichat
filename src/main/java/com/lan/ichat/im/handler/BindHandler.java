@@ -5,8 +5,8 @@ import com.farsunset.cim.sdk.server.handler.CIMRequestHandler;
 import com.farsunset.cim.sdk.server.model.ReplyBody;
 import com.farsunset.cim.sdk.server.model.SentBody;
 import com.farsunset.cim.sdk.server.session.CIMSession;
+import com.farsunset.cim.sdk.server.session.SessionManager;
 import com.lan.common.util.StringUtils;
-import com.lan.ichat.im.manager.IChatSessionManager;
 import com.lan.ichat.model.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ public class BindHandler implements CIMRequestHandler {
     protected final Logger logger = LoggerFactory.getLogger(BindHandler.class);
 
     @Autowired
-    private IChatSessionManager sessionManager;
+    private SessionManager sessionManager;
 
     @Override
     public ReplyBody process(CIMSession newSession, SentBody message) {

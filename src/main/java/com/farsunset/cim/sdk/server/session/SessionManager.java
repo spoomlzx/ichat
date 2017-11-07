@@ -58,7 +58,7 @@ public interface SessionManager {
 
     /**
      * 删除session
-     * @param session
+     * @param account
      */
     public void remove(String account);
 

@@ -24,7 +24,7 @@ public class TokenService implements BaseService<UserEntity> {
      */
     public final static long NOT_EXPIRE = -1;
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, UserEntity> redisTemplate;
 
     @Override
     public void set(String token, UserEntity userEntity) {

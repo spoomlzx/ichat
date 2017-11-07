@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class SessionService implements BaseService<CIMSession> {
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, CIMSession> redisTemplate;
 
     @Override
     public void set(String key, CIMSession session) {
@@ -24,7 +24,7 @@ public class SessionService implements BaseService<CIMSession> {
 
     @Override
     public CIMSession get(String key) {
-        return (CIMSession) this.redisTemplate.boundValueOps(key).get();
+        return this.redisTemplate.boundValueOps(key).get();
     }
 
     @Override
