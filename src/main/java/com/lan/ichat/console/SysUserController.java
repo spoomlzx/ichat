@@ -104,6 +104,7 @@ public class SysUserController {
         BaseResult baseResult = new BaseResult();
         messagePusher.push(msg);
         baseResult.setMsg("Message send success");
+        baseResult.setData(msg);
         return baseResult;
     }
 

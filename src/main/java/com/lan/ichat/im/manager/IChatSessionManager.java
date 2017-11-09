@@ -1,5 +1,6 @@
 package com.lan.ichat.im.manager;
 
+import com.farsunset.cim.sdk.server.handler.CIMNioSocketAcceptor;
 import com.farsunset.cim.sdk.server.session.CIMSession;
 import com.farsunset.cim.sdk.server.session.SessionManager;
 import com.lan.common.util.StringUtils;
@@ -25,6 +26,8 @@ public class IChatSessionManager implements SessionManager {
     @Autowired
     private SessionMapper sessionMapper;
 
+    private CIMNioSocketAcceptor cimNioSocketAcceptor;
+
     @Override
     public void add(CIMSession session) {
         session.setGid(StringUtils.getUUID());
@@ -49,6 +52,9 @@ public class IChatSessionManager implements SessionManager {
             session = sessionMapper.getByAccount(account);
             sessionService.set(key, session);
         }
+        if (session != null) {
+            session.setIoSession(this.getCimNioSocketAcceptor().getManagedSession(session.getNid()));
+        }
         return session;
     }
 
@@ -65,4 +71,11 @@ public class IChatSessionManager implements SessionManager {
         sessionService.delete(key);
     }
 
+    public CIMNioSocketAcceptor getCimNioSocketAcceptor() {
+        return cimNioSocketAcceptor;
+    }
+
+    public void setCimNioSocketAcceptor(CIMNioSocketAcceptor cimNioSocketAcceptor) {
+        this.cimNioSocketAcceptor = cimNioSocketAcceptor;
+    }
 }
