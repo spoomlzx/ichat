@@ -27,7 +27,7 @@ import java.io.IOException;
 @ConfigurationProperties(prefix = "lan.ichat")
 @Component
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
-    private final static Logger logger= LoggerFactory.getLogger(AuthenticationInterceptor.class);
+    private final static Logger logger = LoggerFactory.getLogger(AuthenticationInterceptor.class);
     @Autowired
     private TokenService tokenService;
     private String tokenName;
@@ -57,7 +57,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
         // 1 为admin，禁止非管理员用户访问/console/**
-        if (userEntity.getRoleId() != 1 && request.getRequestURI().startsWith("/console")) {
+        if (userEntity.getRoleId() != 1 && request.getRequestURI().startsWith("/api/console")) {
             responseReturn(IChatStatus.OVERSTEP_AUTHORITY, response);
             return false;
         }
@@ -71,7 +71,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         baseResult.setStatus(status);
         ObjectMapper om = new ObjectMapper();
         logger.error(status.toString());
-        response.getWriter().print(om.writeValueAsString(baseResult));
+        response.setContentType("application/json;charset=utf-8");
+        om.writeValue(response.getWriter(), baseResult);
     }
 
     public String getTokenName() {

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2017/10/31
  */
 @RestController
-@RequestMapping(value = "/console/admin")
+@RequestMapping(value = "/api/admin")
 public class SysAdminController {
     private final static Logger logger = LoggerFactory.getLogger(SysAdminController.class);
     @Autowired

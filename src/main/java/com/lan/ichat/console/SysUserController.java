@@ -24,7 +24,7 @@ import java.util.HashMap;
  * @date 2017/11/6
  */
 @RestController
-@RequestMapping("/console/user")
+@RequestMapping("/api/admin")
 public class SysUserController {
 
     private final static Logger logger = LoggerFactory.getLogger(SysUserController.class);
@@ -33,7 +33,7 @@ public class SysUserController {
     @Autowired
     private MessagePusher messagePusher;
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/user")
     public BaseResult getUserList(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit,
                                   @RequestParam(value = "gender", required = false) Integer gender,
                                   @RequestParam(value = "name", required = false) String name) {
@@ -48,7 +48,7 @@ public class SysUserController {
         return baseResult;
     }
 
-    @GetMapping(value = "/info/{id}")
+    @GetMapping(value = "/user/{id}")
     public BaseResult getUserInfoById(@PathVariable Long id) {
         BaseResult baseResult = new BaseResult();
         try {
@@ -61,7 +61,7 @@ public class SysUserController {
         return baseResult;
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/user")
     public BaseResult insertUser(@RequestBody UserEntity user) {
         BaseResult baseResult = new BaseResult();
         try {
@@ -87,7 +87,7 @@ public class SysUserController {
      * @param id
      * @return
      */
-    @GetMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/user/{id}")
     public BaseResult deleteUser(@PathVariable Long id) {
         BaseResult baseResult = new BaseResult();
         try {
