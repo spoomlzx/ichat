@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2017/10/30
  */
 @RestController
-@RequestMapping(value = "/api/user")
+@RequestMapping(value = "/api")
 public class UserController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class UserController {
      * @param oldToken
      * @return
      */
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/user/login")
     public AuthResult login(@RequestBody UserEntity user, @Token String oldToken) {
         UserEntity userEntity;
         AuthResult authResult = new AuthResult();
@@ -69,7 +69,7 @@ public class UserController {
         return authResult;
     }
 
-    @PostMapping(value = "/logout")
+    @PostMapping(value = "/user/logout")
     public BaseResult logout(@Token String token) {
         BaseResult baseResult = new BaseResult();
         if (token == null) {
@@ -85,7 +85,7 @@ public class UserController {
         return baseResult;
     }
 
-    @GetMapping(value = "/info")
+    @GetMapping(value = "/user/info")
     public BaseResult getLoginUser(@LoginUser UserEntity user) {
         BaseResult baseResult = new BaseResult("获取当前登录用户成功");
         baseResult.setData(user);
@@ -99,7 +99,7 @@ public class UserController {
      * @param loginUser
      * @return
      */
-    @PostMapping(value = "/update")
+    @PatchMapping(value = "/user")
     public BaseResult updateUser(@RequestBody UserEntity user, @LoginUser UserEntity loginUser) {
         BaseResult baseResult = new BaseResult();
         if (loginUser.getRoleId() == 2 && user.getId() != loginUser.getId()) {

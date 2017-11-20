@@ -10,6 +10,7 @@
         `motto`,
         `role_id`,
         `create_time`,
+        `online`,
         `enabled`,
         `last_login_time`,
         `avatar`,
@@ -33,6 +34,7 @@
             `motto`,
             `role_id`,
             `create_time`,
+        `online`,
             `enabled`,
             `last_login_time`,
             `avatar`,
@@ -52,6 +54,7 @@
             `motto`,
             `role_id`,
             `create_time`,
+        `online`,
             `enabled`,
             `last_login_time`,
             `avatar`,
@@ -127,8 +130,7 @@
             <if test="userEntity.nickName != null">`nick_name`= #{userEntity.nickName,jdbcType=VARCHAR},</if>
             <if test="userEntity.motto != null">`motto`= #{userEntity.motto,jdbcType=VARCHAR},</if>
             <if test="userEntity.password != null">`password`= #{userEntity.password,jdbcType=VARCHAR},</if>
-            <if test="userEntity.roleId != null">`role_id`= #{userEntity.roleId,jdbcType=TINYINT},</if>
-            <if test="userEntity.createTime != null">`create_time`= #{userEntity.createTime,jdbcType=DATE},</if>
+            <if test="userEntity.online != null">`online`= #{userEntity.online,jdbcType=TINYINT},</if>
             <if test="userEntity.enabled != null">`enabled`= #{userEntity.enabled,jdbcType=TINYINT},</if>
             <if test="userEntity.lastLoginTime != null">`last_login_time`= #{userEntity.lastLoginTime,jdbcType=DATE},</if>
             <if test="userEntity.avatar != null">`avatar`= #{userEntity.avatar,jdbcType=VARCHAR},</if>
