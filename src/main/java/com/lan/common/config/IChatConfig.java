@@ -5,7 +5,6 @@ import com.farsunset.cim.sdk.server.handler.CIMRequestHandler;
 import com.farsunset.cim.sdk.server.handler.HeartbeatHandler;
 import com.lan.ichat.im.handler.BindHandler;
 import com.lan.ichat.im.handler.SessionClosedHandler;
-import com.lan.ichat.im.manager.IChatSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,8 +24,6 @@ public class IChatConfig {
     private BindHandler bindHandler;
     @Autowired
     private SessionClosedHandler sessionClosedHandler;
-    @Autowired
-    private IChatSessionManager sessionManager;
 
     /**
      * 由于bindHandler中使用了sessionManager，故只能在CIMNioSocketAcceptor初始化完成之后注入给sessionManager
@@ -44,7 +41,6 @@ public class IChatConfig {
         handlers.put("client_closed", sessionClosedHandler);
         acceptor.setHandlers(handlers);
         acceptor.bind();
-        sessionManager.setCimNioSocketAcceptor(acceptor);
         return acceptor;
     }
 }
