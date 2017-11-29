@@ -1,9 +1,9 @@
 package com.lan.ichat.service;
 
 import com.farsunset.cim.sdk.server.session.CIMSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 
 /**
  * package com.lan.ichat.service
@@ -14,21 +14,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class SessionService implements BaseService<CIMSession> {
 
-    @Autowired
-    private RedisTemplate<String, CIMSession> redisTemplate;
+    private HashMap<String, CIMSession> localSessions = new HashMap<>();
 
     @Override
     public void set(String key, CIMSession session) {
-        this.redisTemplate.boundValueOps(key).set(session);
+        localSessions.put(key, session);
     }
 
     @Override
     public CIMSession get(String key) {
-        return this.redisTemplate.boundValueOps(key).get();
+        return localSessions.get(key);
     }
 
     @Override
     public void delete(String key) {
-        this.redisTemplate.delete(key);
+        localSessions.remove(key);
     }
 }

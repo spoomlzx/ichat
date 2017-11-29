@@ -21,13 +21,14 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 @EnableCaching
-public class CacheConfig extends CachingConfigurerSupport{
+public class CacheConfig extends CachingConfigurerSupport {
     @Autowired
     private RedisConnectionFactory factory;
 
     /**
      * 自定义生成key的方法，使用  className_methodName_param 的格式生成key
      * 用以保证缓存不会相互覆盖
+     *
      * @return
      */
     @Bean

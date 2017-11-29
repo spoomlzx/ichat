@@ -50,7 +50,6 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
     private Logger logger = Logger.getLogger(CIMNioSocketAcceptor.class);
     private HashMap<String, CIMRequestHandler> handlers = new HashMap<String, CIMRequestHandler>();
 
-    private static HashMap<String, Channel> channels = new HashMap<>();
     private int port;
 
     //连接空闲时间
@@ -85,8 +84,6 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
     }
 
     public void channelRegistered(ChannelHandlerContext ctx) {
-        //channels.add(ctx.channel());
-        channels.put(ctx.channel().id().asLongText(), ctx.channel());
         logger.info("sessionCreated()... from " + ctx.channel().remoteAddress() + " nid:" + ctx.channel().id().asShortText());
     }
 
@@ -109,8 +106,6 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
                 cimSession.write(reply);
             }
         }
-
-
     }
 
     /**
@@ -118,8 +113,6 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 
         CIMSession cimSession = new CIMSession(ctx.channel());
-        channels.remove(ctx.channel().id().asLongText());
-
         logger.warn("sessionClosed()... from " + ctx.channel().remoteAddress() + " nid:" + cimSession.getNid() + ",isConnected:" + ctx.channel().isActive());
         CIMRequestHandler handler = handlers.get(CIMSESSION_CLOSED_HANDLER_KEY);
         if (handler != null) {
@@ -157,11 +150,6 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
         logger.error("exceptionCaught()... from " + ctx.channel().remoteAddress() + " isConnected:" + ctx.channel().isActive() + " nid:" + ctx.channel().id().asShortText(), cause);
         ctx.channel().close();
     }
-
-//    public Channel getChannel(){
-//        DefaultChannelGroup
-//    }
-
 
     public void setPort(int port) {
         this.port = port;

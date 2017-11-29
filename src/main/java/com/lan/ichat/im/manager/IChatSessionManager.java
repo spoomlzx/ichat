@@ -25,6 +25,12 @@ public class IChatSessionManager implements SessionManager {
     @Autowired
     private SessionMapper sessionMapper;
 
+    @Override
+    public CIMSession get(String account) {
+        String key = CACHE_PREFIX + account;
+        CIMSession session = sessionService.get(key);
+        return session;
+    }
 
     @Override
     public void add(CIMSession session) {
@@ -40,21 +46,6 @@ public class IChatSessionManager implements SessionManager {
         sessionMapper.update(session);
         String key = CACHE_PREFIX + session.getAccount();
         sessionService.set(key, session);
-    }
-
-    @Override
-    public CIMSession get(String account) {
-        String key = CACHE_PREFIX + account;
-        CIMSession session = sessionService.get(key);
-        if (session == null) {
-            session = sessionMapper.getByAccount(account);
-            sessionService.set(key, session);
-        }
-        if (session != null) {
-            //session.setChannel();
-            //session.setIoSession(this.getCimNioSocketAcceptor().getManagedSession(session.getNid()));
-        }
-        return session;
     }
 
     @Override
