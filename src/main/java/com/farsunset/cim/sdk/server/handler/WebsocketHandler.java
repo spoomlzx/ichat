@@ -1,33 +1,33 @@
 /**
  * Copyright 2013-2023 Xia Jun(3979434@qq.com).
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * <p>
- * **************************************************************************************
- * *
- * Website : http://www.farsunset.com                           *
- * *
- * **************************************************************************************
+ *
+ ***************************************************************************************
+ *                                                                                     *
+ *                        Website : http://www.farsunset.com                           *
+ *                                                                                     *
+ ***************************************************************************************
  */
 package com.farsunset.cim.sdk.server.handler;
+
+import java.security.MessageDigest;
+import java.util.Base64;
 
 import com.farsunset.cim.sdk.server.model.ReplyBody;
 import com.farsunset.cim.sdk.server.model.SentBody;
 import com.farsunset.cim.sdk.server.model.WebsocketResponse;
 import com.farsunset.cim.sdk.server.session.CIMSession;
-
-import java.security.MessageDigest;
-
 /**
  * 处理websocket握手请求，返回响应的报文给浏览器
  * @author Iraid
@@ -44,7 +44,7 @@ public class WebsocketHandler implements CIMRequestHandler {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
             md.update(secKey.getBytes("iso-8859-1"), 0, secKey.length());
             byte[] sha1Hash = md.digest();
-            secKey = new String(org.apache.mina.util.Base64.encodeBase64(sha1Hash));
+            secKey = new String(Base64.getEncoder().encode(sha1Hash));
         } catch (Exception e) {
             e.printStackTrace();
         }

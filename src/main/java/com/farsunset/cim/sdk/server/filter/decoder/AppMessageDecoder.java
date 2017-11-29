@@ -1,89 +1,77 @@
 /**
  * Copyright 2013-2023 Xia Jun(3979434@qq.com).
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * <p>
- * **************************************************************************************
- * *
- * Website : http://www.farsunset.com                           *
- * *
- * **************************************************************************************
+ *
+ ***************************************************************************************
+ *                                                                                     *
+ *                        Website : http://www.farsunset.com                           *
+ *                                                                                     *
+ ***************************************************************************************
  */
 package com.farsunset.cim.sdk.server.filter.decoder;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
-import org.apache.mina.core.buffer.IoBuffer;
-import org.apache.mina.core.session.IoSession;
-import org.apache.mina.filter.codec.ProtocolDecoderOutput;
-import org.apache.mina.filter.codec.demux.MessageDecoderAdapter;
-import org.apache.mina.filter.codec.demux.MessageDecoderResult;
 
 import com.farsunset.cim.sdk.server.constant.CIMConstant;
 import com.farsunset.cim.sdk.server.model.HeartbeatResponse;
 import com.farsunset.cim.sdk.server.model.SentBody;
 import com.farsunset.cim.sdk.server.model.proto.SentBodyProto;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.ByteToMessageDecoder;
+
 /**
- *  服务端接收消息解码
+ * 服务端接收来自应用的消息解码
  */
-public class AppMessageDecoder extends MessageDecoderAdapter {
+public class AppMessageDecoder extends ByteToMessageDecoder {
 
     protected final Logger logger = Logger.getLogger(AppMessageDecoder.class);
 
-
     @Override
-    public MessageDecoderResult decodable(IoSession arg0, IoBuffer iobuffer) {
-
-        if (iobuffer.remaining() < CIMConstant.DATA_HEADER_LENGTH) {
-            return NEED_DATA;
-        }
-
+    public void decode(ChannelHandlerContext arg0, ByteBuf buffer, List<Object> queue) throws Exception {
         /**
-         * 原生SDK只会发送2种类型消息 1个心跳类型 另一个是sendbody，报文的第一个字节为消息类型
+         * 消息头3位
          */
-        byte conetnType = iobuffer.get();
-        if (conetnType == CIMConstant.ProtobufType.C_H_RS || conetnType == CIMConstant.ProtobufType.SENTBODY) {
-            return OK;
+        if (buffer.readableBytes() < CIMConstant.DATA_HEADER_LENGTH) {
+            return;
         }
 
-        return NOT_OK;
-    }
+        buffer.markReaderIndex();
 
+        byte conetnType = buffer.readByte();
 
-    @Override
-    public MessageDecoderResult decode(IoSession iosession, IoBuffer iobuffer, ProtocolDecoderOutput out) throws Exception {
-        iobuffer.mark();
-
-        byte conetnType = iobuffer.get();
-        byte lv = iobuffer.get();//int 低位
-        byte hv = iobuffer.get();//int 高位
+        byte lv = buffer.readByte();// int 低位
+        byte hv = buffer.readByte();// int 高位
 
         int conetnLength = getContentLength(lv, hv);
 
-        //如果消息体没有接收完整，则重置读取，等待下一次重新读取
-        if (conetnLength > iobuffer.remaining()) {
-            iobuffer.reset();
-            return NEED_DATA;
+        // 如果消息体没有接收完整，则重置读取，等待下一次重新读取
+        if (conetnLength > buffer.readableBytes()) {
+            buffer.resetReaderIndex();
+            return;
         }
 
         byte[] dataBytes = new byte[conetnLength];
-        iobuffer.get(dataBytes, 0, conetnLength);
+        buffer.readBytes(dataBytes);
 
         Object message = mappingMessageObject(dataBytes, conetnType);
         if (message != null) {
-            out.write(message);
+            queue.add(message);
         }
-        return OK;
     }
 
     public Object mappingMessageObject(byte[] data, byte type) throws Exception {
@@ -91,7 +79,10 @@ public class AppMessageDecoder extends MessageDecoderAdapter {
         if (CIMConstant.ProtobufType.C_H_RS == type) {
             HeartbeatResponse response = HeartbeatResponse.getInstance();
             logger.info(response.toString());
-            return response;
+            SentBody body = new SentBody();
+            body.setKey(CIMConstant.CLIENT_HEARTBEAT);
+            body.setTimestamp(System.currentTimeMillis());
+            return body;
         }
 
         if (CIMConstant.ProtobufType.SENTBODY == type) {
@@ -109,6 +100,7 @@ public class AppMessageDecoder extends MessageDecoderAdapter {
 
     /**
      * 解析消息体长度
+     *
      * @param type
      * @param length
      * @return
@@ -118,6 +110,4 @@ public class AppMessageDecoder extends MessageDecoderAdapter {
         int h = (hv & 0xff);
         return (l | (h <<= 8));
     }
-
-
 }

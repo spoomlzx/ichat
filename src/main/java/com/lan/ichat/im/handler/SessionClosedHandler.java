@@ -32,7 +32,7 @@ public class SessionClosedHandler implements CIMRequestHandler {
             return null;
         }
         session.removeAttribute(CIMConstant.SESSION_KEY);
-        sessionManager.remove(account.toString());
+        //sessionManager.remove(account.toString());
         return null;
     }
 }

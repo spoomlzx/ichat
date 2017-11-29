@@ -103,6 +103,7 @@ public class SysUserController {
     public BaseResult pushMessage(@RequestBody Message msg) {
         BaseResult baseResult = new BaseResult();
         messagePusher.push(msg);
+        logger.info("ready to send");
         baseResult.setMsg("Message send success");
         baseResult.setData(msg);
         return baseResult;

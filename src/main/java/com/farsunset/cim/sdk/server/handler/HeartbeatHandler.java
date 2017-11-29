@@ -19,33 +19,24 @@
  * *
  * **************************************************************************************
  */
-package com.farsunset.cim.sdk.server.filter;
+package com.farsunset.cim.sdk.server.handler;
 
-import org.apache.mina.core.session.IoSession;
-import org.apache.mina.filter.codec.ProtocolCodecFactory;
-import org.apache.mina.filter.codec.ProtocolDecoder;
-import org.apache.mina.filter.codec.ProtocolEncoder;
+import com.farsunset.cim.sdk.server.model.ReplyBody;
+import com.farsunset.cim.sdk.server.model.SentBody;
+import com.farsunset.cim.sdk.server.session.CIMSession;
+
 
 /**
- * 服务端消息 编码解码器
+ *记录心跳实现
+ *
  */
-public class ServerMessageCodecFactory implements ProtocolCodecFactory {
+public class HeartbeatHandler implements CIMRequestHandler {
 
-    private final ServerMessageEncoder encoder;
-
-    private final ServerMessageDecoder decoder;
-
-    public ServerMessageCodecFactory() {
-        encoder = new ServerMessageEncoder();
-        decoder = new ServerMessageDecoder();
+    public ReplyBody process(CIMSession session, SentBody message) {
+        //收到心跳响应，设置心跳时间
+        session.setHeartbeat(System.currentTimeMillis());
+        return null;
     }
 
-    public ProtocolEncoder getEncoder(IoSession session) throws Exception {
-        return encoder;
-    }
-
-    public ProtocolDecoder getDecoder(IoSession session) throws Exception {
-        return decoder;
-    }
 
 }

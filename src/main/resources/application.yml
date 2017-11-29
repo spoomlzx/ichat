@@ -5,6 +5,7 @@ logging:
     com.lan: debug
     org.springframework: WARN
     org.hibernate: WARN
+    org.apache: warn
 # request.header中的token的名称
 lan:
   ichat:

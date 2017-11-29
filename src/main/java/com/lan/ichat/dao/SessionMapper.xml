@@ -61,7 +61,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="session.gid!=null">#{session.gid,jdbcType=VARCHAR},
             </if>
-            <if test="session.nid!=null">#{session.nid,jdbcType=BIGINT},
+            <if test="session.nid!=null">#{session.nid,jdbcType=VARCHAR},
             </if>
             <if test="session.deviceId!=null">#{session.deviceId,jdbcType=VARCHAR},
             </if>

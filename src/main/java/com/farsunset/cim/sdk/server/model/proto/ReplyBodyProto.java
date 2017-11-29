@@ -1,23 +1,23 @@
 /**
  * Copyright 2013-2023 Xia Jun(3979434@qq.com).
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * <p>
- * **************************************************************************************
- * *
- * Website : http://www.farsunset.com                           *
- * *
- * **************************************************************************************
+ *
+ ***************************************************************************************
+ *                                                                                     *
+ *                        Website : http://www.farsunset.com                           *
+ *                                                                                     *
+ ***************************************************************************************
  */
 package com.farsunset.cim.sdk.server.model.proto;
 
@@ -42,7 +42,7 @@ public final class ReplyBodyProto {
         /**
          * <code>string key = 1;</code>
          */
-        String getKey();
+        java.lang.String getKey();
 
         /**
          * <code>string key = 1;</code>
@@ -53,7 +53,7 @@ public final class ReplyBodyProto {
         /**
          * <code>string code = 2;</code>
          */
-        String getCode();
+        java.lang.String getCode();
 
         /**
          * <code>string code = 2;</code>
@@ -64,7 +64,7 @@ public final class ReplyBodyProto {
         /**
          * <code>string message = 3;</code>
          */
-        String getMessage();
+        java.lang.String getMessage();
 
         /**
          * <code>string message = 3;</code>
@@ -86,35 +86,35 @@ public final class ReplyBodyProto {
          * <code>map&lt;string, string&gt; data = 5;</code>
          */
         boolean containsData(
-                String key);
+                java.lang.String key);
 
         /**
          * Use {@link #getDataMap()} instead.
          */
-        @Deprecated
-        java.util.Map<String, String>
+        @java.lang.Deprecated
+        java.util.Map<java.lang.String, java.lang.String>
         getData();
 
         /**
          * <code>map&lt;string, string&gt; data = 5;</code>
          */
-        java.util.Map<String, String>
+        java.util.Map<java.lang.String, java.lang.String>
         getDataMap();
 
         /**
          * <code>map&lt;string, string&gt; data = 5;</code>
          */
 
-        String getDataOrDefault(
-                String key,
-                String defaultValue);
+        java.lang.String getDataOrDefault(
+                java.lang.String key,
+                java.lang.String defaultValue);
 
         /**
          * <code>map&lt;string, string&gt; data = 5;</code>
          */
 
-        String getDataOrThrow(
-                String key);
+        java.lang.String getDataOrThrow(
+                java.lang.String key);
     }
 
     /**
@@ -136,7 +136,7 @@ public final class ReplyBodyProto {
             timestamp_ = 0L;
         }
 
-        @Override
+        @java.lang.Override
         public final com.google.protobuf.UnknownFieldSet
         getUnknownFields() {
             return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
@@ -163,19 +163,19 @@ public final class ReplyBodyProto {
                             break;
                         }
                         case 10: {
-                            String s = input.readStringRequireUtf8();
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             key_ = s;
                             break;
                         }
                         case 18: {
-                            String s = input.readStringRequireUtf8();
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             code_ = s;
                             break;
                         }
                         case 26: {
-                            String s = input.readStringRequireUtf8();
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             message_ = s;
                             break;
@@ -191,7 +191,7 @@ public final class ReplyBodyProto {
                                         DataDefaultEntryHolder.defaultEntry);
                                 mutable_bitField0_ |= 0x00000010;
                             }
-                            com.google.protobuf.MapEntry<String, String>
+                            com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
                                     data__ = input.readMessage(
                                     DataDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
                             data_.getMutableMap().put(
@@ -212,7 +212,7 @@ public final class ReplyBodyProto {
 
         public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-            return ReplyBodyProto.internal_static_com_farsunset_cim_sdk_server_model_proto_Model_descriptor;
+            return com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.internal_static_com_farsunset_cim_sdk_server_model_proto_Model_descriptor;
         }
 
         @SuppressWarnings({"rawtypes"})
@@ -224,46 +224,45 @@ public final class ReplyBodyProto {
                 default:
                     throw new RuntimeException(
                             "Invalid map field number: " + number);
-            }
-        }
-
-        protected FieldAccessorTable
-        internalGetFieldAccessorTable() {
-            return ReplyBodyProto.internal_static_com_farsunset_cim_sdk_server_model_proto_Model_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(
-                            Model.class, Builder.class);
-        }
+      }
+    }
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    internalGetFieldAccessorTable() {
+        return com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.internal_static_com_farsunset_cim_sdk_server_model_proto_Model_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model.class, com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model.Builder.class);
+    }
 
         private int bitField0_;
         public static final int KEY_FIELD_NUMBER = 1;
-        private volatile Object key_;
+        private volatile java.lang.Object key_;
 
         /**
          * <code>string key = 1;</code>
          */
-        public String getKey() {
-            Object ref = key_;
-            if (ref instanceof String) {
-                return (String) ref;
+        public java.lang.String getKey() {
+            java.lang.Object ref = key_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 key_ = s;
                 return s;
-            }
-        }
+      }
+    }
 
         /**
          * <code>string key = 1;</code>
          */
         public com.google.protobuf.ByteString
         getKeyBytes() {
-            Object ref = key_;
-            if (ref instanceof String) {
+            java.lang.Object ref = key_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 key_ = b;
                 return b;
             } else {
@@ -272,19 +271,19 @@ public final class ReplyBodyProto {
         }
 
         public static final int CODE_FIELD_NUMBER = 2;
-        private volatile Object code_;
+        private volatile java.lang.Object code_;
 
         /**
          * <code>string code = 2;</code>
          */
-        public String getCode() {
-            Object ref = code_;
-            if (ref instanceof String) {
-                return (String) ref;
+        public java.lang.String getCode() {
+            java.lang.Object ref = code_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 code_ = s;
                 return s;
             }
@@ -295,11 +294,11 @@ public final class ReplyBodyProto {
          */
         public com.google.protobuf.ByteString
         getCodeBytes() {
-            Object ref = code_;
-            if (ref instanceof String) {
+            java.lang.Object ref = code_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 code_ = b;
                 return b;
             } else {
@@ -308,21 +307,21 @@ public final class ReplyBodyProto {
         }
 
         public static final int MESSAGE_FIELD_NUMBER = 3;
-        private volatile Object message_;
+        private volatile java.lang.Object message_;
 
         /**
          * <code>string message = 3;</code>
          */
-        public String getMessage() {
-            Object ref = message_;
-            if (ref instanceof String) {
-                return (String) ref;
+        public java.lang.String getMessage() {
+            java.lang.Object ref = message_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 message_ = s;
-                return s;
+        return s;
             }
         }
 
@@ -331,11 +330,11 @@ public final class ReplyBodyProto {
          */
         public com.google.protobuf.ByteString
         getMessageBytes() {
-            Object ref = message_;
-            if (ref instanceof String) {
+            java.lang.Object ref = message_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 message_ = b;
                 return b;
             } else {
@@ -357,10 +356,10 @@ public final class ReplyBodyProto {
 
         private static final class DataDefaultEntryHolder {
             static final com.google.protobuf.MapEntry<
-                    String, String> defaultEntry =
+                    java.lang.String, java.lang.String> defaultEntry =
                     com.google.protobuf.MapEntry
-                            .<String, String>newDefaultInstance(
-                                    ReplyBodyProto.internal_static_com_farsunset_cim_sdk_server_model_proto_Model_DataEntry_descriptor,
+                            .<java.lang.String, java.lang.String>newDefaultInstance(
+                                    com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.internal_static_com_farsunset_cim_sdk_server_model_proto_Model_DataEntry_descriptor,
                                     com.google.protobuf.WireFormat.FieldType.STRING,
                                     "",
                                     com.google.protobuf.WireFormat.FieldType.STRING,
@@ -368,9 +367,9 @@ public final class ReplyBodyProto {
         }
 
         private com.google.protobuf.MapField<
-                String, String> data_;
+                java.lang.String, java.lang.String> data_;
 
-        private com.google.protobuf.MapField<String, String>
+        private com.google.protobuf.MapField<java.lang.String, java.lang.String>
         internalGetData() {
             if (data_ == null) {
                 return com.google.protobuf.MapField.emptyMapField(
@@ -388,9 +387,9 @@ public final class ReplyBodyProto {
          */
 
         public boolean containsData(
-                String key) {
+                java.lang.String key) {
             if (key == null) {
-                throw new NullPointerException();
+                throw new java.lang.NullPointerException();
             }
             return internalGetData().getMap().containsKey(key);
         }
@@ -398,8 +397,8 @@ public final class ReplyBodyProto {
         /**
          * Use {@link #getDataMap()} instead.
          */
-        @Deprecated
-        public java.util.Map<String, String> getData() {
+        @java.lang.Deprecated
+        public java.util.Map<java.lang.String, java.lang.String> getData() {
             return getDataMap();
         }
 
@@ -407,7 +406,7 @@ public final class ReplyBodyProto {
          * <code>map&lt;string, string&gt; data = 5;</code>
          */
 
-        public java.util.Map<String, String> getDataMap() {
+        public java.util.Map<java.lang.String, java.lang.String> getDataMap() {
             return internalGetData().getMap();
         }
 
@@ -415,13 +414,13 @@ public final class ReplyBodyProto {
          * <code>map&lt;string, string&gt; data = 5;</code>
          */
 
-        public String getDataOrDefault(
-                String key,
-                String defaultValue) {
+        public java.lang.String getDataOrDefault(
+                java.lang.String key,
+                java.lang.String defaultValue) {
             if (key == null) {
-                throw new NullPointerException();
+                throw new java.lang.NullPointerException();
             }
-            java.util.Map<String, String> map =
+            java.util.Map<java.lang.String, java.lang.String> map =
                     internalGetData().getMap();
             return map.containsKey(key) ? map.get(key) : defaultValue;
         }
@@ -430,15 +429,15 @@ public final class ReplyBodyProto {
          * <code>map&lt;string, string&gt; data = 5;</code>
          */
 
-        public String getDataOrThrow(
-                String key) {
+        public java.lang.String getDataOrThrow(
+                java.lang.String key) {
             if (key == null) {
-                throw new NullPointerException();
+                throw new java.lang.NullPointerException();
             }
-            java.util.Map<String, String> map =
+            java.util.Map<java.lang.String, java.lang.String> map =
                     internalGetData().getMap();
             if (!map.containsKey(key)) {
-                throw new IllegalArgumentException();
+                throw new java.lang.IllegalArgumentException();
             }
             return map.get(key);
         }
@@ -494,9 +493,9 @@ public final class ReplyBodyProto {
                 size += com.google.protobuf.CodedOutputStream
                         .computeInt64Size(4, timestamp_);
             }
-            for (java.util.Map.Entry<String, String> entry
+            for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
                     : internalGetData().getMap().entrySet()) {
-                com.google.protobuf.MapEntry<String, String>
+                com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
                         data__ = DataDefaultEntryHolder.defaultEntry.newBuilderForType()
                         .setKey(entry.getKey())
                         .setValue(entry.getValue())
@@ -510,15 +509,15 @@ public final class ReplyBodyProto {
 
         private static final long serialVersionUID = 0L;
 
-        @Override
-        public boolean equals(final Object obj) {
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof Model)) {
+            if (!(obj instanceof com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model)) {
                 return super.equals(obj);
             }
-            Model other = (Model) obj;
+            com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model other = (com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model) obj;
 
             boolean result = true;
             result = result && getKey()
@@ -534,7 +533,7 @@ public final class ReplyBodyProto {
             return result;
         }
 
-        @Override
+        @java.lang.Override
         public int hashCode() {
             if (memoizedHashCode != 0) {
                 return memoizedHashCode;
@@ -559,38 +558,38 @@ public final class ReplyBodyProto {
             return hash;
         }
 
-        public static Model parseFrom(
+        public static com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model parseFrom(
                 com.google.protobuf.ByteString data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static Model parseFrom(
+        public static com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model parseFrom(
                 com.google.protobuf.ByteString data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static Model parseFrom(byte[] data)
+        public static com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model parseFrom(byte[] data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static Model parseFrom(
+        public static com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model parseFrom(
                 byte[] data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static Model parseFrom(java.io.InputStream input)
+        public static com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model parseFrom(java.io.InputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseWithIOException(PARSER, input);
         }
 
-        public static Model parseFrom(
+        public static com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model parseFrom(
                 java.io.InputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -598,13 +597,13 @@ public final class ReplyBodyProto {
                     .parseWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static Model parseDelimitedFrom(java.io.InputStream input)
+        public static com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model parseDelimitedFrom(java.io.InputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseDelimitedWithIOException(PARSER, input);
         }
 
-        public static Model parseDelimitedFrom(
+        public static com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model parseDelimitedFrom(
                 java.io.InputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -612,14 +611,14 @@ public final class ReplyBodyProto {
                     .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static Model parseFrom(
+        public static com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model parseFrom(
                 com.google.protobuf.CodedInputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseWithIOException(PARSER, input);
         }
 
-        public static Model parseFrom(
+        public static com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model parseFrom(
                 com.google.protobuf.CodedInputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -635,7 +634,7 @@ public final class ReplyBodyProto {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(Model prototype) {
+        public static Builder newBuilder(com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
@@ -644,9 +643,9 @@ public final class ReplyBodyProto {
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
-        @Override
+        @java.lang.Override
         protected Builder newBuilderForType(
-                BuilderParent parent) {
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
         }
@@ -657,10 +656,10 @@ public final class ReplyBodyProto {
         public static final class Builder extends
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:com.farsunset.cim.sdk.server.model.proto.Model)
-                ModelOrBuilder {
+                com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.ModelOrBuilder {
             public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
-                return ReplyBodyProto.internal_static_com_farsunset_cim_sdk_server_model_proto_Model_descriptor;
+                return com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.internal_static_com_farsunset_cim_sdk_server_model_proto_Model_descriptor;
             }
 
             @SuppressWarnings({"rawtypes"})
@@ -687,11 +686,11 @@ public final class ReplyBodyProto {
                 }
             }
 
-            protected FieldAccessorTable
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internalGetFieldAccessorTable() {
-                return ReplyBodyProto.internal_static_com_farsunset_cim_sdk_server_model_proto_Model_fieldAccessorTable
+                return com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.internal_static_com_farsunset_cim_sdk_server_model_proto_Model_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
-                                Model.class, Builder.class);
+                                com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model.class, com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model.Builder.class);
             }
 
             // Construct using com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model.newBuilder()
@@ -700,7 +699,7 @@ public final class ReplyBodyProto {
             }
 
             private Builder(
-                    BuilderParent parent) {
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
                 super(parent);
                 maybeForceBuilderInitialization();
             }
@@ -727,23 +726,23 @@ public final class ReplyBodyProto {
 
             public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-                return ReplyBodyProto.internal_static_com_farsunset_cim_sdk_server_model_proto_Model_descriptor;
+                return com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.internal_static_com_farsunset_cim_sdk_server_model_proto_Model_descriptor;
             }
 
-            public Model getDefaultInstanceForType() {
-                return Model.getDefaultInstance();
+            public com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model getDefaultInstanceForType() {
+                return com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model.getDefaultInstance();
             }
 
-            public Model build() {
-                Model result = buildPartial();
+            public com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model build() {
+                com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
                 }
                 return result;
             }
 
-            public Model buildPartial() {
-                Model result = new Model(this);
+            public com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model buildPartial() {
+                com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model result = new com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model(this);
                 int from_bitField0_ = bitField0_;
                 int to_bitField0_ = 0;
                 result.key_ = key_;
@@ -790,16 +789,16 @@ public final class ReplyBodyProto {
             }
 
             public Builder mergeFrom(com.google.protobuf.Message other) {
-                if (other instanceof Model) {
-                    return mergeFrom((Model) other);
+                if (other instanceof com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model) {
+                    return mergeFrom((com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model) other);
                 } else {
                     super.mergeFrom(other);
                     return this;
                 }
             }
 
-            public Builder mergeFrom(Model other) {
-                if (other == Model.getDefaultInstance()) return this;
+            public Builder mergeFrom(com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model other) {
+                if (other == com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model.getDefaultInstance()) return this;
                 if (!other.getKey().isEmpty()) {
                     key_ = other.key_;
                     onChanged();
@@ -829,11 +828,11 @@ public final class ReplyBodyProto {
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
-                Model parsedMessage = null;
+                com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model parsedMessage = null;
                 try {
                     parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
                 } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (Model) e.getUnfinishedMessage();
+                    parsedMessage = (com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model) e.getUnfinishedMessage();
                     throw e.unwrapIOException();
                 } finally {
                     if (parsedMessage != null) {
@@ -845,21 +844,21 @@ public final class ReplyBodyProto {
 
             private int bitField0_;
 
-            private Object key_ = "";
+            private java.lang.Object key_ = "";
 
             /**
              * <code>string key = 1;</code>
              */
-            public String getKey() {
-                Object ref = key_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getKey() {
+                java.lang.Object ref = key_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     key_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -868,11 +867,11 @@ public final class ReplyBodyProto {
              */
             public com.google.protobuf.ByteString
             getKeyBytes() {
-                Object ref = key_;
+                java.lang.Object ref = key_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     key_ = b;
                     return b;
                 } else {
@@ -884,7 +883,7 @@ public final class ReplyBodyProto {
              * <code>string key = 1;</code>
              */
             public Builder setKey(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -919,21 +918,21 @@ public final class ReplyBodyProto {
                 return this;
             }
 
-            private Object code_ = "";
+            private java.lang.Object code_ = "";
 
             /**
              * <code>string code = 2;</code>
              */
-            public String getCode() {
-                Object ref = code_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getCode() {
+                java.lang.Object ref = code_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     code_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -942,11 +941,11 @@ public final class ReplyBodyProto {
              */
             public com.google.protobuf.ByteString
             getCodeBytes() {
-                Object ref = code_;
+                java.lang.Object ref = code_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     code_ = b;
                     return b;
                 } else {
@@ -958,7 +957,7 @@ public final class ReplyBodyProto {
              * <code>string code = 2;</code>
              */
             public Builder setCode(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -993,21 +992,21 @@ public final class ReplyBodyProto {
                 return this;
             }
 
-            private Object message_ = "";
+            private java.lang.Object message_ = "";
 
             /**
              * <code>string message = 3;</code>
              */
-            public String getMessage() {
-                Object ref = message_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getMessage() {
+                java.lang.Object ref = message_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     message_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -1016,11 +1015,11 @@ public final class ReplyBodyProto {
              */
             public com.google.protobuf.ByteString
             getMessageBytes() {
-                Object ref = message_;
+                java.lang.Object ref = message_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     message_ = b;
                     return b;
                 } else {
@@ -1032,7 +1031,7 @@ public final class ReplyBodyProto {
              * <code>string message = 3;</code>
              */
             public Builder setMessage(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -1097,9 +1096,9 @@ public final class ReplyBodyProto {
             }
 
             private com.google.protobuf.MapField<
-                    String, String> data_;
+                    java.lang.String, java.lang.String> data_;
 
-            private com.google.protobuf.MapField<String, String>
+            private com.google.protobuf.MapField<java.lang.String, java.lang.String>
             internalGetData() {
                 if (data_ == null) {
                     return com.google.protobuf.MapField.emptyMapField(
@@ -1108,7 +1107,7 @@ public final class ReplyBodyProto {
                 return data_;
             }
 
-            private com.google.protobuf.MapField<String, String>
+            private com.google.protobuf.MapField<java.lang.String, java.lang.String>
             internalGetMutableData() {
                 onChanged();
                 ;
@@ -1131,9 +1130,9 @@ public final class ReplyBodyProto {
              */
 
             public boolean containsData(
-                    String key) {
+                    java.lang.String key) {
                 if (key == null) {
-                    throw new NullPointerException();
+                    throw new java.lang.NullPointerException();
                 }
                 return internalGetData().getMap().containsKey(key);
             }
@@ -1141,8 +1140,8 @@ public final class ReplyBodyProto {
             /**
              * Use {@link #getDataMap()} instead.
              */
-            @Deprecated
-            public java.util.Map<String, String> getData() {
+            @java.lang.Deprecated
+            public java.util.Map<java.lang.String, java.lang.String> getData() {
                 return getDataMap();
             }
 
@@ -1150,7 +1149,7 @@ public final class ReplyBodyProto {
              * <code>map&lt;string, string&gt; data = 5;</code>
              */
 
-            public java.util.Map<String, String> getDataMap() {
+            public java.util.Map<java.lang.String, java.lang.String> getDataMap() {
                 return internalGetData().getMap();
             }
 
@@ -1158,13 +1157,13 @@ public final class ReplyBodyProto {
              * <code>map&lt;string, string&gt; data = 5;</code>
              */
 
-            public String getDataOrDefault(
-                    String key,
-                    String defaultValue) {
+            public java.lang.String getDataOrDefault(
+                    java.lang.String key,
+                    java.lang.String defaultValue) {
                 if (key == null) {
-                    throw new NullPointerException();
+                    throw new java.lang.NullPointerException();
                 }
-                java.util.Map<String, String> map =
+                java.util.Map<java.lang.String, java.lang.String> map =
                         internalGetData().getMap();
                 return map.containsKey(key) ? map.get(key) : defaultValue;
             }
@@ -1173,15 +1172,15 @@ public final class ReplyBodyProto {
              * <code>map&lt;string, string&gt; data = 5;</code>
              */
 
-            public String getDataOrThrow(
-                    String key) {
+            public java.lang.String getDataOrThrow(
+                    java.lang.String key) {
                 if (key == null) {
-                    throw new NullPointerException();
+                    throw new java.lang.NullPointerException();
                 }
-                java.util.Map<String, String> map =
+                java.util.Map<java.lang.String, java.lang.String> map =
                         internalGetData().getMap();
                 if (!map.containsKey(key)) {
-                    throw new IllegalArgumentException();
+                    throw new java.lang.IllegalArgumentException();
                 }
                 return map.get(key);
             }
@@ -1197,9 +1196,9 @@ public final class ReplyBodyProto {
              */
 
             public Builder removeData(
-                    String key) {
+                    java.lang.String key) {
                 if (key == null) {
-                    throw new NullPointerException();
+                    throw new java.lang.NullPointerException();
                 }
                 internalGetMutableData().getMutableMap()
                         .remove(key);
@@ -1209,8 +1208,8 @@ public final class ReplyBodyProto {
             /**
              * Use alternate mutation accessors instead.
              */
-            @Deprecated
-            public java.util.Map<String, String>
+            @java.lang.Deprecated
+            public java.util.Map<java.lang.String, java.lang.String>
             getMutableData() {
                 return internalGetMutableData().getMutableMap();
             }
@@ -1219,13 +1218,13 @@ public final class ReplyBodyProto {
              * <code>map&lt;string, string&gt; data = 5;</code>
              */
             public Builder putData(
-                    String key,
-                    String value) {
+                    java.lang.String key,
+                    java.lang.String value) {
                 if (key == null) {
-                    throw new NullPointerException();
+                    throw new java.lang.NullPointerException();
                 }
                 if (value == null) {
-                    throw new NullPointerException();
+                    throw new java.lang.NullPointerException();
                 }
                 internalGetMutableData().getMutableMap()
                         .put(key, value);
@@ -1237,7 +1236,7 @@ public final class ReplyBodyProto {
              */
 
             public Builder putAllData(
-                    java.util.Map<String, String> values) {
+                    java.util.Map<java.lang.String, java.lang.String> values) {
                 internalGetMutableData().getMutableMap()
                         .putAll(values);
                 return this;
@@ -1258,13 +1257,13 @@ public final class ReplyBodyProto {
         }
 
         // @@protoc_insertion_point(class_scope:com.farsunset.cim.sdk.server.model.proto.Model)
-        private static final Model DEFAULT_INSTANCE;
+        private static final com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model DEFAULT_INSTANCE;
 
         static {
-            DEFAULT_INSTANCE = new Model();
+            DEFAULT_INSTANCE = new com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model();
         }
 
-        public static Model getDefaultInstance() {
+        public static com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model getDefaultInstance() {
             return DEFAULT_INSTANCE;
         }
 
@@ -1282,12 +1281,12 @@ public final class ReplyBodyProto {
             return PARSER;
         }
 
-        @Override
+        @java.lang.Override
         public com.google.protobuf.Parser<Model> getParserForType() {
             return PARSER;
         }
 
-        public Model getDefaultInstanceForType() {
+        public com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto.Model getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
 
@@ -1313,7 +1312,7 @@ public final class ReplyBodyProto {
             descriptor;
 
     static {
-        String[] descriptorData = {
+        java.lang.String[] descriptorData = {
                 "\n\017ReplyBody.proto\022(com.farsunset.cim.sdk" +
                         ".server.model.proto\"\274\001\n\005Model\022\013\n\003key\030\001 \001" +
                         "(\t\022\014\n\004code\030\002 \001(\t\022\017\n\007message\030\003 \001(\t\022\021\n\ttim" +
@@ -1339,14 +1338,14 @@ public final class ReplyBodyProto {
         internal_static_com_farsunset_cim_sdk_server_model_proto_Model_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_com_farsunset_cim_sdk_server_model_proto_Model_descriptor,
-                new String[]{"Key", "Code", "Message", "Timestamp", "Data",});
+                new java.lang.String[]{"Key", "Code", "Message", "Timestamp", "Data",});
         internal_static_com_farsunset_cim_sdk_server_model_proto_Model_DataEntry_descriptor =
-                internal_static_com_farsunset_cim_sdk_server_model_proto_Model_descriptor.getNestedTypes().get(0);
-        internal_static_com_farsunset_cim_sdk_server_model_proto_Model_DataEntry_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_com_farsunset_cim_sdk_server_model_proto_Model_DataEntry_descriptor,
-                new String[]{"Key", "Value",});
-    }
+      internal_static_com_farsunset_cim_sdk_server_model_proto_Model_descriptor.getNestedTypes().get(0);
+    internal_static_com_farsunset_cim_sdk_server_model_proto_Model_DataEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_farsunset_cim_sdk_server_model_proto_Model_DataEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+  }
 
-    // @@protoc_insertion_point(outer_class_scope)
+  // @@protoc_insertion_point(outer_class_scope)
 }

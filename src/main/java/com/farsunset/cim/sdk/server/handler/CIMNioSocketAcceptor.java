@@ -22,80 +22,77 @@
 package com.farsunset.cim.sdk.server.handler;
 
 import com.farsunset.cim.sdk.server.constant.CIMConstant;
-import com.farsunset.cim.sdk.server.filter.ServerMessageCodecFactory;
+import com.farsunset.cim.sdk.server.filter.ServerMessageDecoder;
+import com.farsunset.cim.sdk.server.filter.ServerMessageEncoder;
 import com.farsunset.cim.sdk.server.model.HeartbeatRequest;
-import com.farsunset.cim.sdk.server.model.HeartbeatResponse;
 import com.farsunset.cim.sdk.server.model.ReplyBody;
 import com.farsunset.cim.sdk.server.model.SentBody;
 import com.farsunset.cim.sdk.server.session.CIMSession;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.*;
+import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
+import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.AttributeKey;
 import org.apache.log4j.Logger;
-import org.apache.mina.core.service.IoAcceptor;
-import org.apache.mina.core.service.IoHandlerAdapter;
-import org.apache.mina.core.session.IdleStatus;
-import org.apache.mina.core.session.IoSession;
-import org.apache.mina.filter.codec.ProtocolCodecFilter;
-import org.apache.mina.filter.executor.ExecutorFilter;
-import org.apache.mina.filter.keepalive.KeepAliveFilter;
-import org.apache.mina.filter.keepalive.KeepAliveMessageFactory;
-import org.apache.mina.filter.logging.LoggingFilter;
-import org.apache.mina.transport.socket.DefaultSocketSessionConfig;
-import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.util.HashMap;
-import java.util.Map;
 
-public class CIMNioSocketAcceptor extends IoHandlerAdapter implements KeepAliveMessageFactory {
-
+@Sharable
+public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> {
     public final static String WEBSOCKET_HANDLER_KEY = "client_websocket_handshake";
-    public final static String CIMSESSION_CLOSED_HANDLER_KEY = "client_closed";
+    private final static String CIMSESSION_CLOSED_HANDLER_KEY = "client_cimsession_closed";
     private Logger logger = Logger.getLogger(CIMNioSocketAcceptor.class);
     private HashMap<String, CIMRequestHandler> handlers = new HashMap<String, CIMRequestHandler>();
-    private IoAcceptor acceptor;
+
+    private static HashMap<String, Channel> channels = new HashMap<>();
     private int port;
-    private final int IDLE_TIME = 120;//秒
-    private final int TIME_OUT = 10;//秒
-    private final int READ_BUFFER_SIZE = 1024;//byte
+
+    //连接空闲时间
+    public static final int READ_IDLE_TIME = 150;//秒
+
+    //连接空闲时间
+    public static final int WRITE_IDLE_TIME = 120;//秒
+
+    public static final int PING_TIME_OUT = 30;//心跳响应 超时为30秒
 
     public void bind() throws IOException {
+
         /**
          * 预制websocket握手请求的处理
          */
         handlers.put(WEBSOCKET_HANDLER_KEY, new WebsocketHandler());
+        ServerBootstrap bootstrap = new ServerBootstrap();
+        bootstrap.group(new NioEventLoopGroup(), new NioEventLoopGroup());
+        bootstrap.childOption(ChannelOption.TCP_NODELAY, true);
+        bootstrap.channel(NioServerSocketChannel.class);
+        bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
+            @Override
+            public void initChannel(SocketChannel ch) throws Exception {
+                ch.pipeline().addLast(new ServerMessageDecoder());
+                ch.pipeline().addLast(new ServerMessageEncoder());
+                ch.pipeline().addLast(new IdleStateHandler(READ_IDLE_TIME, WRITE_IDLE_TIME, 0));
+                ch.pipeline().addLast(CIMNioSocketAcceptor.this);
+            }
+        });
 
-        acceptor = new NioSocketAcceptor();
-        acceptor.getSessionConfig().setReadBufferSize(READ_BUFFER_SIZE);
-        ((DefaultSocketSessionConfig) acceptor.getSessionConfig()).setKeepAlive(true);
-        ((DefaultSocketSessionConfig) acceptor.getSessionConfig()).setTcpNoDelay(true);
-
-        KeepAliveFilter keepAliveFilter = new KeepAliveFilter(this, IdleStatus.WRITER_IDLE);
-        keepAliveFilter.setRequestInterval(IDLE_TIME);
-        keepAliveFilter.setRequestTimeout(TIME_OUT);
-        keepAliveFilter.setForwardEvent(true);
-
-        acceptor.getFilterChain().addLast("executor", new ExecutorFilter());
-        acceptor.getFilterChain().addLast("logger", new LoggingFilter());
-        acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(new ServerMessageCodecFactory()));
-        acceptor.getFilterChain().addLast("heartbeat", keepAliveFilter);
-        acceptor.setHandler(this);
-        acceptor.bind(new InetSocketAddress(port));
+        bootstrap.bind(port);
     }
 
-    public void unbind() {
-        acceptor.unbind();
+    public void channelRegistered(ChannelHandlerContext ctx) {
+        //channels.add(ctx.channel());
+        channels.put(ctx.channel().id().asLongText(), ctx.channel());
+        logger.info("sessionCreated()... from " + ctx.channel().remoteAddress() + " nid:" + ctx.channel().id().asShortText());
     }
 
+    protected void channelRead0(ChannelHandlerContext ctx, SentBody body) throws Exception {
 
-    public void sessionCreated(IoSession session) {
-        logger.warn("sessionCreated()... from " + session.getRemoteAddress() + " nid:" + session.getId());
-    }
-
-    public void messageReceived(IoSession ios, Object message) {
-
-        SentBody body = (SentBody) message;
-
-
+        CIMSession cimSession = new CIMSession(ctx.channel());
         CIMRequestHandler handler = handlers.get(body.getKey());
         if (handler == null) {
 
@@ -103,13 +100,13 @@ public class CIMNioSocketAcceptor extends IoHandlerAdapter implements KeepAliveM
             reply.setKey(body.getKey());
             reply.setCode(CIMConstant.ReturnCode.CODE_404);
             reply.setMessage("KEY:" + body.getKey() + "  not defined on server");
-            ios.write(reply);
+            cimSession.write(reply);
 
         } else {
-            ReplyBody reply = handler.process(new CIMSession(ios), body);
+            ReplyBody reply = handler.process(cimSession, body);
             if (reply != null) {
                 reply.setKey(body.getKey());
-                ios.write(reply);
+                cimSession.write(reply);
             }
         }
 
@@ -118,11 +115,12 @@ public class CIMNioSocketAcceptor extends IoHandlerAdapter implements KeepAliveM
 
     /**
      */
-    public void sessionClosed(IoSession session) {
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 
-        CIMSession cimSession = new CIMSession(session);
+        CIMSession cimSession = new CIMSession(ctx.channel());
+        channels.remove(ctx.channel().id().asLongText());
 
-        logger.warn("sessionClosed()... from " + session.getRemoteAddress() + " nid:" + cimSession.getNid() + ",isConnected:" + session.isConnected());
+        logger.warn("sessionClosed()... from " + ctx.channel().remoteAddress() + " nid:" + cimSession.getNid() + ",isConnected:" + ctx.channel().isActive());
         CIMRequestHandler handler = handlers.get(CIMSESSION_CLOSED_HANDLER_KEY);
         if (handler != null) {
             handler.process(cimSession, null);
@@ -131,59 +129,39 @@ public class CIMNioSocketAcceptor extends IoHandlerAdapter implements KeepAliveM
 
     /**
      */
-    public void sessionIdle(IoSession session, IdleStatus status) {
-        logger.warn("sessionIdle()... from " + session.getRemoteAddress() + " nid:" + session.getId());
-    }
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (evt instanceof IdleStateEvent && ((IdleStateEvent) evt).state().equals(IdleState.WRITER_IDLE)) {
+            ctx.channel().attr(AttributeKey.valueOf(CIMConstant.HEARTBEAT_KEY)).set(System.currentTimeMillis());
+            ctx.channel().writeAndFlush(HeartbeatRequest.getInstance());
+            logger.debug(IdleState.WRITER_IDLE + "... from " + ctx.channel().remoteAddress() + " nid:" + ctx.channel().id().asShortText());
 
-    /**
-     */
-    public void exceptionCaught(IoSession session, Throwable cause) {
-
-        logger.error("exceptionCaught()... from " + session.getRemoteAddress() + " isConnected:" + session.isConnected() + " nid:" + session.getId(), cause);
-        session.closeNow();
-    }
-
-    /**
-     */
-    public void messageSent(IoSession session, Object message) throws Exception {
-    }
-
-
-    @Override
-    public Object getRequest(IoSession session) {
-        return HeartbeatRequest.getInstance();
-    }
-
-    @Override
-    public Object getResponse(IoSession arg0, Object arg1) {
-        return null;
-    }
-
-    @Override
-    public boolean isRequest(IoSession arg0, Object arg1) {
-        return false;
-    }
-
-    @Override
-    public boolean isResponse(IoSession arg0, Object arg1) {
-        return arg1 instanceof HeartbeatResponse;
-    }
-
-    public Map<Long, IoSession> getManagedSessions() {
-        return acceptor.getManagedSessions();
-    }
-
-    public IoSession getManagedSession(Long nid) {
-        if (nid == null) {
-            return null;
         }
 
-        return getManagedSessions().get(nid);
+        //如果心跳请求发出30秒内没收到响应，则关闭连接
+        if (evt instanceof IdleStateEvent && ((IdleStateEvent) evt).state().equals(IdleState.READER_IDLE)) {
+
+            logger.debug(IdleState.READER_IDLE + "... from " + ctx.channel().remoteAddress() + " nid:" + ctx.channel().id().asShortText());
+            Long lastTime = (Long) ctx.channel().attr(AttributeKey.valueOf(CIMConstant.HEARTBEAT_KEY)).get();
+            if (lastTime != null && System.currentTimeMillis() - lastTime >= PING_TIME_OUT) {
+                ctx.channel().close();
+            }
+
+            ctx.channel().attr(AttributeKey.valueOf(CIMConstant.HEARTBEAT_KEY)).set(null);
+        }
     }
 
-    public void setAcceptor(IoAcceptor acceptor) {
-        this.acceptor = acceptor;
+    /**
+     */
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+
+        logger.error("exceptionCaught()... from " + ctx.channel().remoteAddress() + " isConnected:" + ctx.channel().isActive() + " nid:" + ctx.channel().id().asShortText(), cause);
+        ctx.channel().close();
     }
+
+//    public Channel getChannel(){
+//        DefaultChannelGroup
+//    }
+
 
     public void setPort(int port) {
         this.port = port;

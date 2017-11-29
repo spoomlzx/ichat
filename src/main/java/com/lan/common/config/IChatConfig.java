@@ -2,6 +2,7 @@ package com.lan.common.config;
 
 import com.farsunset.cim.sdk.server.handler.CIMNioSocketAcceptor;
 import com.farsunset.cim.sdk.server.handler.CIMRequestHandler;
+import com.farsunset.cim.sdk.server.handler.HeartbeatHandler;
 import com.lan.ichat.im.handler.BindHandler;
 import com.lan.ichat.im.handler.SessionClosedHandler;
 import com.lan.ichat.im.manager.IChatSessionManager;
@@ -33,12 +34,13 @@ public class IChatConfig {
      * @return
      * @throws IOException
      */
-    @Bean(destroyMethod = "unbind")
+    @Bean
     public CIMNioSocketAcceptor iChatNioAcceptor() throws IOException {
         CIMNioSocketAcceptor acceptor = new CIMNioSocketAcceptor();
         acceptor.setPort(23456);
         HashMap<String, CIMRequestHandler> handlers = new HashMap<>();
         handlers.put("client_bind", bindHandler);
+        handlers.put("client_heartbeat", new HeartbeatHandler());
         handlers.put("client_closed", sessionClosedHandler);
         acceptor.setHandlers(handlers);
         acceptor.bind();
