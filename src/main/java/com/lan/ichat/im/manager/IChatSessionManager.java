@@ -35,8 +35,7 @@ public class IChatSessionManager implements SessionManager {
     @Override
     public void add(CIMSession session) {
         session.setGid(StringUtils.getUUID());
-        sessionMapper.delete(session.getAccount());
-        sessionMapper.insert(session);
+        sessionMapper.update(session);
         String key = CACHE_PREFIX + session.getAccount();
         sessionService.set(key, session);
     }

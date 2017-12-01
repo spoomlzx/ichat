@@ -53,10 +53,10 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
     private int port;
 
     //连接空闲时间
-    public static final int READ_IDLE_TIME = 150;//秒
+    public static final int READ_IDLE_TIME = 150;//秒,150
 
     //连接空闲时间
-    public static final int WRITE_IDLE_TIME = 120;//秒
+    public static final int WRITE_IDLE_TIME = 120;//秒,120
 
     public static final int PING_TIME_OUT = 30;//心跳响应 超时为30秒
 
@@ -88,17 +88,14 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
     }
 
     protected void channelRead0(ChannelHandlerContext ctx, SentBody body) throws Exception {
-
         CIMSession cimSession = new CIMSession(ctx.channel());
         CIMRequestHandler handler = handlers.get(body.getKey());
         if (handler == null) {
-
             ReplyBody reply = new ReplyBody();
             reply.setKey(body.getKey());
             reply.setCode(CIMConstant.ReturnCode.CODE_404);
             reply.setMessage("KEY:" + body.getKey() + "  not defined on server");
             cimSession.write(reply);
-
         } else {
             ReplyBody reply = handler.process(cimSession, body);
             if (reply != null) {
@@ -109,9 +106,9 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
     }
 
     /**
+     * channel掉线
      */
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-
         CIMSession cimSession = new CIMSession(ctx.channel());
         logger.warn("sessionClosed()... from " + ctx.channel().remoteAddress() + " nid:" + cimSession.getNid() + ",isConnected:" + ctx.channel().isActive());
         CIMRequestHandler handler = handlers.get(CIMSESSION_CLOSED_HANDLER_KEY);
@@ -127,18 +124,15 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
             ctx.channel().attr(AttributeKey.valueOf(CIMConstant.HEARTBEAT_KEY)).set(System.currentTimeMillis());
             ctx.channel().writeAndFlush(HeartbeatRequest.getInstance());
             logger.debug(IdleState.WRITER_IDLE + "... from " + ctx.channel().remoteAddress() + " nid:" + ctx.channel().id().asShortText());
-
         }
 
         //如果心跳请求发出30秒内没收到响应，则关闭连接
         if (evt instanceof IdleStateEvent && ((IdleStateEvent) evt).state().equals(IdleState.READER_IDLE)) {
-
             logger.debug(IdleState.READER_IDLE + "... from " + ctx.channel().remoteAddress() + " nid:" + ctx.channel().id().asShortText());
             Long lastTime = (Long) ctx.channel().attr(AttributeKey.valueOf(CIMConstant.HEARTBEAT_KEY)).get();
             if (lastTime != null && System.currentTimeMillis() - lastTime >= PING_TIME_OUT) {
                 ctx.channel().close();
             }
-
             ctx.channel().attr(AttributeKey.valueOf(CIMConstant.HEARTBEAT_KEY)).set(null);
         }
     }

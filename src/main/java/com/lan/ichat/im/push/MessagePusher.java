@@ -28,11 +28,6 @@ public class MessagePusher {
     @Async
     public void push(Message msg) {
         CIMSession session = sessionManager.get(msg.getReceiver());
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         logger.info("thread name: " + Thread.currentThread().getName() + " id: " + Thread.currentThread().getId());
         this.push(msg, session);
     }
