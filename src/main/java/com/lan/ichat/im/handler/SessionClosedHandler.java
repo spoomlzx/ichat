@@ -27,6 +27,7 @@ public class SessionClosedHandler implements CIMRequestHandler {
     
     @Override
     public ReplyBody process(CIMSession session, SentBody message) {
+        logger.info("client session closed handler");
         Object account = session.getAttribute(CIMConstant.SESSION_KEY);
         if (account == null) {
             return null;

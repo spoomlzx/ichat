@@ -21,39 +21,12 @@
  */
 package com.farsunset.cim.sdk.server.model;
 
-import com.farsunset.cim.sdk.server.constant.CIMConstant;
-
-import java.io.Serializable;
-
 /**
- * 客户端心跳响应
+ * 需要向另一端发送的结构体
  */
-public class HeartbeatResponse implements Serializable, Protobufable {
-    private static final long serialVersionUID = 1L;
-    private static final String TAG = "CLIENT_HEARTBEAT_RESPONSE";
-    private static final String CMD_HEARTBEAT_RESPONSE = "CR";
-    private static HeartbeatResponse object = new HeartbeatResponse();
+public interface Protobufable {
 
-    private HeartbeatResponse() {
+    byte[] getByteArray();
 
-    }
-
-    public static HeartbeatResponse getInstance() {
-        return object;
-    }
-
-    @Override
-    public byte[] getByteArray() {
-        return CMD_HEARTBEAT_RESPONSE.getBytes();
-    }
-
-    public String toString() {
-        return TAG;
-    }
-
-    @Override
-    public byte getType() {
-        return CIMConstant.ProtobufType.C_H_RS;
-    }
-
+    byte getType();
 }

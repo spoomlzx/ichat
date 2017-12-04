@@ -29,8 +29,11 @@ import com.farsunset.cim.sdk.server.model.ReplyBody;
 import com.farsunset.cim.sdk.server.model.SentBody;
 import com.farsunset.cim.sdk.server.session.CIMSession;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
 import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -45,27 +48,18 @@ import java.util.HashMap;
 
 @Sharable
 public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> {
-    public final static String WEBSOCKET_HANDLER_KEY = "client_websocket_handshake";
-    private final static String CIMSESSION_CLOSED_HANDLER_KEY = "client_cimsession_closed";
+    private final static String CIMSESSION_CLOSED_HANDLER_KEY = "client_closed";
     private Logger logger = Logger.getLogger(CIMNioSocketAcceptor.class);
     private HashMap<String, CIMRequestHandler> handlers = new HashMap<String, CIMRequestHandler>();
-
     private int port;
 
     //连接空闲时间
-    public static final int READ_IDLE_TIME = 150;//秒,150
-
+    public static final int READ_IDLE_TIME = 150;//秒
     //连接空闲时间
-    public static final int WRITE_IDLE_TIME = 120;//秒,120
-
+    public static final int WRITE_IDLE_TIME = 120;//秒
     public static final int PING_TIME_OUT = 30;//心跳响应 超时为30秒
 
     public void bind() throws IOException {
-
-        /**
-         * 预制websocket握手请求的处理
-         */
-        handlers.put(WEBSOCKET_HANDLER_KEY, new WebsocketHandler());
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(new NioEventLoopGroup(), new NioEventLoopGroup());
         bootstrap.childOption(ChannelOption.TCP_NODELAY, true);
@@ -79,7 +73,6 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
                 ch.pipeline().addLast(CIMNioSocketAcceptor.this);
             }
         });
-
         bootstrap.bind(port);
     }
 
@@ -106,7 +99,6 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
     }
 
     /**
-     * channel掉线
      */
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         CIMSession cimSession = new CIMSession(ctx.channel());
@@ -140,7 +132,6 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
     /**
      */
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-
         logger.error("exceptionCaught()... from " + ctx.channel().remoteAddress() + " isConnected:" + ctx.channel().isActive() + " nid:" + ctx.channel().id().asShortText(), cause);
         ctx.channel().close();
     }

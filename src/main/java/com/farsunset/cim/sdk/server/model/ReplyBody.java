@@ -1,41 +1,39 @@
 /**
  * Copyright 2013-2023 Xia Jun(3979434@qq.com).
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- ***************************************************************************************
- *                                                                                     *
- *                        Website : http://www.farsunset.com                           *
- *                                                                                     *
- ***************************************************************************************
+ * <p>
+ * **************************************************************************************
+ * *
+ * Website : http://www.farsunset.com                           *
+ * *
+ * **************************************************************************************
  */
 package com.farsunset.cim.sdk.server.model;
 
+import com.farsunset.cim.sdk.server.constant.CIMConstant;
+import com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto;
+
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.alibaba.fastjson.JSONObject;
-import com.farsunset.cim.sdk.server.constant.CIMConstant;
-import com.farsunset.cim.sdk.server.model.feature.EncodeFormatable;
-import com.farsunset.cim.sdk.server.model.proto.ReplyBodyProto;
 /**
  * 请求应答对象
  *
  */
-public class ReplyBody implements Serializable, EncodeFormatable {
+public class ReplyBody implements Serializable, Protobufable {
 
     private static final long serialVersionUID = 1L;
 
@@ -142,7 +140,7 @@ public class ReplyBody implements Serializable, EncodeFormatable {
     }
 
     @Override
-    public byte[] getProtobufBody() {
+    public byte[] getByteArray() {
         ReplyBodyProto.Model.Builder builder = ReplyBodyProto.Model.newBuilder();
         builder.setCode(code);
         if (message != null) {
@@ -158,25 +156,9 @@ public class ReplyBody implements Serializable, EncodeFormatable {
     }
 
     @Override
-    public byte getDataType() {
+    public byte getType() {
+        // TODO Auto-generated method stub
         return CIMConstant.ProtobufType.REPLYBODY;
     }
 
-    @Override
-    public byte[] getJSONBody() {
-        JSONObject json = new JSONObject();
-        json.put("contentType", getClass().getSimpleName());
-        json.put("key", key);
-        json.put("code", code);
-        json.put("message", message);
-        json.put("data", data);
-        String data = json.toJSONString();
-        try {
-            return data.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

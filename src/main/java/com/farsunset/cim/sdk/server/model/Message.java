@@ -21,24 +21,24 @@
  */
 package com.farsunset.cim.sdk.server.model;
 
-import com.alibaba.fastjson.JSONObject;
-import com.farsunset.cim.sdk.server.constant.CIMConstant;
-import com.farsunset.cim.sdk.server.model.feature.EncodeFormatable;
-import com.farsunset.cim.sdk.server.model.proto.MessageProto;
-
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
+
+import com.farsunset.cim.sdk.server.constant.CIMConstant;
+import com.farsunset.cim.sdk.server.model.proto.MessageProto;
 
 /**
  * 消息对象
  */
-public class Message implements Serializable, EncodeFormatable {
+public class Message implements Serializable, Protobufable {
 
     private static final long serialVersionUID = 1L;
+
+
     /**
      * 消息类型，用户自定义消息类别
      */
     private String mid;
+
 
     /**
      * 消息类型，用户自定义消息类别
@@ -157,6 +157,7 @@ public class Message implements Serializable, EncodeFormatable {
 
     @Override
     public String toString() {
+
         StringBuffer buffer = new StringBuffer();
         buffer.append("#Message#").append("\n");
         buffer.append("mid:").append(mid).append("\n");
@@ -176,7 +177,7 @@ public class Message implements Serializable, EncodeFormatable {
     }
 
     @Override
-    public byte[] getProtobufBody() {
+    public byte[] getByteArray() {
         MessageProto.Model.Builder builder = MessageProto.Model.newBuilder();
         builder.setMid(mid);
         builder.setAction(action);
@@ -203,29 +204,9 @@ public class Message implements Serializable, EncodeFormatable {
     }
 
     @Override
-    public byte[] getJSONBody() {
-        JSONObject json = new JSONObject();
-        json.put("contentType", getClass().getSimpleName());
-        json.put("mid", mid);
-        json.put("action", action);
-        json.put("title", title);
-        json.put("content", content);
-        json.put("extra", extra);
-        json.put("sender", sender);
-        json.put("receiver", receiver);
-        json.put("format", format);
-        json.put("timestamp", timestamp);
-        String data = json.toJSONString();
-        try {
-            return data.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public byte getDataType() {
+    public byte getType() {
         return CIMConstant.ProtobufType.MESSAGE;
     }
+
+
 }
