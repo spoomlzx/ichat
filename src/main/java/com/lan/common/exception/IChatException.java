@@ -11,6 +11,7 @@ import com.lan.common.util.IChatStatus;
  * @date 2017/10/31
  */
 public class IChatException extends RuntimeException {
+    private static final long serialVersionUID = 1340912656852504435L;
 
     private String msg = IChatStatus.FAILURE.getInfo();
     private int code = IChatStatus.FAILURE.code();

@@ -1,11 +1,11 @@
 package org.spoom.im.sdk.server.model;
 
-import org.spoom.im.sdk.android.IMConstant;
+import org.spoom.im.sdk.server.IMConstant;
 
 import java.io.Serializable;
 
 /**
- * package org.spoom.im.sdk.android.model
+ * package org.spoom.im.sdk.server.model
  *
  * @author lanzongxiao
  * @date 05/12/2017

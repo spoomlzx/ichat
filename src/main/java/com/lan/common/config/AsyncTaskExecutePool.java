@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import java.lang.reflect.Method;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -44,12 +43,9 @@ public class AsyncTaskExecutePool implements AsyncConfigurer {
     // 异步任务中异常处理
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-        return new AsyncUncaughtExceptionHandler() {
-            @Override
-            public void handleUncaughtException(Throwable arg0, Method arg1, Object... arg2) {
-                log.error("==========================" + arg0.getMessage() + "=======================", arg0);
-                log.error("exception method:" + arg1.getName());
-            }
+        return (arg0, arg1, arg2) -> {
+            log.error("==========================" + arg0.getMessage() + "=======================", arg0);
+            log.error("exception method:" + arg1.getName());
         };
     }
 }

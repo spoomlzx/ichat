@@ -50,7 +50,7 @@ import java.util.HashMap;
 public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> {
     private final static String CIMSESSION_CLOSED_HANDLER_KEY = "client_closed";
     private Logger logger = Logger.getLogger(CIMNioSocketAcceptor.class);
-    private HashMap<String, CIMRequestHandler> handlers = new HashMap<String, CIMRequestHandler>();
+    private HashMap<String, CIMRequestHandler> handlers = new HashMap<>();
     private int port;
 
     //连接空闲时间
@@ -64,6 +64,7 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
         bootstrap.group(new NioEventLoopGroup(), new NioEventLoopGroup());
         bootstrap.childOption(ChannelOption.TCP_NODELAY, true);
         bootstrap.channel(NioServerSocketChannel.class);
+
         bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
             @Override
             public void initChannel(SocketChannel ch) throws Exception {

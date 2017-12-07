@@ -22,8 +22,8 @@ public interface IMConstant {
         byte HB_REQUEST = 0;
         byte HB_RESPONSE = 1;
         byte MESSAGE = 2;
-        byte REQUESTMSG = 3;
-        byte RESPONSEMSG = 4;
+        byte CALL_MESSAGE = 3;
+        byte REPLY = 4;
     }
 
     interface Protobuf {
@@ -40,14 +40,5 @@ public interface IMConstant {
 
     interface MessageAction {
         int ACTION_FORCEOFFLINE = 999;
-    }
-
-    interface ServiceType {
-        int TYPE_INIT = 0;
-        int TYPE_LOGIN = 1;
-        int TYPE_LOGOUT = 2;
-        int TYPE_CHAT = 3;
-        int TYPE_CHAT_CMD = 4;
-        int TYPE_AWAKE = 5;
     }
 }

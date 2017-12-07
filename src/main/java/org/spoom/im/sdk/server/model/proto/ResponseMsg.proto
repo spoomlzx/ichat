@@ -1,9 +1,0 @@
-syntax = "proto3";
-package org.spoom.im.sdk.server.model.proto;
-option java_outer_classname = "ResponseMsgProto";
-message ResponseMsg {
-    int32 chatType = 1;
-    int32 code = 2;
-    string body = 3;
-    int64 time = 4;
-}
