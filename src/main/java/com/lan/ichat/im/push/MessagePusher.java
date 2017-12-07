@@ -47,6 +47,7 @@ public class MessagePusher {
     public void push(Message msg, CIMSession session) {
         if (session != null && session.isConnected()) {
             session.write(msg);
+            // 05/12/2017 TODO save this msg to database
             logger.info("send finish");
         }
     }

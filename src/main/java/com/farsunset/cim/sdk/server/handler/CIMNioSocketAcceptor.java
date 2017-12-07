@@ -54,10 +54,10 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
     private int port;
 
     //连接空闲时间
-    public static final int READ_IDLE_TIME = 150;//秒
+    public static final int READ_IDLE_TIME = 30;//秒
     //连接空闲时间
-    public static final int WRITE_IDLE_TIME = 120;//秒
-    public static final int PING_TIME_OUT = 30;//心跳响应 超时为30秒
+    public static final int WRITE_IDLE_TIME = 20;//秒
+    public static final int PING_TIME_OUT = 15;//心跳响应 超时为30秒
 
     public void bind() throws IOException {
         ServerBootstrap bootstrap = new ServerBootstrap();
@@ -115,12 +115,12 @@ public class CIMNioSocketAcceptor extends SimpleChannelInboundHandler<SentBody> 
         if (evt instanceof IdleStateEvent && ((IdleStateEvent) evt).state().equals(IdleState.WRITER_IDLE)) {
             ctx.channel().attr(AttributeKey.valueOf(CIMConstant.HEARTBEAT_KEY)).set(System.currentTimeMillis());
             ctx.channel().writeAndFlush(HeartbeatRequest.getInstance());
-            logger.debug(IdleState.WRITER_IDLE + "... from " + ctx.channel().remoteAddress() + " nid:" + ctx.channel().id().asShortText());
+            logger.warn(IdleState.WRITER_IDLE + "... from " + ctx.channel().remoteAddress() + " nid:" + ctx.channel().id().asShortText());
         }
 
-        //如果心跳请求发出30秒内没收到响应，则关闭连接
+        //如果心跳请求发出20秒内没收到响应，则关闭连接
         if (evt instanceof IdleStateEvent && ((IdleStateEvent) evt).state().equals(IdleState.READER_IDLE)) {
-            logger.debug(IdleState.READER_IDLE + "... from " + ctx.channel().remoteAddress() + " nid:" + ctx.channel().id().asShortText());
+            logger.warn(IdleState.READER_IDLE + "... from " + ctx.channel().remoteAddress() + " nid:" + ctx.channel().id().asShortText());
             Long lastTime = (Long) ctx.channel().attr(AttributeKey.valueOf(CIMConstant.HEARTBEAT_KEY)).get();
             if (lastTime != null && System.currentTimeMillis() - lastTime >= PING_TIME_OUT) {
                 ctx.channel().close();

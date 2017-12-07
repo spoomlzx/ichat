@@ -26,7 +26,7 @@ public class IChatConfig {
     private SessionClosedHandler sessionClosedHandler;
 
     /**
-     * 由于bindHandler中使用了sessionManager，故只能在CIMNioSocketAcceptor初始化完成之后注入给sessionManager
+     * 注册处理消息的handler
      *
      * @return
      * @throws IOException
