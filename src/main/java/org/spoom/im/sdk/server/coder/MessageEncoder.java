@@ -1,11 +1,11 @@
 package org.spoom.im.sdk.server.coder;
 
-import com.farsunset.cim.sdk.server.model.Protobufable;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.apache.log4j.Logger;
 import org.spoom.im.sdk.server.IMConstant;
+import org.spoom.im.sdk.server.model.Protobufable;
 
 /**
  * package org.spoom.im.sdk.server.coder

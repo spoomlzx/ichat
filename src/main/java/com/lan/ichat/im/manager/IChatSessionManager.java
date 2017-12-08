@@ -1,10 +1,9 @@
 package com.lan.ichat.im.manager;
 
-import com.farsunset.cim.sdk.server.session.CIMSession;
-import com.farsunset.cim.sdk.server.session.SessionManager;
-import com.lan.common.util.StringUtils;
 import com.lan.ichat.dao.SessionMapper;
 import com.lan.ichat.service.SessionService;
+import org.spoom.im.sdk.server.IMSession;
+import org.spoom.im.sdk.server.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,16 +24,9 @@ public class IChatSessionManager implements SessionManager {
     @Autowired
     private SessionMapper sessionMapper;
 
-    @Override
-    public CIMSession get(String account) {
-        String key = CACHE_PREFIX + account;
-        CIMSession session = sessionService.get(key);
-        return session;
-    }
 
     @Override
-    public void add(CIMSession session) {
-        session.setGid(StringUtils.getUUID());
+    public void add(IMSession session) {
         sessionMapper.delete(session.getAccount());
         sessionMapper.insert(session);
         String key = CACHE_PREFIX + session.getAccount();
@@ -42,16 +34,21 @@ public class IChatSessionManager implements SessionManager {
     }
 
     @Override
-    public void update(CIMSession session) {
+    public void update(IMSession session) {
         sessionMapper.update(session);
         String key = CACHE_PREFIX + session.getAccount();
         sessionService.set(key, session);
     }
 
     @Override
-    public List<CIMSession> queryAll() {
-        List<CIMSession> sessions = sessionMapper.getSessionList();
-        return sessions;
+    public IMSession get(String account) {
+        String key = CACHE_PREFIX + account;
+        return sessionService.get(key);
+    }
+
+    @Override
+    public List<IMSession> queryAll() {
+        return sessionMapper.getSessionList();
     }
 
     @Override

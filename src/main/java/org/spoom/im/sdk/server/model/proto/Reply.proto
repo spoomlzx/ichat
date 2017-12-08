@@ -3,7 +3,7 @@ package org.spoom.im.sdk.server.model.proto;
 option java_outer_classname = "ReplyProto";
 message Reply {
     int32 callType = 1;
-    string code = 2;
+    int32 code = 2;
     string message = 3;
     int64 time =4;
     map<string,string> data =5;

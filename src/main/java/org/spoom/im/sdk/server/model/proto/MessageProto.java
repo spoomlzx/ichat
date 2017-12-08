@@ -19,9 +19,14 @@ public final class MessageProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int64 msgId = 1;</code>
+     * <code>string msgId = 1;</code>
      */
-    long getMsgId();
+    String getMsgId();
+    /**
+     * <code>string msgId = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getMsgIdBytes();
 
     /**
      * <pre>
@@ -95,7 +100,7 @@ public final class MessageProto {
       super(builder);
     }
     private Message() {
-      msgId_ = 0L;
+      msgId_ = "";
       chatType_ = 0;
       format_ = 0;
       from_ = "";
@@ -133,9 +138,10 @@ public final class MessageProto {
               }
               break;
             }
-            case 8: {
+            case 10: {
+              String s = input.readStringRequireUtf8();
 
-              msgId_ = input.readInt64();
+              msgId_ = s;
               break;
             }
             case 16: {
@@ -202,12 +208,37 @@ public final class MessageProto {
     }
 
     public static final int MSGID_FIELD_NUMBER = 1;
-    private long msgId_;
+    private volatile Object msgId_;
     /**
-     * <code>int64 msgId = 1;</code>
+     * <code>string msgId = 1;</code>
      */
-    public long getMsgId() {
-      return msgId_;
+    public String getMsgId() {
+      Object ref = msgId_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        msgId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string msgId = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMsgIdBytes() {
+      Object ref = msgId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        msgId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int CHATTYPE_FIELD_NUMBER = 2;
@@ -389,8 +420,8 @@ public final class MessageProto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (msgId_ != 0L) {
-        output.writeInt64(1, msgId_);
+      if (!getMsgIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, msgId_);
       }
       if (chatType_ != 0) {
         output.writeInt32(2, chatType_);
@@ -421,9 +452,8 @@ public final class MessageProto {
       if (size != -1) return size;
 
       size = 0;
-      if (msgId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, msgId_);
+      if (!getMsgIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, msgId_);
       }
       if (chatType_ != 0) {
         size += com.google.protobuf.CodedOutputStream
@@ -465,8 +495,8 @@ public final class MessageProto {
       MessageProto.Message other = (MessageProto.Message) obj;
 
       boolean result = true;
-      result = result && (getMsgId()
-          == other.getMsgId());
+      result = result && getMsgId()
+          .equals(other.getMsgId());
       result = result && (getChatType()
           == other.getChatType());
       result = result && (getFormat()
@@ -493,8 +523,7 @@ public final class MessageProto {
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + MSGID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getMsgId());
+      hash = (53 * hash) + getMsgId().hashCode();
       hash = (37 * hash) + CHATTYPE_FIELD_NUMBER;
       hash = (53 * hash) + getChatType();
       hash = (37 * hash) + FORMAT_FIELD_NUMBER;
@@ -639,7 +668,7 @@ public final class MessageProto {
       }
       public Builder clear() {
         super.clear();
-        msgId_ = 0L;
+        msgId_ = "";
 
         chatType_ = 0;
 
@@ -726,8 +755,9 @@ public final class MessageProto {
 
       public Builder mergeFrom(MessageProto.Message other) {
         if (other == MessageProto.Message.getDefaultInstance()) return this;
-        if (other.getMsgId() != 0L) {
-          setMsgId(other.getMsgId());
+        if (!other.getMsgId().isEmpty()) {
+          msgId_ = other.msgId_;
+          onChanged();
         }
         if (other.getChatType() != 0) {
           setChatType(other.getChatType());
@@ -781,28 +811,71 @@ public final class MessageProto {
         return this;
       }
 
-      private long msgId_ ;
+      private Object msgId_ = "";
       /**
-       * <code>int64 msgId = 1;</code>
+       * <code>string msgId = 1;</code>
        */
-      public long getMsgId() {
-        return msgId_;
+      public String getMsgId() {
+        Object ref = msgId_;
+        if (!(ref instanceof String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          msgId_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
       }
       /**
-       * <code>int64 msgId = 1;</code>
+       * <code>string msgId = 1;</code>
        */
-      public Builder setMsgId(long value) {
+      public com.google.protobuf.ByteString
+          getMsgIdBytes() {
+        Object ref = msgId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          msgId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string msgId = 1;</code>
+       */
+      public Builder setMsgId(
+          String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
 
         msgId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 msgId = 1;</code>
+       * <code>string msgId = 1;</code>
        */
       public Builder clearMsgId() {
 
-        msgId_ = 0L;
+        msgId_ = getDefaultInstance().getMsgId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string msgId = 1;</code>
+       */
+      public Builder setMsgIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+
+        msgId_ = value;
         onChanged();
         return this;
       }
@@ -1236,7 +1309,7 @@ public final class MessageProto {
   static {
     String[] descriptorData = {
       "\n\rMessage.proto\022#org.spoom.im.sdk.server" +
-      ".model.proto\"\177\n\007Message\022\r\n\005msgId\030\001 \001(\003\022\020" +
+      ".model.proto\"\177\n\007Message\022\r\n\005msgId\030\001 \001(\t\022\020" +
       "\n\010chatType\030\002 \001(\005\022\016\n\006format\030\003 \001(\005\022\014\n\004from" +
       "\030\004 \001(\t\022\n\n\002to\030\005 \001(\t\022\014\n\004body\030\006 \001(\t\022\r\n\005extr" +
       "a\030\007 \001(\t\022\014\n\004time\030\t \001(\003B\016B\014MessageProtob\006p" +

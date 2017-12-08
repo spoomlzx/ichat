@@ -16,7 +16,7 @@ public class Message implements Protobufable, Serializable {
     private static final long serialVersionUID = 3015312422291883506L;
 
     // message id
-    private long msgId;
+    private String msgId;
     // message type 标记消息类型，如：群聊信息、点对点消息
     private int chatType;
     // 标记content格式，可以为text、json、xml等
@@ -66,11 +66,11 @@ public class Message implements Protobufable, Serializable {
                 "time:" + time;
     }
 
-    public long getMsgId() {
+    public String getMsgId() {
         return msgId;
     }
 
-    public void setMsgId(long msgId) {
+    public void setMsgId(String msgId) {
         this.msgId = msgId;
     }
 

@@ -1,11 +1,11 @@
-package org.spoom.im.sdk.server.session;
+package org.spoom.im.sdk.server;
 
 import io.netty.channel.Channel;
 
 import java.io.Serializable;
 
 /**
- * package org.spoom.im.sdk.server.session
+ * package org.spoom.im.sdk.server
  *
  * @author lanzongxiao
  * @date 08/12/2017
@@ -24,7 +24,7 @@ public class IMSession implements Serializable {
     private String systemVersion;//终端系统版本
     private String packageName;//终端应用包名
     private Long bindTime;//登录时间
-    private int status;// 状态
+    private Boolean status;// 状态
 
     public IMSession(Channel channel) {
         this.channel = channel;
@@ -67,6 +67,14 @@ public class IMSession implements Serializable {
             return hashCode() == o.hashCode();
         }
         return false;
+    }
+
+    public Channel getChannel() {
+        return channel;
+    }
+
+    public void setChannel(Channel channel) {
+        this.channel = channel;
     }
 
     public String getId() {
@@ -149,11 +157,11 @@ public class IMSession implements Serializable {
         this.bindTime = bindTime;
     }
 
-    public int getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }

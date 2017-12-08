@@ -4,94 +4,70 @@
 
     <!--auto generated Code-->
     <sql id="Base_Column_List">
-        `gid`,
-        `nid`,
+        `id`,
         `device_id`,
         `host`,
         `account`,
-        `channel`,
+        `device_type`,
         `device_model`,
         `client_version`,
         `system_version`,
         `package_name`,
         `bind_time`,
-        `heartbeat`,
-        `longitude`,
-        `latitude`,
-        `location`,
-        `apns_able`,
         `status`
     </sql>
 
-    <select id="getByAccount" resultType="com.farsunset.cim.sdk.server.session.CIMSession">
+    <select id="getByAccount" resultType="org.spoom.im.sdk.server.IMSession">
         SELECT
         <include refid="Base_Column_List"/>
         FROM ichat_session WHERE account=#{account}
     </select>
 
-    <select id="getSessionList" resultType="com.farsunset.cim.sdk.server.session.CIMSession">
+    <select id="getSessionList" resultType="org.spoom.im.sdk.server.IMSession">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM ichat_session WHERE status=0
+        FROM ichat_session WHERE status=1
     </select>
 
     <!--auto generated Code-->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="session.gid">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="iMSession.id">
         INSERT INTO ichat_session
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="session.gid!=null">`gid`,</if>
-            <if test="session.nid!=null">`nid`,</if>
-            <if test="session.deviceId!=null">`device_id`,</if>
-            <if test="session.host!=null">`host`,</if>
-            <if test="session.account!=null">`account`,</if>
-            <if test="session.channel!=null">`channel`,</if>
-            <if test="session.deviceModel!=null">`device_model`,</if>
-            <if test="session.clientVersion!=null">`client_version`,</if>
-            <if test="session.systemVersion!=null">`system_version`,</if>
-            <if test="session.packageName!=null">`package_name`,</if>
-            <if test="session.bindTime!=null">`bind_time`,</if>
-            <if test="session.heartbeat!=null">`heartbeat`,</if>
-            <if test="session.longitude!=null">`longitude`,</if>
-            <if test="session.latitude!=null">`latitude`,</if>
-            <if test="session.location!=null">`location`,</if>
-            <if test="session.apnsAble!=null">`apns_able`,</if>
-            <if test="session.status!=null">`status`,</if>
+            <if test="iMSession.id!=null">`id`,</if>
+            <if test="iMSession.deviceId!=null">`device_id`,</if>
+            <if test="iMSession.host!=null">`host`,</if>
+            <if test="iMSession.account!=null">`account`,</if>
+            <if test="iMSession.deviceType!=null">`device_type`,</if>
+            <if test="iMSession.deviceModel!=null">`device_model`,</if>
+            <if test="iMSession.clientVersion!=null">`client_version`,</if>
+            <if test="iMSession.systemVersion!=null">`system_version`,</if>
+            <if test="iMSession.packageName!=null">`package_name`,</if>
+            <if test="iMSession.bindTime!=null">`bind_time`,</if>
+            <if test="iMSession.status!=null">`status`,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="session.gid!=null">#{session.gid,jdbcType=VARCHAR},
+            <if test="iMSession.id!=null">#{iMSession.id,jdbcType=VARCHAR},
             </if>
-            <if test="session.nid!=null">#{session.nid,jdbcType=VARCHAR},
+            <if test="iMSession.deviceId!=null">#{iMSession.deviceId,jdbcType=VARCHAR},
             </if>
-            <if test="session.deviceId!=null">#{session.deviceId,jdbcType=VARCHAR},
+            <if test="iMSession.host!=null">#{iMSession.host,jdbcType=VARCHAR},
             </if>
-            <if test="session.host!=null">#{session.host,jdbcType=VARCHAR},
+            <if test="iMSession.account!=null">#{iMSession.account,jdbcType=VARCHAR},
             </if>
-            <if test="session.account!=null">#{session.account,jdbcType=VARCHAR},
+            <if test="iMSession.deviceType!=null">#{iMSession.deviceType,jdbcType=VARCHAR},
             </if>
-            <if test="session.channel!=null">#{session.channel,jdbcType=VARCHAR},
+            <if test="iMSession.deviceModel!=null">#{iMSession.deviceModel,jdbcType=VARCHAR},
             </if>
-            <if test="session.deviceModel!=null">#{session.deviceModel,jdbcType=VARCHAR},
+            <if test="iMSession.clientVersion!=null">#{iMSession.clientVersion,jdbcType=VARCHAR},
             </if>
-            <if test="session.clientVersion!=null">#{session.clientVersion,jdbcType=VARCHAR},
+            <if test="iMSession.systemVersion!=null">#{iMSession.systemVersion,jdbcType=VARCHAR},
             </if>
-            <if test="session.systemVersion!=null">#{session.systemVersion,jdbcType=VARCHAR},
+            <if test="iMSession.packageName!=null">#{iMSession.packageName,jdbcType=VARCHAR},
             </if>
-            <if test="session.packageName!=null">#{session.packageName,jdbcType=VARCHAR},
+            <if test="iMSession.bindTime!=null">#{iMSession.bindTime,jdbcType=BIGINT},
             </if>
-            <if test="session.bindTime!=null">#{session.bindTime,jdbcType=BIGINT},
-            </if>
-            <if test="session.heartbeat!=null">#{session.heartbeat,jdbcType=BIGINT},
-            </if>
-            <if test="session.longitude!=null">#{session.longitude,jdbcType=DOUBLE},
-            </if>
-            <if test="session.latitude!=null">#{session.latitude,jdbcType=DOUBLE},
-            </if>
-            <if test="session.location!=null">#{session.location,jdbcType=VARCHAR},
-            </if>
-            <if test="session.apnsAble!=null">#{session.apnsAble,jdbcType=INTEGER},
-            </if>
-            <if test="session.status!=null">#{session.status,jdbcType=INTEGER},
+            <if test="iMSession.status!=null">#{iMSession.status,jdbcType=TINYINT},
             </if>
         </trim>
     </insert>
@@ -100,32 +76,24 @@
     <update id="update">
         UPDATE ichat_session
         <set>
-            <if test="session.gid != null">`gid`= #{session.gid,jdbcType=VARCHAR},</if>
-            <if test="session.nid != null">`nid`= #{session.nid,jdbcType=BIGINT},</if>
-            <if test="session.deviceId != null">`device_id`= #{session.deviceId,jdbcType=VARCHAR},</if>
-            <if test="session.host != null">`host`= #{session.host,jdbcType=VARCHAR},</if>
-            <if test="session.account != null">`account`= #{session.account,jdbcType=VARCHAR},</if>
-            <if test="session.channel != null">`channel`= #{session.channel,jdbcType=VARCHAR},</if>
-            <if test="session.deviceModel != null">`device_model`= #{session.deviceModel,jdbcType=VARCHAR},</if>
-            <if test="session.clientVersion != null">`client_version`= #{session.clientVersion,jdbcType=VARCHAR},</if>
-            <if test="session.systemVersion != null">`system_version`= #{session.systemVersion,jdbcType=VARCHAR},</if>
-            <if test="session.packageName != null">`package_name`= #{session.packageName,jdbcType=VARCHAR},</if>
-            <if test="session.bindTime != null">`bind_time`= #{session.bindTime,jdbcType=BIGINT},</if>
-            <if test="session.heartbeat != null">`heartbeat`= #{session.heartbeat,jdbcType=BIGINT},</if>
-            <if test="session.longitude != null">`longitude`= #{session.longitude,jdbcType=DOUBLE},</if>
-            <if test="session.latitude != null">`latitude`= #{session.latitude,jdbcType=DOUBLE},</if>
-            <if test="session.location != null">`location`= #{session.location,jdbcType=VARCHAR},</if>
-            <if test="session.apnsAble != null">`apns_able`= #{session.apnsAble,jdbcType=INTEGER},</if>
-            <if test="session.status != null">`status`= #{session.status,jdbcType=INTEGER}</if>
+            <if test="iMSession.id != null">`id`= #{iMSession.id,jdbcType=VARCHAR},</if>
+            <if test="iMSession.deviceId != null">`device_id`= #{iMSession.deviceId,jdbcType=VARCHAR},</if>
+            <if test="iMSession.host != null">`host`= #{iMSession.host,jdbcType=VARCHAR},</if>
+            <if test="iMSession.account != null">`account`= #{iMSession.account,jdbcType=VARCHAR},</if>
+            <if test="iMSession.deviceType != null">`device_type`= #{iMSession.deviceType,jdbcType=VARCHAR},</if>
+            <if test="iMSession.deviceModel != null">`device_model`= #{iMSession.deviceModel,jdbcType=VARCHAR},</if>
+            <if test="iMSession.clientVersion != null">`client_version`= #{iMSession.clientVersion,jdbcType=VARCHAR},</if>
+            <if test="iMSession.systemVersion != null">`system_version`= #{iMSession.systemVersion,jdbcType=VARCHAR},</if>
+            <if test="iMSession.packageName != null">`package_name`= #{iMSession.packageName,jdbcType=VARCHAR},</if>
+            <if test="iMSession.bindTime != null">`bind_time`= #{iMSession.bindTime,jdbcType=BIGINT},</if>
+            <if test="iMSession.status != null">`status`= #{iMSession.status,jdbcType=TINYINT}</if>
         </set>
-        WHERE `gid` = #{session.gid,jdbcType=VARCHAR}
+        WHERE `id` = #{iMSession.id,jdbcType=VARCHAR}
     </update>
 
     <delete id="delete">
         DELETE FROM ichat_session
         WHERE account = #{account}
     </delete>
-
-
 </mapper>
 

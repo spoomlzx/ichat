@@ -24,14 +24,9 @@ public final class ReplyProto {
     int getCallType();
 
     /**
-     * <code>string code = 2;</code>
+     * <code>int32 code = 2;</code>
      */
-    String getCode();
-    /**
-     * <code>string code = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getCodeBytes();
+    int getCode();
 
     /**
      * <code>string message = 3;</code>
@@ -96,7 +91,7 @@ public final class ReplyProto {
     }
     private Reply() {
       callType_ = 0;
-      code_ = "";
+      code_ = 0;
       message_ = "";
       time_ = 0L;
     }
@@ -134,10 +129,9 @@ public final class ReplyProto {
               callType_ = input.readInt32();
               break;
             }
-            case 18: {
-              String s = input.readStringRequireUtf8();
+            case 16: {
 
-              code_ = s;
+              code_ = input.readInt32();
               break;
             }
             case 26: {
@@ -196,7 +190,7 @@ public final class ReplyProto {
         internalGetFieldAccessorTable() {
       return ReplyProto.internal_static_org_spoom_im_sdk_server_model_proto_Reply_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              Reply.class, Builder.class);
+              ReplyProto.Reply.class, ReplyProto.Reply.Builder.class);
     }
 
     private int bitField0_;
@@ -210,37 +204,12 @@ public final class ReplyProto {
     }
 
     public static final int CODE_FIELD_NUMBER = 2;
-    private volatile Object code_;
+    private int code_;
     /**
-     * <code>string code = 2;</code>
+     * <code>int32 code = 2;</code>
      */
-    public String getCode() {
-      Object ref = code_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        code_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string code = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getCodeBytes() {
-      Object ref = code_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
-        code_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getCode() {
+      return code_;
     }
 
     public static final int MESSAGE_FIELD_NUMBER = 3;
@@ -377,8 +346,8 @@ public final class ReplyProto {
       if (callType_ != 0) {
         output.writeInt32(1, callType_);
       }
-      if (!getCodeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, code_);
+      if (code_ != 0) {
+        output.writeInt32(2, code_);
       }
       if (!getMessageBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, message_);
@@ -404,8 +373,9 @@ public final class ReplyProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(1, callType_);
       }
-      if (!getCodeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, code_);
+      if (code_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, code_);
       }
       if (!getMessageBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, message_);
@@ -434,16 +404,16 @@ public final class ReplyProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof Reply)) {
+      if (!(obj instanceof ReplyProto.Reply)) {
         return super.equals(obj);
       }
-      Reply other = (Reply) obj;
+      ReplyProto.Reply other = (ReplyProto.Reply) obj;
 
       boolean result = true;
       result = result && (getCallType()
           == other.getCallType());
-      result = result && getCode()
-          .equals(other.getCode());
+      result = result && (getCode()
+          == other.getCode());
       result = result && getMessage()
           .equals(other.getMessage());
       result = result && (getTime()
@@ -464,7 +434,7 @@ public final class ReplyProto {
       hash = (37 * hash) + CALLTYPE_FIELD_NUMBER;
       hash = (53 * hash) + getCallType();
       hash = (37 * hash) + CODE_FIELD_NUMBER;
-      hash = (53 * hash) + getCode().hashCode();
+      hash = (53 * hash) + getCode();
       hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
       hash = (53 * hash) + getMessage().hashCode();
       hash = (37 * hash) + TIME_FIELD_NUMBER;
@@ -479,69 +449,69 @@ public final class ReplyProto {
       return hash;
     }
 
-    public static Reply parseFrom(
+    public static ReplyProto.Reply parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static Reply parseFrom(
+    public static ReplyProto.Reply parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static Reply parseFrom(
+    public static ReplyProto.Reply parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static Reply parseFrom(
+    public static ReplyProto.Reply parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static Reply parseFrom(byte[] data)
+    public static ReplyProto.Reply parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static Reply parseFrom(
+    public static ReplyProto.Reply parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static Reply parseFrom(java.io.InputStream input)
+    public static ReplyProto.Reply parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static Reply parseFrom(
+    public static ReplyProto.Reply parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static Reply parseDelimitedFrom(java.io.InputStream input)
+    public static ReplyProto.Reply parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static Reply parseDelimitedFrom(
+    public static ReplyProto.Reply parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static Reply parseFrom(
+    public static ReplyProto.Reply parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static Reply parseFrom(
+    public static ReplyProto.Reply parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -553,7 +523,7 @@ public final class ReplyProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(Reply prototype) {
+    public static Builder newBuilder(ReplyProto.Reply prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -573,7 +543,7 @@ public final class ReplyProto {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:org.spoom.im.sdk.server.model.proto.Reply)
-        ReplyOrBuilder {
+        ReplyProto.ReplyOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return ReplyProto.internal_static_org_spoom_im_sdk_server_model_proto_Reply_descriptor;
@@ -605,7 +575,7 @@ public final class ReplyProto {
           internalGetFieldAccessorTable() {
         return ReplyProto.internal_static_org_spoom_im_sdk_server_model_proto_Reply_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                Reply.class, Builder.class);
+                ReplyProto.Reply.class, ReplyProto.Reply.Builder.class);
       }
 
       // Construct using org.spoom.im.sdk.server.model.proto.ReplyProto.Reply.newBuilder()
@@ -627,7 +597,7 @@ public final class ReplyProto {
         super.clear();
         callType_ = 0;
 
-        code_ = "";
+        code_ = 0;
 
         message_ = "";
 
@@ -642,20 +612,20 @@ public final class ReplyProto {
         return ReplyProto.internal_static_org_spoom_im_sdk_server_model_proto_Reply_descriptor;
       }
 
-      public Reply getDefaultInstanceForType() {
-        return Reply.getDefaultInstance();
+      public ReplyProto.Reply getDefaultInstanceForType() {
+        return ReplyProto.Reply.getDefaultInstance();
       }
 
-      public Reply build() {
-        Reply result = buildPartial();
+      public ReplyProto.Reply build() {
+        ReplyProto.Reply result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public Reply buildPartial() {
-        Reply result = new Reply(this);
+      public ReplyProto.Reply buildPartial() {
+        ReplyProto.Reply result = new ReplyProto.Reply(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         result.callType_ = callType_;
@@ -696,22 +666,21 @@ public final class ReplyProto {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof Reply) {
-          return mergeFrom((Reply)other);
+        if (other instanceof ReplyProto.Reply) {
+          return mergeFrom((ReplyProto.Reply)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(Reply other) {
-        if (other == Reply.getDefaultInstance()) return this;
+      public Builder mergeFrom(ReplyProto.Reply other) {
+        if (other == ReplyProto.Reply.getDefaultInstance()) return this;
         if (other.getCallType() != 0) {
           setCallType(other.getCallType());
         }
-        if (!other.getCode().isEmpty()) {
-          code_ = other.code_;
-          onChanged();
+        if (other.getCode() != 0) {
+          setCode(other.getCode());
         }
         if (!other.getMessage().isEmpty()) {
           message_ = other.message_;
@@ -735,11 +704,11 @@ public final class ReplyProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        Reply parsedMessage = null;
+        ReplyProto.Reply parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (Reply) e.getUnfinishedMessage();
+          parsedMessage = (ReplyProto.Reply) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -776,71 +745,28 @@ public final class ReplyProto {
         return this;
       }
 
-      private Object code_ = "";
+      private int code_ ;
       /**
-       * <code>string code = 2;</code>
+       * <code>int32 code = 2;</code>
        */
-      public String getCode() {
-        Object ref = code_;
-        if (!(ref instanceof String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
-          code_ = s;
-          return s;
-        } else {
-          return (String) ref;
-        }
+      public int getCode() {
+        return code_;
       }
       /**
-       * <code>string code = 2;</code>
+       * <code>int32 code = 2;</code>
        */
-      public com.google.protobuf.ByteString
-          getCodeBytes() {
-        Object ref = code_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
-          code_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string code = 2;</code>
-       */
-      public Builder setCode(
-          String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
+      public Builder setCode(int value) {
 
         code_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string code = 2;</code>
+       * <code>int32 code = 2;</code>
        */
       public Builder clearCode() {
 
-        code_ = getDefaultInstance().getCode();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string code = 2;</code>
-       */
-      public Builder setCodeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-
-        code_ = value;
+        code_ = 0;
         onChanged();
         return this;
       }
@@ -1077,12 +1003,12 @@ public final class ReplyProto {
     }
 
     // @@protoc_insertion_point(class_scope:org.spoom.im.sdk.server.model.proto.Reply)
-    private static final Reply DEFAULT_INSTANCE;
+    private static final ReplyProto.Reply DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new Reply();
+      DEFAULT_INSTANCE = new ReplyProto.Reply();
     }
 
-    public static Reply getDefaultInstance() {
+    public static ReplyProto.Reply getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1105,7 +1031,7 @@ public final class ReplyProto {
       return PARSER;
     }
 
-    public Reply getDefaultInstanceForType() {
+    public ReplyProto.Reply getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1132,7 +1058,7 @@ public final class ReplyProto {
     String[] descriptorData = {
       "\n\013Reply.proto\022#org.spoom.im.sdk.server.m" +
       "odel.proto\"\267\001\n\005Reply\022\020\n\010callType\030\001 \001(\005\022\014" +
-      "\n\004code\030\002 \001(\t\022\017\n\007message\030\003 \001(\t\022\014\n\004time\030\004 " +
+      "\n\004code\030\002 \001(\005\022\017\n\007message\030\003 \001(\t\022\014\n\004time\030\004 " +
       "\001(\003\022B\n\004data\030\005 \003(\01324.org.spoom.im.sdk.ser" +
       "ver.model.proto.Reply.DataEntry\032+\n\tDataE" +
       "ntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\014B\n" +

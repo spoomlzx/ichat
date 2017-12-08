@@ -18,7 +18,7 @@ public class Reply implements Protobufable, Serializable {
     private static final long serialVersionUID = -1262367179555098383L;
 
     private int callType;
-    private String code;
+    private int code;
     private String message;
     private long time;
     private HashMap<String, String> data = new HashMap<>();
@@ -73,11 +73,11 @@ public class Reply implements Protobufable, Serializable {
         this.callType = callType;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

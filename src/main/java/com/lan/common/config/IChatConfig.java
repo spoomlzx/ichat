@@ -1,10 +1,10 @@
 package com.lan.common.config;
 
-import com.farsunset.cim.sdk.server.handler.CIMNioSocketAcceptor;
-import com.farsunset.cim.sdk.server.handler.CIMRequestHandler;
-import com.farsunset.cim.sdk.server.handler.HeartbeatHandler;
 import com.lan.ichat.im.handler.BindHandler;
 import com.lan.ichat.im.handler.SessionClosedHandler;
+import org.spoom.im.sdk.server.ChannelManager;
+import org.spoom.im.sdk.server.IMConstant;
+import org.spoom.im.sdk.server.MessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,15 +32,14 @@ public class IChatConfig {
      * @throws IOException
      */
     @Bean
-    public CIMNioSocketAcceptor iChatNioAcceptor() throws IOException {
-        CIMNioSocketAcceptor acceptor = new CIMNioSocketAcceptor();
-        acceptor.setPort(23456);
-        HashMap<String, CIMRequestHandler> handlers = new HashMap<>();
-        handlers.put("client_bind", bindHandler);
-        handlers.put("client_heartbeat", new HeartbeatHandler());
-        handlers.put("client_closed", sessionClosedHandler);
-        acceptor.setHandlers(handlers);
-        acceptor.bind();
-        return acceptor;
+    public ChannelManager channelManager() throws IOException {
+        ChannelManager manager = new ChannelManager();
+        manager.setPort(23456);
+        HashMap<Integer, MessageHandler> handlers = new HashMap<>();
+        handlers.put(IMConstant.HandlerType.BIND_CLIENT, bindHandler);
+        handlers.put(IMConstant.HandlerType.CLOSE_SESSION, sessionClosedHandler);
+        manager.setHandlers(handlers);
+        manager.bind();
+        return manager;
     }
 }

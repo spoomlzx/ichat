@@ -6,7 +6,7 @@ package com.lan.ichat.model;
  * @author lanzongxiao
  * @date 2017/11/6
  */
-public class Message extends com.farsunset.cim.sdk.server.model.Message {
+public class Message extends org.spoom.im.sdk.server.model.Message{
     /**
      * message 状态
      * 0 已发送

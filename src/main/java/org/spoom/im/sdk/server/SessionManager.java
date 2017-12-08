@@ -1,9 +1,9 @@
-package org.spoom.im.sdk.server.session;
+package org.spoom.im.sdk.server;
 
 import java.util.List;
 
 /**
- * package org.spoom.im.sdk.server.session
+ * package org.spoom.im.sdk.server
  *
  * @author lanzongxiao
  * @date 08/12/2017

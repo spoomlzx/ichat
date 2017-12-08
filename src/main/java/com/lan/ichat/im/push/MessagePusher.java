@@ -1,11 +1,11 @@
 package com.lan.ichat.im.push;
 
-import com.farsunset.cim.sdk.server.session.CIMSession;
-import com.farsunset.cim.sdk.server.session.SessionManager;
 import com.lan.ichat.model.Message;
 import com.lan.ichat.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spoom.im.sdk.server.IMSession;
+import org.spoom.im.sdk.server.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,7 @@ public class MessagePusher {
 
     @Async
     public void push(Message msg) {
-        CIMSession session = sessionManager.get(msg.getReceiver());
+        IMSession session = sessionManager.get(msg.getTo());
         logger.info("thread name: " + Thread.currentThread().getName() + " id: " + Thread.currentThread().getId());
         this.push(msg, session);
     }
@@ -44,7 +44,7 @@ public class MessagePusher {
      * @param session
      */
     @Async
-    public void push(Message msg, CIMSession session) {
+    public void push(Message msg, IMSession session) {
         if (session != null && session.isConnected()) {
             session.write(msg);
             // 05/12/2017 TODO save this msg to database

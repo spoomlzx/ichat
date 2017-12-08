@@ -1,21 +1,20 @@
 package com.lan.ichat.dao;
 
-import com.farsunset.cim.sdk.server.session.CIMSession;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.spoom.im.sdk.server.IMSession;
 
 import java.util.List;
 
 @Mapper
 public interface SessionMapper {
+    IMSession getByAccount(@Param("account") String account);
 
-    CIMSession getByAccount(@Param("account") String account);
+    List<IMSession> getSessionList();
 
-    List<CIMSession> getSessionList();
+    int insert(@Param("iMSession") IMSession iMSession);
 
-    int insert(@Param("session") CIMSession session);
-
-    int update(@Param("session") CIMSession session);
+    int update(@Param("iMSession") IMSession iMSession);
 
     int delete(@Param("account") String account);
 }

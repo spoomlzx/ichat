@@ -8,11 +8,11 @@ package org.spoom.im.sdk.server;
  */
 
 public interface IMConstant {
-    String KEY_IM_SERVER_HOST = "KEY_IM_SERVER_HOST";
-    String KEY_IM_SERVER_PORT = "KEY_IM_SERVER_PORT";
-
     long CONNECT_INTERVAL_TIME = 30 * 1000;
     int HEADER_LENGTH = 3; // 使用3byte来保存header
+    String SESSION_KEY = "account";
+    String KEY_HEARTBEAT = "heartbeat";
+    String CLIENT_HEARTBEAT = "client_heartbeat";
 
     interface ReturnCode {
         int CODE_200 = 200;
@@ -33,9 +33,9 @@ public interface IMConstant {
         String HB_RESPONSE_BODY = "RES";
     }
 
-    interface RequestKey {
-        String CLIENT_BIND = "CLIENT_BIND";
-
+    interface HandlerType {
+        int BIND_CLIENT = 0;
+        int CLOSE_SESSION = 1;
     }
 
     interface MessageAction {

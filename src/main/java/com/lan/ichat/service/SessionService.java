@@ -1,6 +1,6 @@
 package com.lan.ichat.service;
 
-import com.farsunset.cim.sdk.server.session.CIMSession;
+import org.spoom.im.sdk.server.IMSession;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -12,17 +12,17 @@ import java.util.HashMap;
  * @date 2017/11/7
  */
 @Service
-public class SessionService implements BaseService<CIMSession> {
+public class SessionService implements BaseService<IMSession> {
 
-    private HashMap<String, CIMSession> localSessions = new HashMap<>();
+    private HashMap<String, IMSession> localSessions = new HashMap<>();
 
     @Override
-    public void set(String key, CIMSession session) {
+    public void set(String key, IMSession session) {
         localSessions.put(key, session);
     }
 
     @Override
-    public CIMSession get(String key) {
+    public IMSession get(String key) {
         return localSessions.get(key);
     }
 
