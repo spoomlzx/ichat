@@ -13,7 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spoom.im.sdk.server.coder.MessageDecoder;
 import org.spoom.im.sdk.server.coder.MessageEncoder;
+import org.spoom.im.sdk.server.model.CallMessage;
 import org.spoom.im.sdk.server.model.HeartbeatRequest;
+import org.spoom.im.sdk.server.model.Message;
+import org.spoom.im.sdk.server.model.Reply;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -30,6 +33,7 @@ public class ChannelManager extends SimpleChannelInboundHandler<Object> {
 
     private HashMap<Integer, MessageHandler> handlers = new HashMap<>();
     private int port;
+    private SessionManager sessionManager;
 
     //连接空闲时间
     public static final int READ_IDLE_TIME = 40;//秒
@@ -62,8 +66,29 @@ public class ChannelManager extends SimpleChannelInboundHandler<Object> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext context, Object obj) throws Exception {
+        IMSession session = new IMSession(context.channel());
         if (obj instanceof HeartbeatRequest) {
             setLastHeartbeatTime(context);
+        }
+        if (obj instanceof CallMessage) {
+            CallMessage message = (CallMessage) obj;
+            MessageHandler handler = handlers.get(message.getCallType());
+            if (handler == null) {
+                Reply reply = new Reply();
+                reply.setCallType(message.getCallType());
+                reply.setCode(IMConstant.ReturnCode.CODE_404);
+                reply.setMessage("No handler");
+                session.write(reply);
+            } else {
+                Reply reply = handler.process(session, message);
+                if (reply != null) {
+                    session.write(reply);
+                }
+            }
+        }
+        if (obj instanceof Message) {
+            Message message = (Message) obj;
+
         }
     }
 
@@ -105,6 +130,14 @@ public class ChannelManager extends SimpleChannelInboundHandler<Object> {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public SessionManager getSessionManager() {
+        return sessionManager;
+    }
+
+    public void setSessionManager(SessionManager sessionManager) {
+        this.sessionManager = sessionManager;
     }
 
     public void setHandlers(HashMap<Integer, MessageHandler> handlers) {

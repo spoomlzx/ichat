@@ -3,12 +3,12 @@ package com.lan.ichat.console;
 import com.lan.common.util.BaseResult;
 import com.lan.common.util.IChatStatus;
 import com.lan.ichat.im.push.MessagePusher;
-import com.lan.ichat.model.Message;
 import com.lan.ichat.model.UserEntity;
 import com.lan.ichat.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spoom.im.sdk.server.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

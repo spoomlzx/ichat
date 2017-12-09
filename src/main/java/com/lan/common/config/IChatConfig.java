@@ -5,6 +5,7 @@ import com.lan.ichat.im.handler.SessionClosedHandler;
 import org.spoom.im.sdk.server.ChannelManager;
 import org.spoom.im.sdk.server.IMConstant;
 import org.spoom.im.sdk.server.MessageHandler;
+import org.spoom.im.sdk.server.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,8 @@ public class IChatConfig {
     private BindHandler bindHandler;
     @Autowired
     private SessionClosedHandler sessionClosedHandler;
+    @Autowired
+    private SessionManager sessionManager;
 
     /**
      * 注册处理消息的handler
@@ -39,6 +42,7 @@ public class IChatConfig {
         handlers.put(IMConstant.HandlerType.BIND_CLIENT, bindHandler);
         handlers.put(IMConstant.HandlerType.CLOSE_SESSION, sessionClosedHandler);
         manager.setHandlers(handlers);
+        manager.setSessionManager(sessionManager);
         manager.bind();
         return manager;
     }

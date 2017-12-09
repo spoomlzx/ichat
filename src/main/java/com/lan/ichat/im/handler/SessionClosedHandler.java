@@ -2,6 +2,7 @@ package com.lan.ichat.im.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spoom.im.sdk.server.IMConstant;
 import org.spoom.im.sdk.server.IMSession;
 import org.spoom.im.sdk.server.MessageHandler;
 import org.spoom.im.sdk.server.SessionManager;
@@ -27,10 +28,12 @@ public class SessionClosedHandler implements MessageHandler {
     @Override
     public Reply process(IMSession session, CallMessage callMessage) {
         logger.info("client session closed handler");
-        Object account = session.getAccount();
+        Object account = session.getAttribute(IMConstant.SESSION_KEY);
         if (account == null) {
             return null;
         }
+        // 删除channel上绑定的account
+        session.removeAttribute(IMConstant.SESSION_KEY);
         sessionManager.remove(account.toString());
         return null;
     }

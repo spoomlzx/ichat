@@ -16,6 +16,7 @@ public interface IMConstant {
 
     interface ReturnCode {
         int CODE_200 = 200;
+        int CODE_404 = 400;
     }
 
     interface ProtobufType {

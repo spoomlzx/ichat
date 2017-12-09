@@ -1,6 +1,7 @@
 package org.spoom.im.sdk.server;
 
 import io.netty.channel.Channel;
+import io.netty.util.AttributeKey;
 
 import java.io.Serializable;
 
@@ -33,6 +34,29 @@ public class IMSession implements Serializable {
 
     public IMSession() {
 
+    }
+
+    public void setAttribute(String key, Object value) {
+        if (channel != null)
+            channel.attr(AttributeKey.valueOf(key)).set(value);
+    }
+
+    public boolean containsAttribute(String key) {
+        if (channel != null)
+            return channel.hasAttr(AttributeKey.valueOf(key));
+        return false;
+    }
+
+    public Object getAttribute(String key) {
+        if (channel != null)
+            return channel.attr(AttributeKey.valueOf(key)).get();
+        return null;
+    }
+
+    public void removeAttribute(String key) {
+        if (channel != null)
+            channel.attr(AttributeKey.valueOf(key)).set(null);
+        ;
     }
 
     public boolean write(Object msg) {
@@ -107,6 +131,7 @@ public class IMSession implements Serializable {
 
     public void setAccount(String account) {
         this.account = account;
+        setAttribute(IMConstant.SESSION_KEY, account);
     }
 
     public String getDeviceType() {

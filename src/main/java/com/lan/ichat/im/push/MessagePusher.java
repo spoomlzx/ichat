@@ -1,11 +1,11 @@
 package com.lan.ichat.im.push;
 
-import com.lan.ichat.model.Message;
 import com.lan.ichat.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spoom.im.sdk.server.IMSession;
 import org.spoom.im.sdk.server.SessionManager;
+import org.spoom.im.sdk.server.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
