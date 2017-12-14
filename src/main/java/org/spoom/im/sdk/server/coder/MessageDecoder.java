@@ -7,10 +7,10 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 import org.apache.log4j.Logger;
 import org.spoom.im.sdk.server.IMConstant;
 import org.spoom.im.sdk.server.model.CallMessage;
+import org.spoom.im.sdk.server.model.ChatMessage;
 import org.spoom.im.sdk.server.model.HeartbeatRequest;
-import org.spoom.im.sdk.server.model.Message;
 import org.spoom.im.sdk.server.model.proto.CallMessageProto;
-import org.spoom.im.sdk.server.model.proto.MessageProto;
+import org.spoom.im.sdk.server.model.proto.ChatMessageProto;
 
 import java.util.List;
 
@@ -55,24 +55,24 @@ public class MessageDecoder extends ByteToMessageDecoder {
             case IMConstant.ProtobufType.CALL_MESSAGE:
                 CallMessageProto.CallMessage callMsg = CallMessageProto.CallMessage.parseFrom(bytes);
                 CallMessage callMessage = new CallMessage();
-                callMessage.setCallType(callMsg.getCallType());
+                callMessage.setAction(callMsg.getAction());
                 callMessage.putAll(callMsg.getDataMap());
                 callMessage.setTime(callMsg.getTime());
                 logger.info("decode: " + callMessage.toString());
                 return callMessage;
-            case IMConstant.ProtobufType.MESSAGE:
-                MessageProto.Message messageProto = MessageProto.Message.parseFrom(bytes);
-                Message message = new Message();
-                message.setMsgId(messageProto.getMsgId());
-                message.setChatType(messageProto.getChatType());
-                message.setFormat(messageProto.getFormat());
-                message.setFrom(messageProto.getFrom());
-                message.setTo(messageProto.getTo());
-                message.setBody(messageProto.getBody());
-                message.setExtra(messageProto.getExtra());
-                message.setTime(messageProto.getTime());
-                logger.info("decode: " + message.toString());
-                return message;
+            case IMConstant.ProtobufType.CHAT_MESSAGE:
+                ChatMessageProto.ChatMessage messageProto = ChatMessageProto.ChatMessage.parseFrom(bytes);
+                ChatMessage chatMessage = new ChatMessage();
+                chatMessage.setMsgId(messageProto.getMsgId());
+                chatMessage.setChatType(messageProto.getChatType());
+                chatMessage.setMsgType(messageProto.getMsgType());
+                chatMessage.setFrom(messageProto.getFrom());
+                chatMessage.setTo(messageProto.getTo());
+                chatMessage.setBody(messageProto.getBody());
+                chatMessage.setExtra(messageProto.getExtra());
+                chatMessage.setTime(messageProto.getTime());
+                logger.info("decode: " + chatMessage.toString());
+                return chatMessage;
             default:
                 return null;
         }

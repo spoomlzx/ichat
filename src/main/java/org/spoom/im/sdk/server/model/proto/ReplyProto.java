@@ -19,9 +19,9 @@ public final class ReplyProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 callType = 1;</code>
+     * <code>int32 action = 1;</code>
      */
-    int getCallType();
+    int getAction();
 
     /**
      * <code>int32 code = 2;</code>
@@ -90,7 +90,7 @@ public final class ReplyProto {
       super(builder);
     }
     private Reply() {
-      callType_ = 0;
+      action_ = 0;
       code_ = 0;
       message_ = "";
       time_ = 0L;
@@ -126,7 +126,7 @@ public final class ReplyProto {
             }
             case 8: {
 
-              callType_ = input.readInt32();
+              action_ = input.readInt32();
               break;
             }
             case 16: {
@@ -194,13 +194,13 @@ public final class ReplyProto {
     }
 
     private int bitField0_;
-    public static final int CALLTYPE_FIELD_NUMBER = 1;
-    private int callType_;
+    public static final int ACTION_FIELD_NUMBER = 1;
+    private int action_;
     /**
-     * <code>int32 callType = 1;</code>
+     * <code>int32 action = 1;</code>
      */
-    public int getCallType() {
-      return callType_;
+    public int getAction() {
+      return action_;
     }
 
     public static final int CODE_FIELD_NUMBER = 2;
@@ -343,8 +343,8 @@ public final class ReplyProto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (callType_ != 0) {
-        output.writeInt32(1, callType_);
+      if (action_ != 0) {
+        output.writeInt32(1, action_);
       }
       if (code_ != 0) {
         output.writeInt32(2, code_);
@@ -369,9 +369,9 @@ public final class ReplyProto {
       if (size != -1) return size;
 
       size = 0;
-      if (callType_ != 0) {
+      if (action_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, callType_);
+          .computeInt32Size(1, action_);
       }
       if (code_ != 0) {
         size += com.google.protobuf.CodedOutputStream
@@ -410,8 +410,8 @@ public final class ReplyProto {
       ReplyProto.Reply other = (ReplyProto.Reply) obj;
 
       boolean result = true;
-      result = result && (getCallType()
-          == other.getCallType());
+      result = result && (getAction()
+          == other.getAction());
       result = result && (getCode()
           == other.getCode());
       result = result && getMessage()
@@ -431,8 +431,8 @@ public final class ReplyProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + CALLTYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getCallType();
+      hash = (37 * hash) + ACTION_FIELD_NUMBER;
+      hash = (53 * hash) + getAction();
       hash = (37 * hash) + CODE_FIELD_NUMBER;
       hash = (53 * hash) + getCode();
       hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
@@ -595,7 +595,7 @@ public final class ReplyProto {
       }
       public Builder clear() {
         super.clear();
-        callType_ = 0;
+        action_ = 0;
 
         code_ = 0;
 
@@ -628,7 +628,7 @@ public final class ReplyProto {
         ReplyProto.Reply result = new ReplyProto.Reply(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        result.callType_ = callType_;
+        result.action_ = action_;
         result.code_ = code_;
         result.message_ = message_;
         result.time_ = time_;
@@ -676,8 +676,8 @@ public final class ReplyProto {
 
       public Builder mergeFrom(ReplyProto.Reply other) {
         if (other == ReplyProto.Reply.getDefaultInstance()) return this;
-        if (other.getCallType() != 0) {
-          setCallType(other.getCallType());
+        if (other.getAction() != 0) {
+          setAction(other.getAction());
         }
         if (other.getCode() != 0) {
           setCode(other.getCode());
@@ -719,28 +719,28 @@ public final class ReplyProto {
       }
       private int bitField0_;
 
-      private int callType_ ;
+      private int action_ ;
       /**
-       * <code>int32 callType = 1;</code>
+       * <code>int32 action = 1;</code>
        */
-      public int getCallType() {
-        return callType_;
+      public int getAction() {
+        return action_;
       }
       /**
-       * <code>int32 callType = 1;</code>
+       * <code>int32 action = 1;</code>
        */
-      public Builder setCallType(int value) {
+      public Builder setAction(int value) {
 
-        callType_ = value;
+        action_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 callType = 1;</code>
+       * <code>int32 action = 1;</code>
        */
-      public Builder clearCallType() {
+      public Builder clearAction() {
 
-        callType_ = 0;
+        action_ = 0;
         onChanged();
         return this;
       }
@@ -1057,12 +1057,12 @@ public final class ReplyProto {
   static {
     String[] descriptorData = {
       "\n\013Reply.proto\022#org.spoom.im.sdk.server.m" +
-      "odel.proto\"\267\001\n\005Reply\022\020\n\010callType\030\001 \001(\005\022\014" +
-      "\n\004code\030\002 \001(\005\022\017\n\007message\030\003 \001(\t\022\014\n\004time\030\004 " +
-      "\001(\003\022B\n\004data\030\005 \003(\01324.org.spoom.im.sdk.ser" +
-      "ver.model.proto.Reply.DataEntry\032+\n\tDataE" +
-      "ntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\014B\n" +
-      "ReplyProtob\006proto3"
+      "odel.proto\"\265\001\n\005Reply\022\016\n\006action\030\001 \001(\005\022\014\n\004" +
+      "code\030\002 \001(\005\022\017\n\007message\030\003 \001(\t\022\014\n\004time\030\004 \001(" +
+      "\003\022B\n\004data\030\005 \003(\01324.org.spoom.im.sdk.serve" +
+      "r.model.proto.Reply.DataEntry\032+\n\tDataEnt" +
+      "ry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\014B\nRe" +
+      "plyProtob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1081,7 +1081,7 @@ public final class ReplyProto {
     internal_static_org_spoom_im_sdk_server_model_proto_Reply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_org_spoom_im_sdk_server_model_proto_Reply_descriptor,
-        new String[] { "CallType", "Code", "Message", "Time", "Data", });
+        new String[] { "Action", "Code", "Message", "Time", "Data", });
     internal_static_org_spoom_im_sdk_server_model_proto_Reply_DataEntry_descriptor =
       internal_static_org_spoom_im_sdk_server_model_proto_Reply_descriptor.getNestedTypes().get(0);
     internal_static_org_spoom_im_sdk_server_model_proto_Reply_DataEntry_fieldAccessorTable = new

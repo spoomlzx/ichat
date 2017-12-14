@@ -1,7 +1,7 @@
 package org.spoom.im.sdk.server.model;
 
 import org.spoom.im.sdk.server.IMConstant;
-import org.spoom.im.sdk.server.model.proto.MessageProto;
+import org.spoom.im.sdk.server.model.proto.ChatMessageProto;
 
 import java.io.Serializable;
 
@@ -12,15 +12,15 @@ import java.io.Serializable;
  * @date 05/12/2017
  */
 
-public class Message implements Protobufable, Serializable {
+public class ChatMessage implements Protobufable, Serializable {
     private static final long serialVersionUID = 3015312422291883506L;
 
     // message id
     private String msgId;
     // message type 标记消息类型，如：群聊信息、点对点消息
     private int chatType;
-    // 标记content格式，可以为text、json、xml等
-    private int format;
+    // 标记content格式，IMAGE,TEXT,VOICE,VIDEO,FILE,LOCATION;
+    private int msgType;
     // message 发送者
     private String from;
     // 接受者
@@ -31,16 +31,16 @@ public class Message implements Protobufable, Serializable {
     // 发送的时间戳
     private long time;
 
-    public Message() {
+    public ChatMessage() {
         time = System.currentTimeMillis();
     }
 
     @Override
     public byte[] getByteArray() {
-        MessageProto.Message.Builder builder = MessageProto.Message.newBuilder();
+        ChatMessageProto.ChatMessage.Builder builder = ChatMessageProto.ChatMessage.newBuilder();
         builder.setMsgId(msgId)
                 .setChatType(chatType)
-                .setFormat(format)
+                .setMsgType(msgType)
                 .setFrom(from)
                 .setTo(to)
                 .setBody(body)
@@ -51,14 +51,14 @@ public class Message implements Protobufable, Serializable {
 
     @Override
     public byte getType() {
-        return IMConstant.ProtobufType.MESSAGE;
+        return IMConstant.ProtobufType.CHAT_MESSAGE;
     }
 
     public String toString() {
-        return "#Message#" + "\n" +
+        return "#ChatMessage#" + "\n" +
                 "msgId:" + msgId + "\n" +
                 "chatType:" + chatType + "\n" +
-                "format:" + format + "\n" +
+                "msgType:" + msgType + "\n" +
                 "from:" + from + "\n" +
                 "to:" + to + "\n" +
                 "body:" + body + "\n" +
@@ -82,12 +82,12 @@ public class Message implements Protobufable, Serializable {
         this.chatType = chatType;
     }
 
-    public int getFormat() {
-        return format;
+    public int getMsgType() {
+        return msgType;
     }
 
-    public void setFormat(int format) {
-        this.format = format;
+    public void setMsgType(int msgType) {
+        this.msgType = msgType;
     }
 
     public String getFrom() {

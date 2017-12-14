@@ -8,7 +8,7 @@ import org.spoom.im.sdk.server.IMSession;
 import org.spoom.im.sdk.server.MessageHandler;
 import org.spoom.im.sdk.server.SessionManager;
 import org.spoom.im.sdk.server.model.CallMessage;
-import org.spoom.im.sdk.server.model.Message;
+import org.spoom.im.sdk.server.model.ChatMessage;
 import org.spoom.im.sdk.server.model.Reply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,7 +32,7 @@ public class BindHandler implements MessageHandler {
     @Override
     public Reply process(IMSession newSession, CallMessage callMessage) {
         Reply reply = new Reply();
-        reply.setCallType(callMessage.getCallType());
+        reply.setAction(callMessage.getAction());
         reply.setCode(IMConstant.ReturnCode.CODE_200);
         try {
             String account = callMessage.get("account");
@@ -70,7 +70,7 @@ public class BindHandler implements MessageHandler {
     }
 
     private void sendForceOfflineMessage(IMSession oldSession, String account, String deviceModel) {
-        Message msg = new Message();
+        ChatMessage msg = new ChatMessage();
         msg.setMsgId(StringUtils.getUUID());
         msg.setChatType(IMConstant.MessageAction.ACTION_FORCEOFFLINE);
         msg.setTo(account);

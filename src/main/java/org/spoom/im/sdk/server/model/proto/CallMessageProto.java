@@ -19,9 +19,9 @@ public final class CallMessageProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 callType = 1;</code>
+     * <code>int32 action = 1;</code>
      */
-    int getCallType();
+    int getAction();
 
     /**
      * <code>int64 time = 2;</code>
@@ -75,7 +75,7 @@ public final class CallMessageProto {
       super(builder);
     }
     private CallMessage() {
-      callType_ = 0;
+      action_ = 0;
       time_ = 0L;
     }
 
@@ -109,7 +109,7 @@ public final class CallMessageProto {
             }
             case 8: {
 
-              callType_ = input.readInt32();
+              action_ = input.readInt32();
               break;
             }
             case 16: {
@@ -162,17 +162,17 @@ public final class CallMessageProto {
         internalGetFieldAccessorTable() {
       return CallMessageProto.internal_static_org_spoom_im_sdk_server_model_proto_CallMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              CallMessage.class, Builder.class);
+              CallMessageProto.CallMessage.class, CallMessageProto.CallMessage.Builder.class);
     }
 
     private int bitField0_;
-    public static final int CALLTYPE_FIELD_NUMBER = 1;
-    private int callType_;
+    public static final int ACTION_FIELD_NUMBER = 1;
+    private int action_;
     /**
-     * <code>int32 callType = 1;</code>
+     * <code>int32 action = 1;</code>
      */
-    public int getCallType() {
-      return callType_;
+    public int getAction() {
+      return action_;
     }
 
     public static final int TIME_FIELD_NUMBER = 2;
@@ -272,8 +272,8 @@ public final class CallMessageProto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (callType_ != 0) {
-        output.writeInt32(1, callType_);
+      if (action_ != 0) {
+        output.writeInt32(1, action_);
       }
       if (time_ != 0L) {
         output.writeInt64(2, time_);
@@ -292,9 +292,9 @@ public final class CallMessageProto {
       if (size != -1) return size;
 
       size = 0;
-      if (callType_ != 0) {
+      if (action_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, callType_);
+          .computeInt32Size(1, action_);
       }
       if (time_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
@@ -320,14 +320,14 @@ public final class CallMessageProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof CallMessage)) {
+      if (!(obj instanceof CallMessageProto.CallMessage)) {
         return super.equals(obj);
       }
-      CallMessage other = (CallMessage) obj;
+      CallMessageProto.CallMessage other = (CallMessageProto.CallMessage) obj;
 
       boolean result = true;
-      result = result && (getCallType()
-          == other.getCallType());
+      result = result && (getAction()
+          == other.getAction());
       result = result && (getTime()
           == other.getTime());
       result = result && internalGetData().equals(
@@ -343,8 +343,8 @@ public final class CallMessageProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + CALLTYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getCallType();
+      hash = (37 * hash) + ACTION_FIELD_NUMBER;
+      hash = (53 * hash) + getAction();
       hash = (37 * hash) + TIME_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getTime());
@@ -357,69 +357,69 @@ public final class CallMessageProto {
       return hash;
     }
 
-    public static CallMessage parseFrom(
+    public static CallMessageProto.CallMessage parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static CallMessage parseFrom(
+    public static CallMessageProto.CallMessage parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static CallMessage parseFrom(
+    public static CallMessageProto.CallMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static CallMessage parseFrom(
+    public static CallMessageProto.CallMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static CallMessage parseFrom(byte[] data)
+    public static CallMessageProto.CallMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static CallMessage parseFrom(
+    public static CallMessageProto.CallMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static CallMessage parseFrom(java.io.InputStream input)
+    public static CallMessageProto.CallMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static CallMessage parseFrom(
+    public static CallMessageProto.CallMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static CallMessage parseDelimitedFrom(java.io.InputStream input)
+    public static CallMessageProto.CallMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static CallMessage parseDelimitedFrom(
+    public static CallMessageProto.CallMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static CallMessage parseFrom(
+    public static CallMessageProto.CallMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static CallMessage parseFrom(
+    public static CallMessageProto.CallMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -431,7 +431,7 @@ public final class CallMessageProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(CallMessage prototype) {
+    public static Builder newBuilder(CallMessageProto.CallMessage prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -451,7 +451,7 @@ public final class CallMessageProto {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:org.spoom.im.sdk.server.model.proto.CallMessage)
-        CallMessageOrBuilder {
+        CallMessageProto.CallMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return CallMessageProto.internal_static_org_spoom_im_sdk_server_model_proto_CallMessage_descriptor;
@@ -483,7 +483,7 @@ public final class CallMessageProto {
           internalGetFieldAccessorTable() {
         return CallMessageProto.internal_static_org_spoom_im_sdk_server_model_proto_CallMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                CallMessage.class, Builder.class);
+                CallMessageProto.CallMessage.class, CallMessageProto.CallMessage.Builder.class);
       }
 
       // Construct using org.spoom.im.sdk.server.model.proto.CallMessageProto.CallMessage.newBuilder()
@@ -503,7 +503,7 @@ public final class CallMessageProto {
       }
       public Builder clear() {
         super.clear();
-        callType_ = 0;
+        action_ = 0;
 
         time_ = 0L;
 
@@ -516,23 +516,23 @@ public final class CallMessageProto {
         return CallMessageProto.internal_static_org_spoom_im_sdk_server_model_proto_CallMessage_descriptor;
       }
 
-      public CallMessage getDefaultInstanceForType() {
-        return CallMessage.getDefaultInstance();
+      public CallMessageProto.CallMessage getDefaultInstanceForType() {
+        return CallMessageProto.CallMessage.getDefaultInstance();
       }
 
-      public CallMessage build() {
-        CallMessage result = buildPartial();
+      public CallMessageProto.CallMessage build() {
+        CallMessageProto.CallMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public CallMessage buildPartial() {
-        CallMessage result = new CallMessage(this);
+      public CallMessageProto.CallMessage buildPartial() {
+        CallMessageProto.CallMessage result = new CallMessageProto.CallMessage(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        result.callType_ = callType_;
+        result.action_ = action_;
         result.time_ = time_;
         result.data_ = internalGetData();
         result.data_.makeImmutable();
@@ -568,18 +568,18 @@ public final class CallMessageProto {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof CallMessage) {
-          return mergeFrom((CallMessage)other);
+        if (other instanceof CallMessageProto.CallMessage) {
+          return mergeFrom((CallMessageProto.CallMessage)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(CallMessage other) {
-        if (other == CallMessage.getDefaultInstance()) return this;
-        if (other.getCallType() != 0) {
-          setCallType(other.getCallType());
+      public Builder mergeFrom(CallMessageProto.CallMessage other) {
+        if (other == CallMessageProto.CallMessage.getDefaultInstance()) return this;
+        if (other.getAction() != 0) {
+          setAction(other.getAction());
         }
         if (other.getTime() != 0L) {
           setTime(other.getTime());
@@ -599,11 +599,11 @@ public final class CallMessageProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        CallMessage parsedMessage = null;
+        CallMessageProto.CallMessage parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (CallMessage) e.getUnfinishedMessage();
+          parsedMessage = (CallMessageProto.CallMessage) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -614,28 +614,28 @@ public final class CallMessageProto {
       }
       private int bitField0_;
 
-      private int callType_ ;
+      private int action_ ;
       /**
-       * <code>int32 callType = 1;</code>
+       * <code>int32 action = 1;</code>
        */
-      public int getCallType() {
-        return callType_;
+      public int getAction() {
+        return action_;
       }
       /**
-       * <code>int32 callType = 1;</code>
+       * <code>int32 action = 1;</code>
        */
-      public Builder setCallType(int value) {
+      public Builder setAction(int value) {
 
-        callType_ = value;
+        action_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 callType = 1;</code>
+       * <code>int32 action = 1;</code>
        */
-      public Builder clearCallType() {
+      public Builder clearAction() {
 
-        callType_ = 0;
+        action_ = 0;
         onChanged();
         return this;
       }
@@ -803,12 +803,12 @@ public final class CallMessageProto {
     }
 
     // @@protoc_insertion_point(class_scope:org.spoom.im.sdk.server.model.proto.CallMessage)
-    private static final CallMessage DEFAULT_INSTANCE;
+    private static final CallMessageProto.CallMessage DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new CallMessage();
+      DEFAULT_INSTANCE = new CallMessageProto.CallMessage();
     }
 
-    public static CallMessage getDefaultInstance() {
+    public static CallMessageProto.CallMessage getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -831,7 +831,7 @@ public final class CallMessageProto {
       return PARSER;
     }
 
-    public CallMessage getDefaultInstanceForType() {
+    public CallMessageProto.CallMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -857,12 +857,12 @@ public final class CallMessageProto {
   static {
     String[] descriptorData = {
       "\n\021CallMessage.proto\022#org.spoom.im.sdk.se" +
-      "rver.model.proto\"\244\001\n\013CallMessage\022\020\n\010call" +
-      "Type\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\022H\n\004data\030\003 \003(\0132:" +
-      ".org.spoom.im.sdk.server.model.proto.Cal" +
-      "lMessage.DataEntry\032+\n\tDataEntry\022\013\n\003key\030\001" +
-      " \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\022B\020CallMessagePr" +
-      "otob\006proto3"
+      "rver.model.proto\"\242\001\n\013CallMessage\022\016\n\006acti" +
+      "on\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\022H\n\004data\030\003 \003(\0132:.o" +
+      "rg.spoom.im.sdk.server.model.proto.CallM" +
+      "essage.DataEntry\032+\n\tDataEntry\022\013\n\003key\030\001 \001" +
+      "(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\022B\020CallMessageProt" +
+      "ob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -881,7 +881,7 @@ public final class CallMessageProto {
     internal_static_org_spoom_im_sdk_server_model_proto_CallMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_org_spoom_im_sdk_server_model_proto_CallMessage_descriptor,
-        new String[] { "CallType", "Time", "Data", });
+        new String[] { "Action", "Time", "Data", });
     internal_static_org_spoom_im_sdk_server_model_proto_CallMessage_DataEntry_descriptor =
       internal_static_org_spoom_im_sdk_server_model_proto_CallMessage_descriptor.getNestedTypes().get(0);
     internal_static_org_spoom_im_sdk_server_model_proto_CallMessage_DataEntry_fieldAccessorTable = new

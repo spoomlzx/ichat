@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spoom.im.sdk.server.IMSession;
 import org.spoom.im.sdk.server.SessionManager;
-import org.spoom.im.sdk.server.model.Message;
+import org.spoom.im.sdk.server.model.ChatMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,7 @@ public class MessagePusher {
     protected UserService userService;
 
     @Async
-    public void push(Message msg) {
+    public void push(ChatMessage msg) {
         IMSession session = sessionManager.get(msg.getTo());
         logger.info("thread name: " + Thread.currentThread().getName() + " id: " + Thread.currentThread().getId());
         this.push(msg, session);
@@ -44,7 +44,7 @@ public class MessagePusher {
      * @param session
      */
     @Async
-    public void push(Message msg, IMSession session) {
+    public void push(ChatMessage msg, IMSession session) {
         if (session != null && session.isConnected()) {
             session.write(msg);
             // 05/12/2017 TODO save this msg to database

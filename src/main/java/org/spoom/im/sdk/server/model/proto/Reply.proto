@@ -2,7 +2,7 @@ syntax = "proto3";
 package org.spoom.im.sdk.server.model.proto;
 option java_outer_classname = "ReplyProto";
 message Reply {
-    int32 callType = 1;
+    int32 action = 1;
     int32 code = 2;
     string message = 3;
     int64 time =4;

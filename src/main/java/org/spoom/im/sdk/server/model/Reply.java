@@ -17,7 +17,7 @@ import java.util.Set;
 public class Reply implements Protobufable, Serializable {
     private static final long serialVersionUID = -1262367179555098383L;
 
-    private int callType;
+    private int action;
     private int code;
     private String message;
     private long time;
@@ -33,7 +33,7 @@ public class Reply implements Protobufable, Serializable {
         if (!data.isEmpty()) {
             builder.putAllData(data);
         }
-        builder.setCallType(callType);
+        builder.setAction(action);
         builder.setTime(time);
         return builder.build().toByteArray();
     }
@@ -65,12 +65,12 @@ public class Reply implements Protobufable, Serializable {
         return data.keySet();
     }
 
-    public int getCallType() {
-        return callType;
+    public int getAction() {
+        return action;
     }
 
-    public void setCallType(int callType) {
-        this.callType = callType;
+    public void setAction(int action) {
+        this.action = action;
     }
 
     public int getCode() {
@@ -101,7 +101,7 @@ public class Reply implements Protobufable, Serializable {
     public String toString() {
         StringBuilder buffer = new StringBuilder();
         buffer.append("#Reply#").append("\n");
-        buffer.append("callType:").append(this.getCallType()).append("\n");
+        buffer.append("action:").append(action).append("\n");
         buffer.append("time:").append(time).append("\n");
         buffer.append("code:").append(code).append("\n");
         if (!data.isEmpty()) {

@@ -1,10 +1,10 @@
 syntax = "proto3";
 package org.spoom.im.sdk.server.model.proto;
-option java_outer_classname="MessageProto";
-message Message {
+option java_outer_classname="ChatMessageProto";
+message ChatMessage {
     string msgId = 1;
     int32 chatType = 2;// 标记消息类型，如：群聊信息、点对点消息
-    int32 format=3;
+    int32 msgType=3;
     string from = 4;
     string to = 5;
     string body = 6;

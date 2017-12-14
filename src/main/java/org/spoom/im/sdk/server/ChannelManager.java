@@ -15,7 +15,7 @@ import org.spoom.im.sdk.server.coder.MessageDecoder;
 import org.spoom.im.sdk.server.coder.MessageEncoder;
 import org.spoom.im.sdk.server.model.CallMessage;
 import org.spoom.im.sdk.server.model.HeartbeatRequest;
-import org.spoom.im.sdk.server.model.Message;
+import org.spoom.im.sdk.server.model.ChatMessage;
 import org.spoom.im.sdk.server.model.Reply;
 
 import java.io.IOException;
@@ -72,10 +72,10 @@ public class ChannelManager extends SimpleChannelInboundHandler<Object> {
         }
         if (obj instanceof CallMessage) {
             CallMessage message = (CallMessage) obj;
-            MessageHandler handler = handlers.get(message.getCallType());
+            MessageHandler handler = handlers.get(message.getAction());
             if (handler == null) {
                 Reply reply = new Reply();
-                reply.setCallType(message.getCallType());
+                reply.setAction(message.getAction());
                 reply.setCode(IMConstant.ReturnCode.CODE_404);
                 reply.setMessage("No handler");
                 session.write(reply);
@@ -86,9 +86,14 @@ public class ChannelManager extends SimpleChannelInboundHandler<Object> {
                 }
             }
         }
-        if (obj instanceof Message) {
-            Message message = (Message) obj;
-
+        if (obj instanceof ChatMessage) {
+            ChatMessage chatMessage = (ChatMessage) obj;
+            session = sessionManager.get(chatMessage.getTo());
+            if (session != null) {
+                chatMessage.setFrom(session.getAccount());
+                session.write(chatMessage);
+                logger.info("chat message to transmit： " + chatMessage.toString());
+            }
         }
     }
 

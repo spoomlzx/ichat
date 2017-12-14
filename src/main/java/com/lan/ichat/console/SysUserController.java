@@ -8,7 +8,7 @@ import com.lan.ichat.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spoom.im.sdk.server.model.Message;
+import org.spoom.im.sdk.server.model.ChatMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -100,7 +100,7 @@ public class SysUserController {
     }
 
     @PostMapping(value = "/pushMessage")
-    public BaseResult pushMessage(@RequestBody Message msg) {
+    public BaseResult pushMessage(@RequestBody ChatMessage msg) {
         BaseResult baseResult = new BaseResult();
         messagePusher.push(msg);
         logger.info("ready to send");

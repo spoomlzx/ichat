@@ -22,7 +22,7 @@ public interface IMConstant {
     interface ProtobufType {
         byte HB_REQUEST = 0;
         byte HB_RESPONSE = 1;
-        byte MESSAGE = 2;
+        byte CHAT_MESSAGE = 2;
         byte CALL_MESSAGE = 3;
         byte REPLY = 4;
     }
@@ -41,5 +41,20 @@ public interface IMConstant {
 
     interface MessageAction {
         int ACTION_FORCEOFFLINE = 999;
+    }
+
+    interface ChatType {
+        int CHAT_SINGLE = 0;
+        int CHAT_GROUP = 1;
+        int CHAT_PUBLIC = 2;
+    }
+
+    interface MessageType {
+        int MSG_TEXT = 0;
+        int MSG_IMAGE = 1;
+        int MSG_VOICE = 2;
+        int MSG_VIDEO = 3;
+        int MSG_LOCATION = 4;
+        int MSG_FILE = 5;
     }
 }

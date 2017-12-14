@@ -20,14 +20,14 @@ import java.util.Set;
 public class CallMessage implements Protobufable, Serializable {
     private static final long serialVersionUID = 42546118754185918L;
 
-    private int callType;
+    private int action;
     private long time;
     private HashMap<String, String> data = new HashMap<>();
 
     @Override
     public byte[] getByteArray() {
         CallMessageProto.CallMessage.Builder builder = CallMessageProto.CallMessage.newBuilder();
-        builder.setCallType(callType)
+        builder.setAction(action)
                 .setTime(time);
         if (!data.isEmpty()) {
             builder.putAllData(data);
@@ -62,12 +62,12 @@ public class CallMessage implements Protobufable, Serializable {
         return data.keySet();
     }
 
-    public int getCallType() {
-        return callType;
+    public int getAction() {
+        return action;
     }
 
-    public void setCallType(int callType) {
-        this.callType = callType;
+    public void setAction(int action) {
+        this.action = action;
     }
 
     public long getTime() {
@@ -82,7 +82,7 @@ public class CallMessage implements Protobufable, Serializable {
     public String toString() {
         StringBuilder buffer = new StringBuilder();
         buffer.append("#CallMessage#").append("\n");
-        buffer.append("callType:").append(this.getCallType()).append("\n");
+        buffer.append("action:").append(this.getAction()).append("\n");
         buffer.append("time:").append(time).append("\n");
         if (!data.isEmpty()) {
             buffer.append("data{").append("\n");
