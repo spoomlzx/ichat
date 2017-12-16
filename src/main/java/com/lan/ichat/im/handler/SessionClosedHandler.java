@@ -34,7 +34,12 @@ public class SessionClosedHandler implements MessageHandler {
         }
         // 删除channel上绑定的account
         session.removeAttribute(IMConstant.SESSION_KEY);
-        sessionManager.remove(account.toString());
+        IMSession curSession = sessionManager.get(account.toString());
+        // 如果id不同，则代表断开的不是当前account绑定的channel，不用删除session
+        if (curSession.getId().equals(session.getId())) {
+            sessionManager.remove(account.toString());
+        }
+        logger.info("session removed, id: " + session.getId());
         return null;
     }
 }

@@ -21,7 +21,6 @@ spring:
   redis:
     host: localhost
     port: 6379
-    password: spoom
     pool:
       max-active: 20
       max-idle: 20
@@ -29,6 +28,7 @@ spring:
       min-idle: 1
     database: 0
     timeout: 10000
+    password:
 
 
 mybatis:

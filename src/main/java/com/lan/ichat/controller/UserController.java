@@ -1,6 +1,7 @@
 package com.lan.ichat.controller;
 
 import com.lan.common.annotation.LoginUser;
+import com.lan.common.annotation.OpenApi;
 import com.lan.common.annotation.Token;
 import com.lan.common.exception.IChatException;
 import com.lan.common.util.AuthResult;
@@ -91,6 +92,15 @@ public class UserController {
     @GetMapping(value = "/user/info")
     public BaseResult getLoginUser(@LoginUser UserEntity user) {
         BaseResult baseResult = new BaseResult("获取当前登录用户成功");
+        baseResult.setData(user);
+        return baseResult;
+    }
+
+    @OpenApi
+    @GetMapping(value = "/user/{id}")
+    public BaseResult getUserById(@PathVariable Long id) {
+        BaseResult baseResult = new BaseResult("get user");
+        UserEntity user = userService.getUserById(id);
         baseResult.setData(user);
         return baseResult;
     }

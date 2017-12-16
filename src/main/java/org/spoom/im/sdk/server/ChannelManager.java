@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.spoom.im.sdk.server.coder.MessageDecoder;
 import org.spoom.im.sdk.server.coder.MessageEncoder;
 import org.spoom.im.sdk.server.model.CallMessage;
-import org.spoom.im.sdk.server.model.HeartbeatRequest;
 import org.spoom.im.sdk.server.model.ChatMessage;
 import org.spoom.im.sdk.server.model.Reply;
 
@@ -39,7 +38,7 @@ public class ChannelManager extends SimpleChannelInboundHandler<Object> {
     public static final int READ_IDLE_TIME = 40;//秒
     //连接空闲时间
     public static final int WRITE_IDLE_TIME = 20;//秒
-    public static final int PING_TIME_OUT = 30;//心跳响应 超时为30秒
+    public static final int PING_TIME_OUT = 100;//心跳响应 超时为30秒
 
     public void bind() throws IOException {
         ServerBootstrap bootstrap = new ServerBootstrap();
@@ -67,9 +66,7 @@ public class ChannelManager extends SimpleChannelInboundHandler<Object> {
     @Override
     protected void channelRead0(ChannelHandlerContext context, Object obj) throws Exception {
         IMSession session = new IMSession(context.channel());
-        if (obj instanceof HeartbeatRequest) {
-            setLastHeartbeatTime(context);
-        }
+        setLastHeartbeatTime(context);
         if (obj instanceof CallMessage) {
             CallMessage message = (CallMessage) obj;
             MessageHandler handler = handlers.get(message.getAction());
