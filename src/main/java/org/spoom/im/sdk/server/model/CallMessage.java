@@ -24,6 +24,10 @@ public class CallMessage implements Protobufable, Serializable {
     private long time;
     private HashMap<String, String> data = new HashMap<>();
 
+    public CallMessage(int action) {
+        this.action = action;
+    }
+
     @Override
     public byte[] getByteArray() {
         CallMessageProto.CallMessage.Builder builder = CallMessageProto.CallMessage.newBuilder();

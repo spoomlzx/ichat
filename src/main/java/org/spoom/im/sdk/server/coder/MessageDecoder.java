@@ -49,13 +49,10 @@ public class MessageDecoder extends ByteToMessageDecoder {
     private Object parseMessageObj(byte[] bytes, byte type) throws InvalidProtocolBufferException {
         switch (type) {
             case IMConstant.ProtobufType.HB_REQUEST:
-                HeartbeatRequest heartbeatRequest = HeartbeatRequest.getInstance();
-                logger.info("decode: " + heartbeatRequest.toString());
-                return heartbeatRequest;
+                return HeartbeatRequest.getInstance();
             case IMConstant.ProtobufType.CALL_MESSAGE:
                 CallMessageProto.CallMessage callMsg = CallMessageProto.CallMessage.parseFrom(bytes);
-                CallMessage callMessage = new CallMessage();
-                callMessage.setAction(callMsg.getAction());
+                CallMessage callMessage = new CallMessage(callMsg.getAction());
                 callMessage.putAll(callMsg.getDataMap());
                 callMessage.setTime(callMsg.getTime());
                 logger.info("decode: " + callMessage.toString());

@@ -2,16 +2,14 @@ package com.lan.common.config;
 
 import com.lan.ichat.im.handler.BindHandler;
 import com.lan.ichat.im.handler.SessionClosedHandler;
+import com.lan.ichat.im.manager.MessageDispatcher;
 import org.spoom.im.sdk.server.ChannelManager;
 import org.spoom.im.sdk.server.IMConstant;
-import org.spoom.im.sdk.server.MessageHandler;
-import org.spoom.im.sdk.server.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * package com.lan.common.config
@@ -26,7 +24,7 @@ public class IChatConfig {
     @Autowired
     private SessionClosedHandler sessionClosedHandler;
     @Autowired
-    private SessionManager sessionManager;
+    private MessageDispatcher messageDispatcher;
 
     /**
      * 注册处理消息的handler
@@ -38,12 +36,14 @@ public class IChatConfig {
     public ChannelManager channelManager() throws IOException {
         ChannelManager manager = new ChannelManager();
         manager.setPort(23456);
-        HashMap<Integer, MessageHandler> handlers = new HashMap<>();
-        handlers.put(IMConstant.HandlerType.BIND_CLIENT, bindHandler);
-        handlers.put(IMConstant.HandlerType.CLOSE_SESSION, sessionClosedHandler);
-        manager.setHandlers(handlers);
-        manager.setSessionManager(sessionManager);
+        initDispatcher();
+        manager.setDispatcher(messageDispatcher);
         manager.bind();
         return manager;
+    }
+
+    private void initDispatcher() {
+        messageDispatcher.put(IMConstant.HandlerType.BIND_CLIENT, bindHandler);
+        messageDispatcher.put(IMConstant.HandlerType.CLOSE_SESSION, sessionClosedHandler);
     }
 }

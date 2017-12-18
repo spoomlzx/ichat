@@ -88,7 +88,7 @@
             <if test="iMSession.bindTime != null">`bind_time`= #{iMSession.bindTime,jdbcType=BIGINT},</if>
             <if test="iMSession.status != null">`status`= #{iMSession.status,jdbcType=TINYINT}</if>
         </set>
-        WHERE `id` = #{iMSession.id,jdbcType=VARCHAR}
+        WHERE `account` = #{iMSession.account,jdbcType=VARCHAR}
     </update>
 
     <delete id="delete">
