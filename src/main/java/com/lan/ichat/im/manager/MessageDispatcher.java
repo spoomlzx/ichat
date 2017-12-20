@@ -3,9 +3,8 @@ package com.lan.ichat.im.manager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spoom.im.sdk.server.*;
-import org.spoom.im.sdk.server.model.CallMessage;
 import org.spoom.im.sdk.server.model.ChatMessage;
-import org.spoom.im.sdk.server.model.Reply;
+import org.spoom.im.sdk.server.model.CmdMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,18 +25,17 @@ public class MessageDispatcher implements IDispatcher {
     private SessionManager sessionManager;
 
     @Override
-    public void dispatchCallMessage(IMSession session, CallMessage message) {
+    public void dispatchCallMessage(IMSession session, CmdMessage message) {
         MessageHandler handler = handlers.get(message.getAction());
+        CmdMessage replyMessage;
         if (handler == null) {
-            Reply reply = new Reply();
-            reply.setAction(message.getAction());
-            reply.setCode(IMConstant.ReturnCode.CODE_404);
-            reply.setMessage("No handler");
-            //session.write(reply);
+            replyMessage = new CmdMessage();
+            replyMessage.setAction(IMConstant.MessageAction.ACTION_NO_HANDLER);
+            session.write(replyMessage);
         } else {
-            Reply reply = handler.process(session, message);
-            if (reply != null) {
-                session.write(reply);
+            replyMessage = handler.process(session, message);
+            if (replyMessage != null) {
+                session.write(replyMessage);
             }
         }
     }

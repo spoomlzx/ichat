@@ -22,7 +22,7 @@ public class TokenService implements BaseService<UserEntity> {
     /**
      * 不设置过期时长，主要用于ichat客户端的登录
      */
-    public final static long NOT_EXPIRE = -1;
+    public final static long NOT_EXPIRE = -1L;
     @Autowired
     private RedisTemplate<String, UserEntity> redisTemplate;
 

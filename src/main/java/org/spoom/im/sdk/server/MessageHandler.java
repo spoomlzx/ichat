@@ -1,7 +1,6 @@
 package org.spoom.im.sdk.server;
 
-import org.spoom.im.sdk.server.model.CallMessage;
-import org.spoom.im.sdk.server.model.Reply;
+import org.spoom.im.sdk.server.model.CmdMessage;
 
 /**
  * package org.spoom.im.sdk.server
@@ -11,5 +10,5 @@ import org.spoom.im.sdk.server.model.Reply;
  */
 public interface MessageHandler {
 
-    Reply process(IMSession session, CallMessage callMessage);
+    CmdMessage process(IMSession session, CmdMessage callMessage);
 }

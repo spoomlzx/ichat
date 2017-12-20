@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spoom.im.sdk.server.coder.MessageDecoder;
 import org.spoom.im.sdk.server.coder.MessageEncoder;
-import org.spoom.im.sdk.server.model.CallMessage;
+import org.spoom.im.sdk.server.model.CmdMessage;
 import org.spoom.im.sdk.server.model.ChatMessage;
 import org.spoom.im.sdk.server.model.HeartbeatRequest;
 import org.spoom.im.sdk.server.model.HeartbeatResponse;
@@ -36,7 +36,6 @@ public class ChannelManager extends SimpleChannelInboundHandler<Object> {
     public static final int READ_IDLE_TIME = 240;//秒
     //连接空闲时间
     public static final int WRITE_IDLE_TIME = 20;//秒
-    public static final int PING_TIME_OUT = 100;//心跳响应 超时为30秒
 
     public void bind() throws IOException {
         ServerBootstrap bootstrap = new ServerBootstrap();
@@ -66,10 +65,9 @@ public class ChannelManager extends SimpleChannelInboundHandler<Object> {
         IMSession session = new IMSession(context.channel());
         if (obj instanceof HeartbeatRequest) {
             context.channel().writeAndFlush(HeartbeatResponse.getInstance());
-            logger.info("send back heartbeat");
         }
-        if (obj instanceof CallMessage) {
-            CallMessage message = (CallMessage) obj;
+        if (obj instanceof CmdMessage) {
+            CmdMessage message = (CmdMessage) obj;
             dispatcher.dispatchCallMessage(session, message);
         }
         if (obj instanceof ChatMessage) {
@@ -82,8 +80,9 @@ public class ChannelManager extends SimpleChannelInboundHandler<Object> {
     public void channelInactive(ChannelHandlerContext context) throws Exception {
         IMSession session = new IMSession(context.channel());
         logger.warn("sessionClosed()... from " + context.channel().remoteAddress() + " id:" + session.getId() + ",isConnected:" + context.channel().isActive());
-        CallMessage callMessage = new CallMessage(IMConstant.HandlerType.CLOSE_SESSION);
-        dispatcher.dispatchCallMessage(session, callMessage);
+        CmdMessage cmdMessage = new CmdMessage();
+        cmdMessage.setAction(IMConstant.MessageAction.ACTION_LOGOUT);
+        dispatcher.dispatchCallMessage(session, cmdMessage);
     }
 
     @Override

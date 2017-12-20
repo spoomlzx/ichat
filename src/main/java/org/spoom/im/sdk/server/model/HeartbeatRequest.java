@@ -14,6 +14,8 @@ import java.io.Serializable;
 public class HeartbeatRequest implements Protobufable, Serializable {
     private static final long serialVersionUID = -7448882163108173887L;
 
+    private static final String name = "REQ";
+
     private static final HeartbeatRequest request = new HeartbeatRequest();
 
     private HeartbeatRequest() {
@@ -25,7 +27,7 @@ public class HeartbeatRequest implements Protobufable, Serializable {
 
     @Override
     public byte[] getByteArray() {
-        return IMConstant.Protobuf.HB_REQUEST_BODY.getBytes();
+        return name.getBytes();
     }
 
     @Override
@@ -35,6 +37,6 @@ public class HeartbeatRequest implements Protobufable, Serializable {
 
     @Override
     public String toString() {
-        return IMConstant.Protobuf.HB_REQUEST_NAME;
+        return name;
     }
 }

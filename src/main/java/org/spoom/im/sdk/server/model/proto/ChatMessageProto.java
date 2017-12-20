@@ -120,6 +120,9 @@ public final class ChatMessageProto {
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -204,7 +207,7 @@ public final class ChatMessageProto {
         internalGetFieldAccessorTable() {
       return ChatMessageProto.internal_static_org_spoom_im_sdk_server_model_proto_ChatMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ChatMessageProto.ChatMessage.class, ChatMessageProto.ChatMessage.Builder.class);
+              ChatMessage.class, Builder.class);
     }
 
     public static final int MSGID_FIELD_NUMBER = 1;
@@ -489,10 +492,10 @@ public final class ChatMessageProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof ChatMessageProto.ChatMessage)) {
+      if (!(obj instanceof ChatMessage)) {
         return super.equals(obj);
       }
-      ChatMessageProto.ChatMessage other = (ChatMessageProto.ChatMessage) obj;
+      ChatMessage other = (ChatMessage) obj;
 
       boolean result = true;
       result = result && getMsgId()
@@ -544,69 +547,69 @@ public final class ChatMessageProto {
       return hash;
     }
 
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static ChatMessage parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static ChatMessage parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static ChatMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static ChatMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(byte[] data)
+    public static ChatMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static ChatMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(java.io.InputStream input)
+    public static ChatMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static ChatMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static ChatMessageProto.ChatMessage parseDelimitedFrom(java.io.InputStream input)
+    public static ChatMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static ChatMessageProto.ChatMessage parseDelimitedFrom(
+    public static ChatMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static ChatMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static ChatMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -618,7 +621,7 @@ public final class ChatMessageProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(ChatMessageProto.ChatMessage prototype) {
+    public static Builder newBuilder(ChatMessage prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -638,7 +641,7 @@ public final class ChatMessageProto {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:org.spoom.im.sdk.server.model.proto.ChatMessage)
-        ChatMessageProto.ChatMessageOrBuilder {
+        ChatMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return ChatMessageProto.internal_static_org_spoom_im_sdk_server_model_proto_ChatMessage_descriptor;
@@ -648,7 +651,7 @@ public final class ChatMessageProto {
           internalGetFieldAccessorTable() {
         return ChatMessageProto.internal_static_org_spoom_im_sdk_server_model_proto_ChatMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                ChatMessageProto.ChatMessage.class, ChatMessageProto.ChatMessage.Builder.class);
+                ChatMessage.class, Builder.class);
       }
 
       // Construct using org.spoom.im.sdk.server.model.proto.ChatMessageProto.ChatMessage.newBuilder()
@@ -692,20 +695,20 @@ public final class ChatMessageProto {
         return ChatMessageProto.internal_static_org_spoom_im_sdk_server_model_proto_ChatMessage_descriptor;
       }
 
-      public ChatMessageProto.ChatMessage getDefaultInstanceForType() {
-        return ChatMessageProto.ChatMessage.getDefaultInstance();
+      public ChatMessage getDefaultInstanceForType() {
+        return ChatMessage.getDefaultInstance();
       }
 
-      public ChatMessageProto.ChatMessage build() {
-        ChatMessageProto.ChatMessage result = buildPartial();
+      public ChatMessage build() {
+        ChatMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public ChatMessageProto.ChatMessage buildPartial() {
-        ChatMessageProto.ChatMessage result = new ChatMessageProto.ChatMessage(this);
+      public ChatMessage buildPartial() {
+        ChatMessage result = new ChatMessage(this);
         result.msgId_ = msgId_;
         result.chatType_ = chatType_;
         result.msgType_ = msgType_;
@@ -745,16 +748,16 @@ public final class ChatMessageProto {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ChatMessageProto.ChatMessage) {
-          return mergeFrom((ChatMessageProto.ChatMessage)other);
+        if (other instanceof ChatMessage) {
+          return mergeFrom((ChatMessage)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(ChatMessageProto.ChatMessage other) {
-        if (other == ChatMessageProto.ChatMessage.getDefaultInstance()) return this;
+      public Builder mergeFrom(ChatMessage other) {
+        if (other == ChatMessage.getDefaultInstance()) return this;
         if (!other.getMsgId().isEmpty()) {
           msgId_ = other.msgId_;
           onChanged();
@@ -797,11 +800,11 @@ public final class ChatMessageProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        ChatMessageProto.ChatMessage parsedMessage = null;
+        ChatMessage parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ChatMessageProto.ChatMessage) e.getUnfinishedMessage();
+          parsedMessage = (ChatMessage) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1260,12 +1263,12 @@ public final class ChatMessageProto {
     }
 
     // @@protoc_insertion_point(class_scope:org.spoom.im.sdk.server.model.proto.ChatMessage)
-    private static final ChatMessageProto.ChatMessage DEFAULT_INSTANCE;
+    private static final ChatMessage DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new ChatMessageProto.ChatMessage();
+      DEFAULT_INSTANCE = new ChatMessage();
     }
 
-    public static ChatMessageProto.ChatMessage getDefaultInstance() {
+    public static ChatMessage getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1275,7 +1278,7 @@ public final class ChatMessageProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new ChatMessage(input, extensionRegistry);
+        return new ChatMessage(input, extensionRegistry);
       }
     };
 
@@ -1288,7 +1291,7 @@ public final class ChatMessageProto {
       return PARSER;
     }
 
-    public ChatMessageProto.ChatMessage getDefaultInstanceForType() {
+    public ChatMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 

@@ -6,11 +6,11 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import org.apache.log4j.Logger;
 import org.spoom.im.sdk.server.IMConstant;
-import org.spoom.im.sdk.server.model.CallMessage;
 import org.spoom.im.sdk.server.model.ChatMessage;
+import org.spoom.im.sdk.server.model.CmdMessage;
 import org.spoom.im.sdk.server.model.HeartbeatRequest;
-import org.spoom.im.sdk.server.model.proto.CallMessageProto;
 import org.spoom.im.sdk.server.model.proto.ChatMessageProto;
+import org.spoom.im.sdk.server.model.proto.CmdMessageProto;
 
 import java.util.List;
 
@@ -50,13 +50,18 @@ public class MessageDecoder extends ByteToMessageDecoder {
         switch (type) {
             case IMConstant.ProtobufType.HB_REQUEST:
                 return HeartbeatRequest.getInstance();
-            case IMConstant.ProtobufType.CALL_MESSAGE:
-                CallMessageProto.CallMessage callMsg = CallMessageProto.CallMessage.parseFrom(bytes);
-                CallMessage callMessage = new CallMessage(callMsg.getAction());
-                callMessage.putAll(callMsg.getDataMap());
-                callMessage.setTime(callMsg.getTime());
-                logger.info("decode: " + callMessage.toString());
-                return callMessage;
+            case IMConstant.ProtobufType.CMD_MESSAGE:
+                CmdMessageProto.CmdMessage cmdMsg = CmdMessageProto.CmdMessage.parseFrom(bytes);
+                CmdMessage cmdMessage = new CmdMessage();
+                cmdMessage.setMsgId(cmdMsg.getMsgId());
+                cmdMessage.setAction(cmdMsg.getAction());
+                cmdMessage.setChatType(cmdMsg.getChatType());
+                cmdMessage.setFrom(cmdMsg.getFrom());
+                cmdMessage.setTo(cmdMsg.getTo());
+                cmdMessage.setTime(cmdMsg.getTime());
+                cmdMessage.putAll(cmdMsg.getDataMap());
+                logger.info("decode: " + cmdMessage.toString());
+                return cmdMessage;
             case IMConstant.ProtobufType.CHAT_MESSAGE:
                 ChatMessageProto.ChatMessage messageProto = ChatMessageProto.ChatMessage.parseFrom(bytes);
                 ChatMessage chatMessage = new ChatMessage();

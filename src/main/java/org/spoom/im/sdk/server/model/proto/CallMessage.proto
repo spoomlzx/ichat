@@ -1,8 +1,0 @@
-syntax = "proto3";
-package org.spoom.im.sdk.server.model.proto;
-option java_outer_classname = "CallMessageProto";
-message CallMessage {
-    int32 action = 1;
-    int64 time = 2;
-    map<string,string> data =3;
-}

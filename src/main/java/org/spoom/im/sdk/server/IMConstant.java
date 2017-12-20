@@ -15,46 +15,22 @@ public interface IMConstant {
     String CLIENT_HEARTBEAT = "client_heartbeat";
 
     interface ReturnCode {
-        int CODE_200 = 200;
-        int CODE_404 = 400;
+        String CODE_SUCCESS = "200";
+        String CODE_FAILURE = "500";
+        String CODE_NO_HANDLER = "404";
     }
 
     interface ProtobufType {
         byte HB_REQUEST = 0;
         byte HB_RESPONSE = 1;
         byte CHAT_MESSAGE = 2;
-        byte CALL_MESSAGE = 3;
-        byte REPLY = 4;
-    }
-
-    interface Protobuf {
-        String HB_REQUEST_NAME = "SERVER_HEARTBEAT_REQUEST";
-        String HB_RESPONSE_NAME = "SERVER_HEARTBEAT_RESPONSE";
-        String HB_REQUEST_BODY = "REQ";
-        String HB_RESPONSE_BODY = "RES";
-    }
-
-    interface HandlerType {
-        int BIND_CLIENT = 0;
-        int CLOSE_SESSION = 1;
+        byte CMD_MESSAGE = 3;
     }
 
     interface MessageAction {
-        int ACTION_FORCEOFFLINE = 999;
-    }
-
-    interface ChatType {
-        int CHAT_SINGLE = 0;
-        int CHAT_GROUP = 1;
-        int CHAT_PUBLIC = 2;
-    }
-
-    interface MessageType {
-        int MSG_TEXT = 0;
-        int MSG_IMAGE = 1;
-        int MSG_VOICE = 2;
-        int MSG_VIDEO = 3;
-        int MSG_LOCATION = 4;
-        int MSG_FILE = 5;
+        int ACTION_NO_HANDLER = 404;
+        int ACTION_FORCE_OFFLINE = 999;
+        int ACTION_LOGIN = 901;
+        int ACTION_LOGOUT = 902;
     }
 }

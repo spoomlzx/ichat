@@ -19,7 +19,6 @@ public class MessageEncoder extends MessageToByteEncoder<Object> {
     @Override
     protected void encode(ChannelHandlerContext context, Object obj, ByteBuf buf) throws Exception {
         if (obj instanceof Protobufable) {
-            logger.info(obj.toString());
             Protobufable data = (Protobufable) obj;
             byte[] byteArray = data.getByteArray();
             buf.writeBytes(createHeader(data.getType(), byteArray.length));

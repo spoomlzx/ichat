@@ -32,6 +32,7 @@ public class ChatMessage implements Protobufable, Serializable {
     private long time;
 
     public ChatMessage() {
+        chatType = ChatType.CHAT_SINGLE; // 默认为0，singleChat
         time = System.currentTimeMillis();
     }
 
@@ -52,6 +53,22 @@ public class ChatMessage implements Protobufable, Serializable {
     @Override
     public byte getType() {
         return IMConstant.ProtobufType.CHAT_MESSAGE;
+    }
+
+    interface ChatType {
+        int CHAT_SINGLE = 0;
+        int CHAT_GROUP = 1;
+        int CHAT_PUBLIC = 2;
+    }
+
+    interface MessageType {
+        int MSG_TEXT = 0;
+        int MSG_IMAGE = 1;
+        int MSG_VOICE = 2;
+        int MSG_VIDEO = 3;
+        int MSG_LINK = 4;
+        int MSG_LOCATION = 5;
+        int MSG_FILE = 6;
     }
 
     public String toString() {

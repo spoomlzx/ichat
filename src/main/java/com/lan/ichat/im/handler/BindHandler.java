@@ -7,9 +7,7 @@ import org.spoom.im.sdk.server.IMConstant;
 import org.spoom.im.sdk.server.IMSession;
 import org.spoom.im.sdk.server.MessageHandler;
 import org.spoom.im.sdk.server.SessionManager;
-import org.spoom.im.sdk.server.model.CallMessage;
-import org.spoom.im.sdk.server.model.ChatMessage;
-import org.spoom.im.sdk.server.model.Reply;
+import org.spoom.im.sdk.server.model.CmdMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,12 +28,14 @@ public class BindHandler implements MessageHandler {
     private SessionManager sessionManager;
 
     @Override
-    public Reply process(IMSession newSession, CallMessage callMessage) {
-        Reply reply = new Reply();
-        reply.setAction(callMessage.getAction());
-        reply.setCode(IMConstant.ReturnCode.CODE_200);
+    public CmdMessage process(IMSession newSession, CmdMessage callMessage) {
+        CmdMessage replyMessage = new CmdMessage();
+        replyMessage.setMsgId(StringUtils.getUUID());
+        replyMessage.setAction(callMessage.getAction());
+        replyMessage.setTime(System.currentTimeMillis());
         try {
             String account = callMessage.get("account");
+            replyMessage.setTo(account);
             newSession.setAccount(account);
             newSession.setDeviceId(callMessage.get("deviceId"));
             newSession.setHost(InetAddress.getLocalHost().getHostAddress());
@@ -54,30 +54,30 @@ public class BindHandler implements MessageHandler {
             if (newSession.equals(oldSession)) {
                 oldSession.setStatus(true);
                 sessionManager.update(oldSession);
-                reply.put("id", oldSession.getId());
-                return reply;
+                replyMessage.put("id", oldSession.getId());
+                return replyMessage;
             }
             newSession.setBindTime(System.currentTimeMillis());
             newSession.setStatus(true);
             sessionManager.add(newSession);
-            logger.info("bind successful account:" + account + " nid:" + newSession.getId());
         } catch (Exception e) {
             newSession.setStatus(false);
             logger.error("bind failed account:" + callMessage.get("account") + " id:" + newSession.getId(), e);
         }
-        reply.put("id", newSession.getId());
-        return reply;
+        replyMessage.put("id", newSession.getId());
+        return replyMessage;
     }
 
     private void sendForceOfflineMessage(IMSession oldSession, String account, String deviceModel) {
-        ChatMessage msg = new ChatMessage();
-        msg.setMsgId(StringUtils.getUUID());
-        msg.setChatType(IMConstant.MessageAction.ACTION_FORCEOFFLINE);
-        msg.setTo(account);
-        msg.setFrom("system");
-        msg.setBody(deviceModel);
+        CmdMessage cmdMessage = new CmdMessage();
+        cmdMessage.setMsgId(StringUtils.getUUID());
+        cmdMessage.setAction(IMConstant.MessageAction.ACTION_FORCE_OFFLINE);
+        cmdMessage.setFrom("system");
+        cmdMessage.setTo(account);
+        cmdMessage.setTime(System.currentTimeMillis());
+        cmdMessage.put("deviceModel", deviceModel);
         if (oldSession.isConnected()) {
-            oldSession.write(msg);
+            oldSession.write(cmdMessage);
         }
     }
 }

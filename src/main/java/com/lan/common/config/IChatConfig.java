@@ -43,7 +43,7 @@ public class IChatConfig {
     }
 
     private void initDispatcher() {
-        messageDispatcher.put(IMConstant.HandlerType.BIND_CLIENT, bindHandler);
-        messageDispatcher.put(IMConstant.HandlerType.CLOSE_SESSION, sessionClosedHandler);
+        messageDispatcher.put(IMConstant.MessageAction.ACTION_LOGIN, bindHandler);
+        messageDispatcher.put(IMConstant.MessageAction.ACTION_LOGOUT, sessionClosedHandler);
     }
 }
