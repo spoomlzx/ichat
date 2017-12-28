@@ -1,5 +1,6 @@
 package com.lan.ichat.console;
 
+import com.lan.common.annotation.OpenApi;
 import com.lan.common.util.BaseResult;
 import com.lan.common.util.IChatStatus;
 import com.lan.ichat.im.push.MessagePusher;
@@ -48,6 +49,7 @@ public class SysUserController {
         return baseResult;
     }
 
+    @OpenApi
     @GetMapping(value = "/user/{id}")
     public BaseResult getUserInfoById(@PathVariable Long id) {
         BaseResult baseResult = new BaseResult();
