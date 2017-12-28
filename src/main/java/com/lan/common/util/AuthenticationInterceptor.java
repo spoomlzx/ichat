@@ -2,6 +2,7 @@ package com.lan.common.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lan.common.annotation.OpenApi;
+import com.lan.ichat.model.AdminEntity;
 import com.lan.ichat.model.UserEntity;
 import com.lan.ichat.service.TokenService;
 import org.slf4j.Logger;
@@ -31,7 +32,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private TokenService tokenService;
     private String tokenName;
-    public static final String USER_KEY = "userId";
+    public static final String USER_KEY = "chatId";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -51,19 +52,29 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             responseReturn(IChatStatus.TOKEN_EMPTY, response);
             return false;
         }
-        UserEntity userEntity = tokenService.get(token);
-        if (userEntity == null) {
+        Object userObj = tokenService.get(token);
+        if (userObj == null) {
             responseReturn(IChatStatus.TOKEN_INVALID, response);
             return false;
         }
-        // 1 为admin，禁止非管理员用户访问/console/**
-        if (userEntity.getRoleId() != 1 && request.getRequestURI().startsWith("/api/console")) {
-            responseReturn(IChatStatus.OVERSTEP_AUTHORITY, response);
+
+        // 将登录用户的id存入request，当有@LoginUser注解时，通过id拉取用户信息
+        if (userObj instanceof UserEntity) {
+            request.setAttribute(USER_KEY, ((UserEntity) userObj).getChatId());
+            // 禁止非管理员用户访问/console/**
+            if (request.getRequestURI().startsWith("/api/console")) {
+                responseReturn(IChatStatus.OVERSTEP_AUTHORITY, response);
+                return false;
+            }
+            return true;
+        }
+
+        if (userObj instanceof AdminEntity) {
+            return true;
+        } else {
+            responseReturn(IChatStatus.TOKEN_INVALID, response);
             return false;
         }
-        // 将登录用户的id存入request，当有@LoginUser注解时，通过id拉取用户信息
-        request.setAttribute(USER_KEY, userEntity.getId());
-        return true;
     }
 
     private void responseReturn(IChatStatus status, HttpServletResponse response) throws IOException {

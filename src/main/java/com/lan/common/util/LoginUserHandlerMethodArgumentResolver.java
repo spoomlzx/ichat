@@ -2,7 +2,6 @@ package com.lan.common.util;
 
 import com.lan.common.annotation.LoginUser;
 import com.lan.common.annotation.Token;
-import com.lan.ichat.model.UserEntity;
 import com.lan.ichat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -43,8 +42,7 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
             if (obj == null) {
                 return null;
             }
-            UserEntity user = userService.getUserById((Long) obj);
-            return user;
+            return userService.getUserByChatId((String) obj);
         } else if (methodParameter.hasParameterAnnotation(Token.class)) {
             return request.getHeader(this.getTokenName());
         } else {

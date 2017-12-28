@@ -13,34 +13,44 @@ public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = -6392066827261775844L;
     private Long id;
-    private String username;
-    private String nickName;
+    private String chatId;
+    private String name;
+    private String telephone;
     private String motto;
     private String password;
-    private Integer roleId;
+    private String avatar;
     private Date createTime;
     private Boolean online;
     private Boolean enabled;
     private Date lastLoginTime;
-    private String avatar;
     private Integer gender;
     private String email;
-    private String telephone;
+    private Integer regionId;
+    private String province;
+    private String city;
 
-    public String getMotto() {
-        return motto;
+    public Long getId() {
+        return id;
     }
 
-    public void setMotto(String motto) {
-        this.motto = motto;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getChatId() {
+        return chatId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTelephone() {
@@ -51,28 +61,12 @@ public class UserEntity implements Serializable {
         this.telephone = telephone;
     }
 
-    public Long getId() {
-        return id;
+    public String getMotto() {
+        return motto;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setMotto(String motto) {
+        this.motto = motto;
     }
 
     public String getPassword() {
@@ -83,12 +77,12 @@ public class UserEntity implements Serializable {
         this.password = password;
     }
 
-    public Integer getRoleId() {
-        return roleId;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Date getCreateTime() {
@@ -123,19 +117,43 @@ public class UserEntity implements Serializable {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
     public Integer getGender() {
         return gender;
     }
 
     public void setGender(Integer gender) {
         this.gender = gender;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(Integer regionId) {
+        this.regionId = regionId;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

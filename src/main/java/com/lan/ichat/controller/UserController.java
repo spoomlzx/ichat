@@ -1,7 +1,6 @@
 package com.lan.ichat.controller;
 
 import com.lan.common.annotation.LoginUser;
-import com.lan.common.annotation.OpenApi;
 import com.lan.common.annotation.Token;
 import com.lan.common.exception.IChatException;
 import com.lan.common.util.AuthResult;
@@ -16,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 /**
  * package com.lan.ichat.controller
@@ -50,8 +51,8 @@ public class UserController {
             tokenService.delete(oldToken);
         }
         try {
-            // 查找普通用户，roleId=2
-            userEntity = userService.getUserByUsername(user.getUsername(), 2);
+            // 查找普通用户
+            userEntity = userService.getUserByChatId(user.getChatId());
         } catch (Exception e) {
             throw new IChatException(IChatStatus.SQL_EXCEPTION);
         }
@@ -73,6 +74,12 @@ public class UserController {
         return authResult;
     }
 
+    /**
+     * logout 当前用户
+     *
+     * @param token
+     * @return
+     */
     @PostMapping(value = "/user/logout")
     public BaseResult logout(@Token String token) {
         BaseResult baseResult = new BaseResult();
@@ -89,6 +96,37 @@ public class UserController {
         return baseResult;
     }
 
+    /**
+     * register user
+     *
+     * @param user
+     * @return
+     */
+    @PostMapping(value = "/user/register")
+    public BaseResult registerUser(@RequestBody UserEntity user) {
+        BaseResult baseResult = new BaseResult();
+        try {
+            if (user.getPassword() != null) {
+                user.setPassword(DigestUtils.sha256Hex(user.getPassword()));
+            } else {
+                user.setPassword(DigestUtils.sha256Hex("000000"));
+            }
+            user.setCreateTime(new Date());
+            user.setEnabled(true);
+            userService.insert(user);
+            baseResult.setStatus(IChatStatus.INSERT_SUCCESS);
+        } catch (Exception e) {
+            baseResult.setStatus(IChatStatus.INSERT_FAILURE);
+        }
+        return baseResult;
+    }
+
+    /**
+     * 获取当前登录的user
+     *
+     * @param user
+     * @return
+     */
     @GetMapping(value = "/user/info")
     public BaseResult getLoginUser(@LoginUser UserEntity user) {
         BaseResult baseResult = new BaseResult("获取当前登录用户成功");
@@ -96,29 +134,18 @@ public class UserController {
         return baseResult;
     }
 
-    @OpenApi
-    @GetMapping(value = "/user/{id}")
-    public BaseResult getUserById(@PathVariable Long id) {
-        BaseResult baseResult = new BaseResult("get user");
-        UserEntity user = userService.getUserById(id);
-        baseResult.setData(user);
-        return baseResult;
-    }
-
     /**
-     * 只能由管理员或者用户自己更新信息
+     * 该API只能由用户自己更新信息
      *
      * @param user
      * @param loginUser
      * @return
      */
-    @PatchMapping(value = "/user")
+    @PostMapping(value = "/user/update")
     public BaseResult updateUser(@RequestBody UserEntity user, @LoginUser UserEntity loginUser) {
         BaseResult baseResult = new BaseResult();
-        if (loginUser.getRoleId() == 2 && user.getId() != loginUser.getId()) {
-            baseResult.setStatus(IChatStatus.UPDATE_FAILURE);
-            return baseResult;
-        }
+        // 将id设置为当前token登录的id
+        user.setId(loginUser.getId());
         try {
             if (user.getPassword() != null) {
                 user.setPassword(DigestUtils.sha256Hex(user.getPassword()));

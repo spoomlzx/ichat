@@ -1,6 +1,5 @@
 package com.lan.ichat.service;
 
-import com.lan.ichat.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2017/11/2
  */
 @Service
-public class TokenService implements BaseService<UserEntity> {
+public class TokenService implements BaseService<Object> {
     /**
      * console默认过期时长，单位：秒
      */
@@ -24,24 +23,26 @@ public class TokenService implements BaseService<UserEntity> {
      */
     public final static long NOT_EXPIRE = -1L;
     @Autowired
-    private RedisTemplate<String, UserEntity> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Override
-    public void set(String token, UserEntity userEntity) {
-        this.redisTemplate.boundValueOps(token).set(userEntity);
+    public void set(String token, Object obj) {
+        // 28/12/2017 TODO 持久化到db
+        this.redisTemplate.boundValueOps(token).set(obj);
         this.redisTemplate.expire(token, DEFAULT_EXPIRE, TimeUnit.SECONDS);
     }
 
-    public void set(String token, UserEntity userEntity, Long expire) {
-        this.redisTemplate.boundValueOps(token).set(userEntity);
+    public void set(String token, Object obj, Long expire) {
+        this.redisTemplate.boundValueOps(token).set(obj);
         if (expire != NOT_EXPIRE) {
             this.redisTemplate.expire(token, DEFAULT_EXPIRE, TimeUnit.SECONDS);
         }
     }
 
     @Override
-    public UserEntity get(String token) {
-        return (UserEntity) this.redisTemplate.boundValueOps(token).get();
+    public Object get(String token) {
+        // 28/12/2017 TODO 若redis中没有，则从db中取
+        return this.redisTemplate.boundValueOps(token).get();
     }
 
     @Override

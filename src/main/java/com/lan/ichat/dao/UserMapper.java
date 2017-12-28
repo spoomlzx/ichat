@@ -11,9 +11,7 @@ public interface UserMapper {
 
     List<UserEntity> getUserList(@Param("name") String name, @Param("gender") Integer gender);
 
-    UserEntity getUserByUsername(@Param("username") String username, @Param("roleId") Integer roleId);
-
-    UserEntity getUserById(@Param("id") Long id);
+    UserEntity getUserByChatId(@Param("chatId") String chatId);
 
     int insert(@Param("userEntity") UserEntity userEntity);
 
@@ -23,4 +21,3 @@ public interface UserMapper {
 
     int delete(@Param("id") Long id);
 }
-

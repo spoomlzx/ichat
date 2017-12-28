@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lan.ichat.dao.AdminMapper">
+
+    <select id="getAdminByUsername" resultType="com.lan.ichat.model.AdminEntity">
+        SELECT
+            `id`,
+            `username`,
+            `password`,
+            `last_login_time`,
+            `avatar`,
+            `email`
+        FROM ichat_admin
+        WHERE username = #{username}
+    </select>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="adminEntity.id">
+        INSERT INTO ichat_admin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="adminEntity.id!=null">id,</if>
+            <if test="adminEntity.username!=null">username,</if>
+            <if test="adminEntity.password!=null">password,</if>
+            <if test="adminEntity.lastLoginTime!=null">last_login_time,</if>
+            <if test="adminEntity.avatar!=null">avatar,</if>
+            <if test="adminEntity.email!=null">email,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="adminEntity.id!=null">#{adminEntity.id,jdbcType=BIGINT},
+            </if>
+            <if test="adminEntity.username!=null">#{adminEntity.username,jdbcType=VARCHAR},
+            </if>
+            <if test="adminEntity.password!=null">#{adminEntity.password,jdbcType=VARCHAR},
+            </if>
+            <if test="adminEntity.lastLoginTime!=null">#{adminEntity.lastLoginTime,jdbcType=DATE},
+            </if>
+            <if test="adminEntity.avatar!=null">#{adminEntity.avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="adminEntity.email!=null">#{adminEntity.email,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE ichat_admin
+        <set>
+            <if test="adminEntity.id != null">id= #{adminEntity.id,jdbcType=BIGINT},</if>
+            <if test="adminEntity.username != null">username= #{adminEntity.username,jdbcType=VARCHAR},</if>
+            <if test="adminEntity.password != null">password= #{adminEntity.password,jdbcType=VARCHAR},</if>
+            <if test="adminEntity.lastLoginTime != null">last_login_time= #{adminEntity.lastLoginTime,jdbcType=DATE},</if>
+            <if test="adminEntity.avatar != null">avatar= #{adminEntity.avatar,jdbcType=VARCHAR},</if>
+            <if test="adminEntity.email != null">email= #{adminEntity.email,jdbcType=VARCHAR}</if>
+        </set>
+        WHERE id = #{adminEntity.id,jdbcType=BIGINT}
+    </update>
+</mapper>
+

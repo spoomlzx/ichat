@@ -9,9 +9,7 @@ public interface UserService {
 
     HashMap<String, Object> getUserList(Integer page, Integer limit, String name, Integer gender);
 
-    UserEntity getUserByUsername(String username, Integer roleId);
-
-    UserEntity getUserById(Long id);
+    UserEntity getUserByChatId(String chatId);
 
     int insert(UserEntity userEntity);
 
