@@ -31,6 +31,7 @@ public class SessionClosedHandler implements MessageHandler {
         CmdMessage replyMessage = new CmdMessage();
         replyMessage.setMsgId(StringUtils.getUUID());
         replyMessage.setAction(IMConstant.MessageAction.ACTION_LOGOUT);
+        replyMessage.setFrom("system");
         replyMessage.setTo(session.getAccount());
         replyMessage.setTime(System.currentTimeMillis());
         replyMessage.put("code", IMConstant.ReturnCode.CODE_FAILURE);
@@ -44,8 +45,8 @@ public class SessionClosedHandler implements MessageHandler {
             session.removeAttribute(IMConstant.SESSION_KEY);
             sessionManager.remove(account.toString());
             replyMessage.put("code", IMConstant.ReturnCode.CODE_SUCCESS);
+            logger.info("session removed, id: " + session.getId());
         }
-        logger.info("session removed, id: " + session.getId());
         return replyMessage;
     }
 }

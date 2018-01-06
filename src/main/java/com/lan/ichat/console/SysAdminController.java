@@ -2,7 +2,6 @@ package com.lan.ichat.console;
 
 import com.lan.common.annotation.Token;
 import com.lan.common.exception.IChatException;
-import com.lan.common.util.AuthResult;
 import com.lan.common.util.BaseResult;
 import com.lan.common.util.IChatStatus;
 import com.lan.common.util.StringUtils;
@@ -35,9 +34,9 @@ public class SysAdminController {
     private TokenService tokenService;
 
     @PostMapping(value = "/login")
-    public AuthResult login(@RequestBody AdminEntity admin, @Token String oldToken) {
+    public BaseResult login(@RequestBody AdminEntity admin, @Token String oldToken) {
         AdminEntity adminEntity;
-        AuthResult authResult = new AuthResult();
+        BaseResult baseResult = new BaseResult();
         // 携带token重复登录的，先删除原有token
         if (oldToken != null) {
             tokenService.delete(oldToken);
@@ -56,14 +55,14 @@ public class SysAdminController {
             String token = StringUtils.getUUID();
             // 将<token,userEntity>存入redis
             tokenService.set(token, adminEntity);
-            authResult.setStatus(IChatStatus.LOGIN_SUCCESS);
+            baseResult.setStatus(IChatStatus.LOGIN_SUCCESS);
             adminEntity.setPassword(null);
-            authResult.setData(adminEntity);
-            authResult.setToken(token);
+            adminEntity.setToken(token);
+            baseResult.setData(adminEntity);
         } else {
             throw new IChatException(IChatStatus.CREDENTIAL_INVALID);
         }
-        return authResult;
+        return baseResult;
     }
 
     @PostMapping(value = "/logout")

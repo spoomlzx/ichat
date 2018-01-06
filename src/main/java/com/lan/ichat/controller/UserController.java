@@ -3,7 +3,6 @@ package com.lan.ichat.controller;
 import com.lan.common.annotation.LoginUser;
 import com.lan.common.annotation.Token;
 import com.lan.common.exception.IChatException;
-import com.lan.common.util.AuthResult;
 import com.lan.common.util.BaseResult;
 import com.lan.common.util.IChatStatus;
 import com.lan.common.util.StringUtils;
@@ -43,9 +42,9 @@ public class UserController {
      * @return
      */
     @PostMapping(value = "/user/login")
-    public AuthResult login(@RequestBody UserEntity user, @Token String oldToken) {
+    public BaseResult login(@RequestBody UserEntity user, @Token String oldToken) {
         UserEntity userEntity;
-        AuthResult authResult = new AuthResult();
+        BaseResult baseResult=new BaseResult();
         // 携带token重复登录的，先删除原有token
         if (oldToken != null) {
             tokenService.delete(oldToken);
@@ -65,13 +64,13 @@ public class UserController {
                设置expire=-1,表示一直不过期 */
             tokenService.set(token, userEntity, -1L);
             userEntity.setPassword(null);
-            authResult.setData(userEntity);
-            authResult.setStatus(IChatStatus.LOGIN_SUCCESS);
-            authResult.setToken(token);
+            userEntity.setToken(token);
+            baseResult.setData(userEntity);
+            baseResult.setStatus(IChatStatus.LOGIN_SUCCESS);
         } else {
             throw new IChatException(IChatStatus.CREDENTIAL_INVALID);
         }
-        return authResult;
+        return baseResult;
     }
 
     /**

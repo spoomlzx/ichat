@@ -33,6 +33,7 @@ public class BindHandler implements MessageHandler {
         replyMessage.setMsgId(StringUtils.getUUID());
         replyMessage.setAction(callMessage.getAction());
         replyMessage.setTime(System.currentTimeMillis());
+        replyMessage.setFrom("system");
         try {
             String account = callMessage.get("account");
             replyMessage.setTo(account);
@@ -60,11 +61,11 @@ public class BindHandler implements MessageHandler {
             newSession.setBindTime(System.currentTimeMillis());
             newSession.setStatus(true);
             sessionManager.add(newSession);
+            replyMessage.put("id", newSession.getId());
         } catch (Exception e) {
             newSession.setStatus(false);
             logger.error("bind failed account:" + callMessage.get("account") + " id:" + newSession.getId(), e);
         }
-        replyMessage.put("id", newSession.getId());
         return replyMessage;
     }
 

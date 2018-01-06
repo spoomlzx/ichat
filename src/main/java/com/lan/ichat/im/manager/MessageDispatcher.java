@@ -31,9 +31,11 @@ public class MessageDispatcher implements IDispatcher {
         if (handler == null) {
             replyMessage = new CmdMessage();
             replyMessage.setAction(IMConstant.MessageAction.ACTION_NO_HANDLER);
+            logger.info("reply: " + replyMessage);
             session.write(replyMessage);
         } else {
             replyMessage = handler.process(session, message);
+            logger.info("reply: " + replyMessage);
             if (replyMessage != null) {
                 session.write(replyMessage);
             }

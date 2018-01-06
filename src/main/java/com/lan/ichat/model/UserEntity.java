@@ -25,9 +25,17 @@ public class UserEntity implements Serializable {
     private Date lastLoginTime;
     private Integer gender;
     private String email;
-    private Integer regionId;
-    private String province;
-    private String city;
+    private String region;
+
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public Long getId() {
         return id;
@@ -133,27 +141,11 @@ public class UserEntity implements Serializable {
         this.email = email;
     }
 
-    public Integer getRegionId() {
-        return regionId;
+    public String getRegion() {
+        return region;
     }
 
-    public void setRegionId(Integer regionId) {
-        this.regionId = regionId;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+    public void setRegion(String region) {
+        this.region = region;
     }
 }

@@ -27,7 +27,7 @@ import java.util.List;
 public class ImageController {
     private final static Logger logger = LoggerFactory.getLogger(ImageController.class);
 
-    private static String UPLOAD_DIR = "/Users/spoomlan/Documents/learn/html/img/";
+    private static String UPLOAD_DIR = "E:\\elysium_server\\web_server\\htdocs\\img\\";
 
     @PostMapping("/api/upload")
     public BaseResult uploadSingle(@RequestParam("file") MultipartFile uploadfile) {

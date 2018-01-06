@@ -45,8 +45,10 @@ public class ChatMessage implements Protobufable, Serializable {
                 .setFrom(from)
                 .setTo(to)
                 .setBody(body)
-                .setExtra(extra)
                 .setTime(time);
+        if (extra != null) {
+            builder.setExtra(extra);
+        }
         return builder.build().toByteArray();
     }
 

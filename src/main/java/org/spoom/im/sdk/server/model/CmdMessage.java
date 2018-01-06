@@ -39,9 +39,13 @@ public class CmdMessage implements Protobufable, Serializable {
         builder.setMsgId(msgId)
                 .setChatType(chatType)
                 .setAction(action)
-                .setFrom(from)
-                .setTo(to)
                 .setTime(time);
+        if (from != null) {
+            builder.setFrom(from);
+        }
+        if (to != null) {
+            builder.setTo(to);
+        }
         if (!data.isEmpty()) {
             builder.putAllData(data);
         }
@@ -135,6 +139,7 @@ public class CmdMessage implements Protobufable, Serializable {
         buffer.append("#CmdMessage#").append("\n");
         buffer.append("msgId: ").append(msgId).append("\n");
         buffer.append("chatType: ").append(chatType).append("\n");
+        buffer.append("action: ").append(action).append("\n");
         buffer.append("from: ").append(from).append("\n");
         buffer.append("to: ").append(to).append("\n");
         buffer.append("time: ").append(time).append("\n");
