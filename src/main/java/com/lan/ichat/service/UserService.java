@@ -1,15 +1,18 @@
 package com.lan.ichat.service;
 
+import com.lan.ichat.model.FriendEntity;
 import com.lan.ichat.model.UserEntity;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface UserService {
+    List<UserEntity> getUserList();
 
-    HashMap<String, Object> getUserList(Integer page, Integer limit, String name, Integer gender);
+    UserEntity getUserByUsername(String username);
 
-    UserEntity getUserByChatId(String chatId);
+    UserEntity getUserById(Long id);
+
+    List<FriendEntity> getFriendList(Long id);
 
     int insert(UserEntity userEntity);
 
@@ -19,4 +22,3 @@ public interface UserService {
 
     int delete(Long id);
 }
-

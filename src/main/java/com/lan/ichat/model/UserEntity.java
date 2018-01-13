@@ -13,8 +13,8 @@ public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = -6392066827261775844L;
     private Long id;
-    private String chatId;
-    private String name;
+    private String username;
+    private String nickname;
     private String telephone;
     private String motto;
     private String password;
@@ -24,17 +24,23 @@ public class UserEntity implements Serializable {
     private Boolean enabled;
     private Date lastLoginTime;
     private Integer gender;
-    private String email;
     private String region;
+    private String email;
 
-    private String token;
+    private Integer type;
 
-    public String getToken() {
-        return token;
+    private Integer hideMyMM;
+    private Integer hideHisMM;
+    private Integer star;
+    private Integer blacklist;
+    private Integer chatroom;
+
+    public Integer getChatroom() {
+        return chatroom;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setChatroom(Integer chatroom) {
+        this.chatroom = chatroom;
     }
 
     public Long getId() {
@@ -45,20 +51,20 @@ public class UserEntity implements Serializable {
         this.id = id;
     }
 
-    public String getChatId() {
-        return chatId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setChatId(String chatId) {
-        this.chatId = chatId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getTelephone() {
@@ -147,5 +153,45 @@ public class UserEntity implements Serializable {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getHideMyMM() {
+        return hideMyMM;
+    }
+
+    public void setHideMyMM(Integer hideMyMM) {
+        this.hideMyMM = hideMyMM;
+    }
+
+    public Integer getHideHisMM() {
+        return hideHisMM;
+    }
+
+    public void setHideHisMM(Integer hideHisMM) {
+        this.hideHisMM = hideHisMM;
+    }
+
+    public Integer getStar() {
+        return star;
+    }
+
+    public void setStar(Integer star) {
+        this.star = star;
+    }
+
+    public Integer getBlacklist() {
+        return blacklist;
+    }
+
+    public void setBlacklist(Integer blacklist) {
+        this.blacklist = blacklist;
     }
 }

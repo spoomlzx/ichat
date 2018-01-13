@@ -32,7 +32,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private TokenService tokenService;
     private String tokenName;
-    public static final String USER_KEY = "chatId";
+    public static final String USER_KEY = "id";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -60,7 +60,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
         // 将登录用户的id存入request，当有@LoginUser注解时，通过id拉取用户信息
         if (userObj instanceof UserEntity) {
-            request.setAttribute(USER_KEY, ((UserEntity) userObj).getChatId());
+            request.setAttribute(USER_KEY, ((UserEntity) userObj).getId());
             // 禁止非管理员用户访问/console/**
             if (request.getRequestURI().startsWith("/api/console")) {
                 responseReturn(IChatStatus.OVERSTEP_AUTHORITY, response);

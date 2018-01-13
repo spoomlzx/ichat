@@ -19,7 +19,7 @@ spring:
   profiles:
     active: dev
   redis:
-    host: 192.168.0.200
+    host: localhost
     port: 6379
     pool:
       max-active: 20

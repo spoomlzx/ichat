@@ -55,7 +55,7 @@ public class SysAdminController {
             String token = StringUtils.getUUID();
             // 将<token,userEntity>存入redis
             tokenService.set(token, adminEntity);
-            baseResult.setStatus(IChatStatus.LOGIN_SUCCESS);
+            baseResult.setStatus(IChatStatus.SUCCESS);
             adminEntity.setPassword(null);
             adminEntity.setToken(token);
             baseResult.setData(adminEntity);
@@ -74,7 +74,7 @@ public class SysAdminController {
         }
         try {
             tokenService.delete(token);
-            baseResult.setStatus(IChatStatus.LOGOUT_SUCCESS);
+            baseResult.setStatus(IChatStatus.SUCCESS);
         } catch (Exception e) {
             logger.error(e.getClass().getName() + ":" + e.getMessage());
             baseResult.setStatus(IChatStatus.TOKEN_DEL_FAILURE);

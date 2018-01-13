@@ -35,7 +35,7 @@ public class TokenService implements BaseService<Object> {
     public void set(String token, Object obj, Long expire) {
         this.redisTemplate.boundValueOps(token).set(obj);
         if (expire != NOT_EXPIRE) {
-            this.redisTemplate.expire(token, DEFAULT_EXPIRE, TimeUnit.SECONDS);
+            this.redisTemplate.expire(token, expire, TimeUnit.SECONDS);
         }
     }
 

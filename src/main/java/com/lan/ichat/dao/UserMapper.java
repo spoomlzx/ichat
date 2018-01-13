@@ -8,10 +8,22 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
+    List<UserEntity> getUserList();
 
-    List<UserEntity> getUserList(@Param("name") String name, @Param("gender") Integer gender);
+    UserEntity getUserByUsername(@Param("username") String username);
 
-    UserEntity getUserByChatId(@Param("chatId") String chatId);
+    UserEntity getUserById(@Param("id") Long id);
+
+    List<UserEntity> getFriendList(@Param("id") Long id);
+
+    int addFriend(
+            @Param("userId") Long userId,
+            @Param("friendId") Long friendId,
+            @Param("hideMyMM") int hideMyMM,
+            @Param("hideHisMM") int hideHisMM,
+            @Param("star") int star,
+            @Param("blacklist") int blacklist,
+            @Param("chatroom") int chatroom);
 
     int insert(@Param("userEntity") UserEntity userEntity);
 

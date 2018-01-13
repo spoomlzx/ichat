@@ -42,7 +42,7 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
             if (obj == null) {
                 return null;
             }
-            return userService.getUserByChatId((String) obj);
+            return userService.getUserById((Long) obj);
         } else if (methodParameter.hasParameterAnnotation(Token.class)) {
             return request.getHeader(this.getTokenName());
         } else {

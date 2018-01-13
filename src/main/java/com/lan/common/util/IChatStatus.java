@@ -42,12 +42,6 @@ public enum IChatStatus {
 
     // series 2: success
     SUCCESS(200, "Success"),
-    LOGIN_SUCCESS(201, "Login success"),
-    LOGOUT_SUCCESS(202, "Logout success"),
-    GET_SUCCESS(210, "Get success"),
-    INSERT_SUCCESS(220, "Insert success"),
-    UPDATE_SUCCESS(230, "Update success"),
-    DELETE_SUCCESS(240, "Delete success"),
 
     // series 3: exception
     TOKEN_INVALID(300, "Token is invalid"),

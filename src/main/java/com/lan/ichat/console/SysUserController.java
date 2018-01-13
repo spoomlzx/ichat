@@ -12,8 +12,6 @@ import org.spoom.im.sdk.server.model.ChatMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-
 /**
  * package com.lan.ichat.console
  * 只有admin才能访问的api在这里实现，可以由用户访问的api都在UserController中实现
@@ -46,9 +44,7 @@ public class SysUserController {
                                   @RequestParam(value = "name", required = false) String name) {
         BaseResult baseResult = new BaseResult();
         try {
-            HashMap<String, Object> hashMap = userService.getUserList(page, limit, name, gender);
-            baseResult.setStatus(IChatStatus.GET_SUCCESS);
-            baseResult.setData(hashMap);
+
         } catch (Exception e) {
             baseResult.setStatus(IChatStatus.GET_FAILURE);
         }
@@ -66,8 +62,8 @@ public class SysUserController {
     public BaseResult getUserInfoById(@PathVariable String chatId) {
         BaseResult baseResult = new BaseResult();
         try {
-            UserEntity user = userService.getUserByChatId(chatId);
-            baseResult.setStatus(IChatStatus.GET_SUCCESS);
+            UserEntity user = userService.getUserByUsername(chatId);
+            baseResult.setStatus(IChatStatus.SUCCESS);
             baseResult.setData(user);
         } catch (Exception e) {
             baseResult.setStatus(IChatStatus.GET_FAILURE);
@@ -89,7 +85,7 @@ public class SysUserController {
         BaseResult baseResult = new BaseResult();
         try {
             userService.delete(id);
-            baseResult.setStatus(IChatStatus.DELETE_SUCCESS);
+            baseResult.setStatus(IChatStatus.SUCCESS);
         } catch (Exception e) {
             baseResult.setStatus(IChatStatus.DELETE_FAILURE);
         }

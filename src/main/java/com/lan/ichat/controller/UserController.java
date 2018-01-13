@@ -3,9 +3,11 @@ package com.lan.ichat.controller;
 import com.lan.common.annotation.LoginUser;
 import com.lan.common.annotation.Token;
 import com.lan.common.exception.IChatException;
+import com.lan.common.util.AuthenticationInterceptor;
 import com.lan.common.util.BaseResult;
 import com.lan.common.util.IChatStatus;
 import com.lan.common.util.StringUtils;
+import com.lan.ichat.model.FriendEntity;
 import com.lan.ichat.model.UserEntity;
 import com.lan.ichat.service.TokenService;
 import com.lan.ichat.service.UserService;
@@ -15,7 +17,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * package com.lan.ichat.controller
@@ -44,14 +50,14 @@ public class UserController {
     @PostMapping(value = "/user/login")
     public BaseResult login(@RequestBody UserEntity user, @Token String oldToken) {
         UserEntity userEntity;
-        BaseResult baseResult=new BaseResult();
+        BaseResult baseResult = new BaseResult();
         // 携带token重复登录的，先删除原有token
         if (oldToken != null) {
             tokenService.delete(oldToken);
         }
         try {
             // 查找普通用户
-            userEntity = userService.getUserByChatId(user.getChatId());
+            userEntity = userService.getUserByUsername(user.getUsername());
         } catch (Exception e) {
             throw new IChatException(IChatStatus.SQL_EXCEPTION);
         }
@@ -60,13 +66,20 @@ public class UserController {
         }
         if (DigestUtils.sha256Hex(user.getPassword()).equals(userEntity.getPassword())) {
             String token = StringUtils.getUUID();
+            // 07/01/2018 TODO 需要优化这里的过期时间，寻找合适的方案，保证能一直刷新登录用户的token但是要使不用的token失效
             /* 将<token,userEntity>存入redis,
                设置expire=-1,表示一直不过期 */
             tokenService.set(token, userEntity, -1L);
             userEntity.setPassword(null);
-            userEntity.setToken(token);
-            baseResult.setData(userEntity);
-            baseResult.setStatus(IChatStatus.LOGIN_SUCCESS);
+            // 只在服务器控制图片服务器
+            userEntity.setAvatar("http://www.spoom.com" + userEntity.getAvatar());
+            Map<String, Object> data = new HashMap<>();
+            data.put("token", token);
+            data.put("user", userEntity);
+            List<FriendEntity> friends = userService.getFriendList(userEntity.getId());
+            data.put("friends", friends);
+            baseResult.setData(data);
+            baseResult.setStatus(IChatStatus.SUCCESS);
         } else {
             throw new IChatException(IChatStatus.CREDENTIAL_INVALID);
         }
@@ -88,7 +101,7 @@ public class UserController {
         }
         try {
             tokenService.delete(token);
-            baseResult.setStatus(IChatStatus.LOGOUT_SUCCESS);
+            baseResult.setStatus(IChatStatus.SUCCESS);
         } catch (Exception e) {
             baseResult.setStatus(IChatStatus.TOKEN_DEL_FAILURE);
         }
@@ -113,7 +126,7 @@ public class UserController {
             user.setCreateTime(new Date());
             user.setEnabled(true);
             userService.insert(user);
-            baseResult.setStatus(IChatStatus.INSERT_SUCCESS);
+            baseResult.setStatus(IChatStatus.SUCCESS);
         } catch (Exception e) {
             baseResult.setStatus(IChatStatus.INSERT_FAILURE);
         }
@@ -150,11 +163,20 @@ public class UserController {
                 user.setPassword(DigestUtils.sha256Hex(user.getPassword()));
             }
             userService.update(user);
-            baseResult.setStatus(IChatStatus.UPDATE_SUCCESS);
+            baseResult.setStatus(IChatStatus.SUCCESS);
         } catch (Exception e) {
             baseResult.setStatus(IChatStatus.UPDATE_FAILURE);
         }
         return baseResult;
     }
 
+    @GetMapping(value = "/user/fetchFriends")
+    public BaseResult fetchFriendList(HttpServletRequest request) {
+        BaseResult baseResult = new BaseResult("fetch friends success");
+        Object obj = request.getAttribute(AuthenticationInterceptor.USER_KEY);
+        logger.info("login user id: " + obj);
+        List<FriendEntity> friendList = userService.getFriendList((Long) obj);
+        baseResult.setData(friendList);
+        return baseResult;
+    }
 }

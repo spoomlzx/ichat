@@ -4,8 +4,8 @@
     <select id="getUserList" resultType="com.lan.ichat.model.UserEntity">
         SELECT
             `id`,
-            `chat_id`,
-            `name`,
+            `username`,
+            `nickname`,
             `telephone`,
             `motto`,
             `password`,
@@ -20,11 +20,11 @@
         FROM ichat_user
     </select>
 
-    <select id="getUserByChatId" resultType="com.lan.ichat.model.UserEntity">
+    <select id="getUserByUsername" resultType="com.lan.ichat.model.UserEntity">
         SELECT
             `id`,
-            `chat_id`,
-            `name`,
+            `username`,
+            `nickname`,
             `telephone`,
             `motto`,
             `password`,
@@ -37,16 +37,61 @@
             `email`,
             `region`
         FROM ichat_user
-        WHERE chat_id = #{chatId}
+        WHERE username = #{username}
     </select>
+
+    <select id="getUserById" resultType="com.lan.ichat.model.UserEntity">
+        SELECT
+            `id`,
+            `username`,
+            `nickname`,
+            `telephone`,
+            `motto`,
+            `password`,
+            `avatar`,
+            `create_time`,
+            `online`,
+            `enabled`,
+            `last_login_time`,
+            `gender`,
+            `email`,
+            `region`
+        FROM ichat_user
+        WHERE id = #{id}
+    </select>
+
+    <select id="getFriendList" resultType="com.lan.ichat.model.UserEntity">
+        SELECT
+            a.`username`,
+            a.`nickname`,
+            a.`telephone`,
+            a.`motto`,
+            a.`avatar`,
+            a.`gender`,
+            a.`region`,
+            a.`email`,
+            b.`hide_my_mm`,
+            b.`hide_his_mm`,
+            b.`star`,
+            b.`blacklist`,
+            b.`chatroom`
+        FROM ichat_friend b INNER JOIN ichat_user a ON a.id = b.friend_id AND b.user_id = #{id}
+    </select>
+
+    <insert id="addFriend">
+        INSERT INTO ichat_friend
+        (user_id, friend_id, hide_my_mm, hide_his_mm, star, blacklist, chatroom)
+        VALUES
+            (#{userId}, #{friendId}, #{hideMyMM}, #{hideHisMM}, #{star}, #{blacklist}, #{chatroom})
+    </insert>
 
     <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="userEntity.id">
         INSERT INTO ichat_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userEntity.id!=null">id,</if>
-            <if test="userEntity.chatId!=null">chat_id,</if>
-            <if test="userEntity.name!=null">name,</if>
+            <if test="userEntity.username!=null">username,</if>
+            <if test="userEntity.nickname!=null">nickname,</if>
             <if test="userEntity.telephone!=null">telephone,</if>
             <if test="userEntity.motto!=null">motto,</if>
             <if test="userEntity.password!=null">password,</if>
@@ -63,9 +108,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userEntity.id!=null">#{userEntity.id,jdbcType=BIGINT},
             </if>
-            <if test="userEntity.chatId!=null">#{userEntity.chatId,jdbcType=VARCHAR},
+            <if test="userEntity.username!=null">#{userEntity.username,jdbcType=VARCHAR},
             </if>
-            <if test="userEntity.name!=null">#{userEntity.name,jdbcType=VARCHAR},
+            <if test="userEntity.nickname!=null">#{userEntity.nickname,jdbcType=VARCHAR},
             </if>
             <if test="userEntity.telephone!=null">#{userEntity.telephone,jdbcType=VARCHAR},
             </if>
@@ -96,8 +141,8 @@
     <insert id="insertList">
         INSERT INTO ichat_user (
         `id`,
-        `chat_id`,
-        `name`,
+        `username`,
+        `nickname`,
         `telephone`,
         `motto`,
         `password`,
@@ -113,8 +158,8 @@
         <foreach collection="userEntitys" item="userEntity" index="index" separator=",">
             (
             #{userEntity.id,jdbcType=BIGINT},
-            #{userEntity.chatId,jdbcType=VARCHAR},
-            #{userEntity.name,jdbcType=VARCHAR},
+            #{userEntity.username,jdbcType=VARCHAR},
+            #{userEntity.nickname,jdbcType=VARCHAR},
             #{userEntity.telephone,jdbcType=VARCHAR},
             #{userEntity.motto,jdbcType=VARCHAR},
             #{userEntity.password,jdbcType=VARCHAR},
@@ -135,8 +180,8 @@
         UPDATE ichat_user
         <set>
             <if test="userEntity.id != null">id= #{userEntity.id,jdbcType=BIGINT},</if>
-            <if test="userEntity.chatId != null">chat_id= #{userEntity.chatId,jdbcType=VARCHAR},</if>
-            <if test="userEntity.name != null">name= #{userEntity.name,jdbcType=VARCHAR},</if>
+            <if test="userEntity.username != null">username= #{userEntity.username,jdbcType=VARCHAR},</if>
+            <if test="userEntity.nickname != null">name= #{userEntity.nickname,jdbcType=VARCHAR},</if>
             <if test="userEntity.telephone != null">telephone= #{userEntity.telephone,jdbcType=VARCHAR},</if>
             <if test="userEntity.motto != null">motto= #{userEntity.motto,jdbcType=VARCHAR},</if>
             <if test="userEntity.password != null">password= #{userEntity.password,jdbcType=VARCHAR},</if>
