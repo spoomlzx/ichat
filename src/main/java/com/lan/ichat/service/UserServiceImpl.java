@@ -1,5 +1,6 @@
 package com.lan.ichat.service;
 
+import com.lan.common.util.ServerUtils;
 import com.lan.ichat.dao.UserMapper;
 import com.lan.ichat.model.FriendEntity;
 import com.lan.ichat.model.UserEntity;
@@ -51,10 +52,10 @@ public class UserServiceImpl implements UserService {
             friend.setType(type);
             friend.setTelephone(user.getTelephone());
             friend.setMotto(user.getMotto());
-            friend.setAvatar(user.getAvatar());
+            friend.setAvatar(ServerUtils.getAvatarUrl(user.getAvatar()));
             friend.setGender(user.getGender());
             friend.setRegion(user.getRegion());
-            friend.setEmail(user.getEmail());
+            friend.setRemark(user.getRemark());
             friends.add(friend);
         }
         return friends;

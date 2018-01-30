@@ -28,24 +28,24 @@ public class BindHandler implements MessageHandler {
     private SessionManager sessionManager;
 
     @Override
-    public CmdMessage process(IMSession newSession, CmdMessage callMessage) {
+    public CmdMessage process(IMSession newSession, CmdMessage cmdMessage) {
         CmdMessage replyMessage = new CmdMessage();
         replyMessage.setMsgId(StringUtils.getUUID());
-        replyMessage.setAction(callMessage.getAction());
+        replyMessage.setAction(cmdMessage.getAction());
         replyMessage.setTime(System.currentTimeMillis());
         replyMessage.setFrom("system");
         try {
-            String account = callMessage.get("account");
+            String account = cmdMessage.get("account");
             replyMessage.setTo(account);
             newSession.setAccount(account);
-            newSession.setDeviceId(callMessage.get("deviceId"));
+            newSession.setDeviceId(cmdMessage.get("deviceId"));
             newSession.setHost(InetAddress.getLocalHost().getHostAddress());
-            newSession.setDeviceType(callMessage.get("deviceType"));
-            newSession.setDeviceModel(callMessage.get("deviceModel"));
-            newSession.setClientVersion(callMessage.get("clientVersion"));
-            newSession.setSystemVersion(callMessage.get("systemVersion"));
+            newSession.setDeviceType(cmdMessage.get("deviceType"));
+            newSession.setDeviceModel(cmdMessage.get("deviceModel"));
+            newSession.setClientVersion(cmdMessage.get("clientVersion"));
+            newSession.setSystemVersion(cmdMessage.get("systemVersion"));
             newSession.setBindTime(System.currentTimeMillis());
-            newSession.setPackageName(callMessage.get("packageName"));
+            newSession.setPackageName(cmdMessage.get("packageName"));
 
             IMSession oldSession = sessionManager.get(account);
             // 同一账号，不同设备上登录时，让原设备上的账号下线
@@ -64,7 +64,7 @@ public class BindHandler implements MessageHandler {
             replyMessage.put("id", newSession.getId());
         } catch (Exception e) {
             newSession.setStatus(false);
-            logger.error("bind failed account:" + callMessage.get("account") + " id:" + newSession.getId(), e);
+            logger.error("bind failed account:" + cmdMessage.get("account") + " id:" + newSession.getId(), e);
         }
         return replyMessage;
     }

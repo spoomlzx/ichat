@@ -3,10 +3,7 @@ package com.lan.ichat.controller;
 import com.lan.common.annotation.LoginUser;
 import com.lan.common.annotation.Token;
 import com.lan.common.exception.IChatException;
-import com.lan.common.util.AuthenticationInterceptor;
-import com.lan.common.util.BaseResult;
-import com.lan.common.util.IChatStatus;
-import com.lan.common.util.StringUtils;
+import com.lan.common.util.*;
 import com.lan.ichat.model.FriendEntity;
 import com.lan.ichat.model.UserEntity;
 import com.lan.ichat.service.TokenService;
@@ -18,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * package com.lan.ichat.controller
@@ -72,7 +66,7 @@ public class UserController {
             tokenService.set(token, userEntity, -1L);
             userEntity.setPassword(null);
             // 只在服务器控制图片服务器
-            userEntity.setAvatar("http://www.spoom.com" + userEntity.getAvatar());
+            userEntity.setAvatar(ServerUtils.getAvatarUrl(userEntity.getAvatar()));
             Map<String, Object> data = new HashMap<>();
             data.put("token", token);
             data.put("user", userEntity);

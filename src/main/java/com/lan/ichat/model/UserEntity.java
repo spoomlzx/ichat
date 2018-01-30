@@ -28,12 +28,20 @@ public class UserEntity implements Serializable {
     private String email;
 
     private Integer type;
-
+    private String remark;
     private Integer hideMyMM;
     private Integer hideHisMM;
     private Integer star;
     private Integer blacklist;
     private Integer chatroom;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public Integer getChatroom() {
         return chatroom;

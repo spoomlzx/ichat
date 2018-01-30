@@ -15,7 +15,15 @@ public class FriendEntity {
     private String avatar;
     private Integer gender;
     private String region;
-    private String email;
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public String getUsername() {
         return username;
@@ -79,13 +87,5 @@ public class FriendEntity {
 
     public void setRegion(String region) {
         this.region = region;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

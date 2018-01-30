@@ -70,6 +70,7 @@
             a.`gender`,
             a.`region`,
             a.`email`,
+            b.`remark`,
             b.`hide_my_mm`,
             b.`hide_his_mm`,
             b.`star`,
