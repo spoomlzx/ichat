@@ -23,8 +23,8 @@ public class CmdMessage implements Protobufable, Serializable {
     private String msgId;
     private int chatType;
     private int action;
-    private String from;
-    private String to;
+    private String msgFrom;
+    private String msgTo;
     private long time;
     private HashMap<String, String> data = new HashMap<>();
 
@@ -40,11 +40,11 @@ public class CmdMessage implements Protobufable, Serializable {
                 .setChatType(chatType)
                 .setAction(action)
                 .setTime(time);
-        if (from != null) {
-            builder.setFrom(from);
+        if (msgFrom != null) {
+            builder.setMsgFrom(msgFrom);
         }
-        if (to != null) {
-            builder.setTo(to);
+        if (msgTo != null) {
+            builder.setMsgTo(msgTo);
         }
         if (!data.isEmpty()) {
             builder.putAllData(data);
@@ -109,20 +109,20 @@ public class CmdMessage implements Protobufable, Serializable {
         this.action = action;
     }
 
-    public String getFrom() {
-        return from;
+    public String getMsgFrom() {
+        return msgFrom;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setMsgFrom(String msgFrom) {
+        this.msgFrom = msgFrom;
     }
 
-    public String getTo() {
-        return to;
+    public String getMsgTo() {
+        return msgTo;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setMsgTo(String msgTo) {
+        this.msgTo = msgTo;
     }
 
     public long getTime() {
@@ -140,8 +140,8 @@ public class CmdMessage implements Protobufable, Serializable {
         buffer.append("msgId: ").append(msgId).append("\n");
         buffer.append("chatType: ").append(chatType).append("\n");
         buffer.append("action: ").append(action).append("\n");
-        buffer.append("from: ").append(from).append("\n");
-        buffer.append("to: ").append(to).append("\n");
+        buffer.append("msgFrom: ").append(msgFrom).append("\n");
+        buffer.append("msgTo: ").append(msgTo).append("\n");
         buffer.append("time: ").append(time).append("\n");
         if (!data.isEmpty()) {
             buffer.append("data{").append("\n");

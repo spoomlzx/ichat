@@ -5,8 +5,8 @@ message ChatMessage {
     string msgId = 1;
     int32 chatType = 2;// 标记消息类型，如：群聊信息、点对点消息
     int32 msgType=3;
-    string from = 4;
-    string to = 5;
+    string msgFrom = 4;
+    string msgTo = 5;
     string body = 6;
     string extra = 7;
     int64 time = 9;

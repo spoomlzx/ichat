@@ -18,22 +18,29 @@ public class ChatMessage implements Protobufable, Serializable {
     // message id
     private String msgId;
     // message type 标记消息类型，如：群聊信息、点对点消息
-    private int chatType;
+    private Integer chatType;
     // 标记content格式，IMAGE,TEXT,VOICE,VIDEO,FILE,LOCATION;
-    private int msgType;
+    private Integer msgType;
     // message 发送者
-    private String from;
+    private String msgFrom;
     // 接受者
-    private String to;
+    private String msgTo;
     // 消息内容
     private String body;
     private String extra;
     // 发送的时间戳
-    private long time;
+    private Long time;
+
+    /*
+    0 未接收 1 已接收
+    当用户登录时拉取离线消息，获取所有status==0的消息
+     */
+    private Integer status;
 
     public ChatMessage() {
         chatType = ChatType.CHAT_SINGLE; // 默认为0，singleChat
         time = System.currentTimeMillis();
+        status = 0;
     }
 
     @Override
@@ -42,8 +49,8 @@ public class ChatMessage implements Protobufable, Serializable {
         builder.setMsgId(msgId)
                 .setChatType(chatType)
                 .setMsgType(msgType)
-                .setFrom(from)
-                .setTo(to)
+                .setMsgFrom(msgFrom)
+                .setMsgTo(msgTo)
                 .setBody(body)
                 .setTime(time);
         if (extra != null) {
@@ -78,8 +85,8 @@ public class ChatMessage implements Protobufable, Serializable {
                 "msgId:" + msgId + "\n" +
                 "chatType:" + chatType + "\n" +
                 "msgType:" + msgType + "\n" +
-                "from:" + from + "\n" +
-                "to:" + to + "\n" +
+                "msgFrom:" + msgFrom + "\n" +
+                "msgTo:" + msgTo + "\n" +
                 "body:" + body + "\n" +
                 "extra:" + extra + "\n" +
                 "time:" + time;
@@ -93,36 +100,36 @@ public class ChatMessage implements Protobufable, Serializable {
         this.msgId = msgId;
     }
 
-    public int getChatType() {
+    public Integer getChatType() {
         return chatType;
     }
 
-    public void setChatType(int chatType) {
+    public void setChatType(Integer chatType) {
         this.chatType = chatType;
     }
 
-    public int getMsgType() {
+    public Integer getMsgType() {
         return msgType;
     }
 
-    public void setMsgType(int msgType) {
+    public void setMsgType(Integer msgType) {
         this.msgType = msgType;
     }
 
-    public String getFrom() {
-        return from;
+    public String getMsgFrom() {
+        return msgFrom;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setMsgFrom(String msgFrom) {
+        this.msgFrom = msgFrom;
     }
 
-    public String getTo() {
-        return to;
+    public String getMsgTo() {
+        return msgTo;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setMsgTo(String msgTo) {
+        this.msgTo = msgTo;
     }
 
     public String getBody() {
@@ -141,11 +148,19 @@ public class ChatMessage implements Protobufable, Serializable {
         this.extra = extra;
     }
 
-    public long getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(Long time) {
         this.time = time;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

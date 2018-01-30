@@ -33,10 +33,10 @@ public class BindHandler implements MessageHandler {
         replyMessage.setMsgId(StringUtils.getUUID());
         replyMessage.setAction(cmdMessage.getAction());
         replyMessage.setTime(System.currentTimeMillis());
-        replyMessage.setFrom("system");
+        replyMessage.setMsgFrom("system");
         try {
             String account = cmdMessage.get("account");
-            replyMessage.setTo(account);
+            replyMessage.setMsgTo(account);
             newSession.setAccount(account);
             newSession.setDeviceId(cmdMessage.get("deviceId"));
             newSession.setHost(InetAddress.getLocalHost().getHostAddress());
@@ -73,8 +73,8 @@ public class BindHandler implements MessageHandler {
         CmdMessage cmdMessage = new CmdMessage();
         cmdMessage.setMsgId(StringUtils.getUUID());
         cmdMessage.setAction(IMConstant.MessageAction.ACTION_FORCE_OFFLINE);
-        cmdMessage.setFrom("system");
-        cmdMessage.setTo(account);
+        cmdMessage.setMsgFrom("system");
+        cmdMessage.setMsgTo(account);
         cmdMessage.setTime(System.currentTimeMillis());
         cmdMessage.put("deviceModel", deviceModel);
         if (oldSession.isConnected()) {

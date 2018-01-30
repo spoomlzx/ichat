@@ -5,8 +5,8 @@ message CmdMessage {
     string msgId = 1;
     int32 chatType = 2;
     int32 action = 3;
-    string from = 4;
-    string to = 5;
+    string msgFrom = 4;
+    string msgTo = 5;
     int64 time = 6;
     map<string,string> data =7;
 }

@@ -56,8 +56,8 @@ public class MessageDecoder extends ByteToMessageDecoder {
                 cmdMessage.setMsgId(cmdMsg.getMsgId());
                 cmdMessage.setAction(cmdMsg.getAction());
                 cmdMessage.setChatType(cmdMsg.getChatType());
-                cmdMessage.setFrom(cmdMsg.getFrom());
-                cmdMessage.setTo(cmdMsg.getTo());
+                cmdMessage.setMsgFrom(cmdMsg.getMsgFrom());
+                cmdMessage.setMsgTo(cmdMsg.getMsgTo());
                 cmdMessage.setTime(cmdMsg.getTime());
                 cmdMessage.putAll(cmdMsg.getDataMap());
                 logger.info("decode: " + cmdMessage.toString());
@@ -68,8 +68,8 @@ public class MessageDecoder extends ByteToMessageDecoder {
                 chatMessage.setMsgId(messageProto.getMsgId());
                 chatMessage.setChatType(messageProto.getChatType());
                 chatMessage.setMsgType(messageProto.getMsgType());
-                chatMessage.setFrom(messageProto.getFrom());
-                chatMessage.setTo(messageProto.getTo());
+                chatMessage.setMsgFrom(messageProto.getMsgFrom());
+                chatMessage.setMsgTo(messageProto.getMsgTo());
                 chatMessage.setBody(messageProto.getBody());
                 chatMessage.setExtra(messageProto.getExtra());
                 chatMessage.setTime(messageProto.getTime());

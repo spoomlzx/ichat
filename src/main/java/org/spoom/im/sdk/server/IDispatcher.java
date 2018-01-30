@@ -1,5 +1,6 @@
 package org.spoom.im.sdk.server;
 
+import io.netty.channel.Channel;
 import org.spoom.im.sdk.server.model.CmdMessage;
 import org.spoom.im.sdk.server.model.ChatMessage;
 
@@ -11,8 +12,8 @@ import org.spoom.im.sdk.server.model.ChatMessage;
  */
 public interface IDispatcher {
 
-    void dispatchCallMessage(IMSession session,CmdMessage callMessage);
+    void dispatchCmdMessage(Channel channel, CmdMessage callMessage);
 
-    void dispatchChatMessage(IMSession session,ChatMessage chatMessage);
+    void dispatchChatMessage(Channel channel,ChatMessage chatMessage);
 
 }

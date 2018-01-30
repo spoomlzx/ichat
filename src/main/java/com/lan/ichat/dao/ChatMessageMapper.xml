@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lan.ichat.dao.ChatMessageMapper">
+    <!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO ichat_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chatMessage.msgId!=null">msg_id,</if>
+            <if test="chatMessage.chatType!=null">chat_type,</if>
+            <if test="chatMessage.msgType!=null">msg_type,</if>
+            <if test="chatMessage.msgFrom!=null">msg_from,</if>
+            <if test="chatMessage.msgTo!=null">msg_to,</if>
+            <if test="chatMessage.body!=null">body,</if>
+            <if test="chatMessage.extra!=null">extra,</if>
+            <if test="chatMessage.time!=null">`time`,</if>
+            <if test="chatMessage.status!=null">`status`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chatMessage.msgId!=null">#{chatMessage.msgId,jdbcType=VARCHAR},
+            </if>
+            <if test="chatMessage.chatType!=null">#{chatMessage.chatType,jdbcType=INTEGER},
+            </if>
+            <if test="chatMessage.msgType!=null">#{chatMessage.msgType,jdbcType=INTEGER},
+            </if>
+            <if test="chatMessage.msgFrom!=null">#{chatMessage.msgFrom,jdbcType=VARCHAR},
+            </if>
+            <if test="chatMessage.msgTo!=null">#{chatMessage.msgTo,jdbcType=VARCHAR},
+            </if>
+            <if test="chatMessage.body!=null">#{chatMessage.body,jdbcType=VARCHAR},
+            </if>
+            <if test="chatMessage.extra!=null">#{chatMessage.extra,jdbcType=VARCHAR},
+            </if>
+            <if test="chatMessage.time!=null">#{chatMessage.time,jdbcType=BIGINT},
+            </if>
+            <if test="chatMessage.status!=null">#{chatMessage.status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO ichat_message (
+        msg_id, chat_type, msg_type, msg_from, msg_to, body, extra, time, status
+        )VALUES
+        <foreach collection="chatMessages" item="chatMessage" index="index" separator=",">
+            (
+            #{chatMessage.msgId,jdbcType=VARCHAR},
+            #{chatMessage.chatType,jdbcType=INTEGER},
+            #{chatMessage.msgType,jdbcType=INTEGER},
+            #{chatMessage.msgFrom,jdbcType=VARCHAR},
+            #{chatMessage.msgTo,jdbcType=VARCHAR},
+            #{chatMessage.body,jdbcType=VARCHAR},
+            #{chatMessage.extra,jdbcType=VARCHAR},
+            #{chatMessage.time,jdbcType=BIGINT},
+            #{chatMessage.status,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE ichat_message
+        <set>
+            <if test="chatMessage.msgId != null">msg_id= #{chatMessage.msgId,jdbcType=VARCHAR},</if>
+            <if test="chatMessage.chatType != null">chat_type= #{chatMessage.chatType,jdbcType=INTEGER},</if>
+            <if test="chatMessage.msgType != null">msg_type= #{chatMessage.msgType,jdbcType=INTEGER},</if>
+            <if test="chatMessage.msgFrom != null">msg_from= #{chatMessage.msgFrom,jdbcType=VARCHAR},</if>
+            <if test="chatMessage.msgTo != null">msg_to= #{chatMessage.msgTo,jdbcType=VARCHAR},</if>
+            <if test="chatMessage.body != null">body= #{chatMessage.body,jdbcType=VARCHAR},</if>
+            <if test="chatMessage.extra != null">extra= #{chatMessage.extra,jdbcType=VARCHAR},</if>
+            <if test="chatMessage.time != null">`time`= #{chatMessage.time,jdbcType=BIGINT},</if>
+            <if test="chatMessage.status != null">`status`= #{chatMessage.status,jdbcType=INTEGER}</if>
+        </set>
+        WHERE msg_id = #{chatMessage.msgId,jdbcType=VARCHAR}
+    </update>
+</mapper>
+

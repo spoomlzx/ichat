@@ -39,24 +39,24 @@ public final class CmdMessageProto {
     int getAction();
 
     /**
-     * <code>string from = 4;</code>
+     * <code>string msgFrom = 4;</code>
      */
-    String getFrom();
+    String getMsgFrom();
     /**
-     * <code>string from = 4;</code>
+     * <code>string msgFrom = 4;</code>
      */
     com.google.protobuf.ByteString
-        getFromBytes();
+        getMsgFromBytes();
 
     /**
-     * <code>string to = 5;</code>
+     * <code>string msgTo = 5;</code>
      */
-    String getTo();
+    String getMsgTo();
     /**
-     * <code>string to = 5;</code>
+     * <code>string msgTo = 5;</code>
      */
     com.google.protobuf.ByteString
-        getToBytes();
+        getMsgToBytes();
 
     /**
      * <code>int64 time = 6;</code>
@@ -113,8 +113,8 @@ public final class CmdMessageProto {
       msgId_ = "";
       chatType_ = 0;
       action_ = 0;
-      from_ = "";
-      to_ = "";
+      msgFrom_ = "";
+      msgTo_ = "";
       time_ = 0L;
     }
 
@@ -168,13 +168,13 @@ public final class CmdMessageProto {
             case 34: {
               String s = input.readStringRequireUtf8();
 
-              from_ = s;
+              msgFrom_ = s;
               break;
             }
             case 42: {
               String s = input.readStringRequireUtf8();
 
-              to_ = s;
+              msgTo_ = s;
               break;
             }
             case 48: {
@@ -241,7 +241,7 @@ public final class CmdMessageProto {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         msgId_ = s;
@@ -255,7 +255,7 @@ public final class CmdMessageProto {
         getMsgIdBytes() {
       Object ref = msgId_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         msgId_ = b;
@@ -283,68 +283,68 @@ public final class CmdMessageProto {
       return action_;
     }
 
-    public static final int FROM_FIELD_NUMBER = 4;
-    private volatile Object from_;
+    public static final int MSGFROM_FIELD_NUMBER = 4;
+    private volatile Object msgFrom_;
     /**
-     * <code>string from = 4;</code>
+     * <code>string msgFrom = 4;</code>
      */
-    public String getFrom() {
-      Object ref = from_;
+    public String getMsgFrom() {
+      Object ref = msgFrom_;
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
-        from_ = s;
+        msgFrom_ = s;
         return s;
       }
     }
     /**
-     * <code>string from = 4;</code>
+     * <code>string msgFrom = 4;</code>
      */
     public com.google.protobuf.ByteString
-        getFromBytes() {
-      Object ref = from_;
+        getMsgFromBytes() {
+      Object ref = msgFrom_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
-        from_ = b;
+        msgFrom_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int TO_FIELD_NUMBER = 5;
-    private volatile Object to_;
+    public static final int MSGTO_FIELD_NUMBER = 5;
+    private volatile Object msgTo_;
     /**
-     * <code>string to = 5;</code>
+     * <code>string msgTo = 5;</code>
      */
-    public String getTo() {
-      Object ref = to_;
+    public String getMsgTo() {
+      Object ref = msgTo_;
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
-        to_ = s;
+        msgTo_ = s;
         return s;
       }
     }
     /**
-     * <code>string to = 5;</code>
+     * <code>string msgTo = 5;</code>
      */
     public com.google.protobuf.ByteString
-        getToBytes() {
-      Object ref = to_;
+        getMsgToBytes() {
+      Object ref = msgTo_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
-        to_ = b;
+        msgTo_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -457,11 +457,11 @@ public final class CmdMessageProto {
       if (action_ != 0) {
         output.writeInt32(3, action_);
       }
-      if (!getFromBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, from_);
+      if (!getMsgFromBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, msgFrom_);
       }
-      if (!getToBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, to_);
+      if (!getMsgToBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, msgTo_);
       }
       if (time_ != 0L) {
         output.writeInt64(6, time_);
@@ -491,11 +491,11 @@ public final class CmdMessageProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, action_);
       }
-      if (!getFromBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, from_);
+      if (!getMsgFromBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, msgFrom_);
       }
-      if (!getToBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, to_);
+      if (!getMsgToBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, msgTo_);
       }
       if (time_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
@@ -533,10 +533,10 @@ public final class CmdMessageProto {
           == other.getChatType());
       result = result && (getAction()
           == other.getAction());
-      result = result && getFrom()
-          .equals(other.getFrom());
-      result = result && getTo()
-          .equals(other.getTo());
+      result = result && getMsgFrom()
+          .equals(other.getMsgFrom());
+      result = result && getMsgTo()
+          .equals(other.getMsgTo());
       result = result && (getTime()
           == other.getTime());
       result = result && internalGetData().equals(
@@ -558,10 +558,10 @@ public final class CmdMessageProto {
       hash = (53 * hash) + getChatType();
       hash = (37 * hash) + ACTION_FIELD_NUMBER;
       hash = (53 * hash) + getAction();
-      hash = (37 * hash) + FROM_FIELD_NUMBER;
-      hash = (53 * hash) + getFrom().hashCode();
-      hash = (37 * hash) + TO_FIELD_NUMBER;
-      hash = (53 * hash) + getTo().hashCode();
+      hash = (37 * hash) + MSGFROM_FIELD_NUMBER;
+      hash = (53 * hash) + getMsgFrom().hashCode();
+      hash = (37 * hash) + MSGTO_FIELD_NUMBER;
+      hash = (53 * hash) + getMsgTo().hashCode();
       hash = (37 * hash) + TIME_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getTime());
@@ -726,9 +726,9 @@ public final class CmdMessageProto {
 
         action_ = 0;
 
-        from_ = "";
+        msgFrom_ = "";
 
-        to_ = "";
+        msgTo_ = "";
 
         time_ = 0L;
 
@@ -760,8 +760,8 @@ public final class CmdMessageProto {
         result.msgId_ = msgId_;
         result.chatType_ = chatType_;
         result.action_ = action_;
-        result.from_ = from_;
-        result.to_ = to_;
+        result.msgFrom_ = msgFrom_;
+        result.msgTo_ = msgTo_;
         result.time_ = time_;
         result.data_ = internalGetData();
         result.data_.makeImmutable();
@@ -817,12 +817,12 @@ public final class CmdMessageProto {
         if (other.getAction() != 0) {
           setAction(other.getAction());
         }
-        if (!other.getFrom().isEmpty()) {
-          from_ = other.from_;
+        if (!other.getMsgFrom().isEmpty()) {
+          msgFrom_ = other.msgFrom_;
           onChanged();
         }
-        if (!other.getTo().isEmpty()) {
-          to_ = other.to_;
+        if (!other.getMsgTo().isEmpty()) {
+          msgTo_ = other.msgTo_;
           onChanged();
         }
         if (other.getTime() != 0L) {
@@ -881,7 +881,7 @@ public final class CmdMessageProto {
           getMsgIdBytes() {
         Object ref = msgId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           msgId_ = b;
@@ -898,7 +898,7 @@ public final class CmdMessageProto {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         msgId_ = value;
         onChanged();
         return this;
@@ -907,7 +907,7 @@ public final class CmdMessageProto {
        * <code>string msgId = 1;</code>
        */
       public Builder clearMsgId() {
-
+        
         msgId_ = getDefaultInstance().getMsgId();
         onChanged();
         return this;
@@ -921,7 +921,7 @@ public final class CmdMessageProto {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         msgId_ = value;
         onChanged();
         return this;
@@ -938,7 +938,7 @@ public final class CmdMessageProto {
        * <code>int32 chatType = 2;</code>
        */
       public Builder setChatType(int value) {
-
+        
         chatType_ = value;
         onChanged();
         return this;
@@ -947,7 +947,7 @@ public final class CmdMessageProto {
        * <code>int32 chatType = 2;</code>
        */
       public Builder clearChatType() {
-
+        
         chatType_ = 0;
         onChanged();
         return this;
@@ -964,7 +964,7 @@ public final class CmdMessageProto {
        * <code>int32 action = 3;</code>
        */
       public Builder setAction(int value) {
-
+        
         action_ = value;
         onChanged();
         return this;
@@ -973,146 +973,146 @@ public final class CmdMessageProto {
        * <code>int32 action = 3;</code>
        */
       public Builder clearAction() {
-
+        
         action_ = 0;
         onChanged();
         return this;
       }
 
-      private Object from_ = "";
+      private Object msgFrom_ = "";
       /**
-       * <code>string from = 4;</code>
+       * <code>string msgFrom = 4;</code>
        */
-      public String getFrom() {
-        Object ref = from_;
+      public String getMsgFrom() {
+        Object ref = msgFrom_;
         if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           String s = bs.toStringUtf8();
-          from_ = s;
+          msgFrom_ = s;
           return s;
         } else {
           return (String) ref;
         }
       }
       /**
-       * <code>string from = 4;</code>
+       * <code>string msgFrom = 4;</code>
        */
       public com.google.protobuf.ByteString
-          getFromBytes() {
-        Object ref = from_;
+          getMsgFromBytes() {
+        Object ref = msgFrom_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
-          from_ = b;
+          msgFrom_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string from = 4;</code>
+       * <code>string msgFrom = 4;</code>
        */
-      public Builder setFrom(
+      public Builder setMsgFrom(
           String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-
-        from_ = value;
+  
+        msgFrom_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string from = 4;</code>
+       * <code>string msgFrom = 4;</code>
        */
-      public Builder clearFrom() {
-
-        from_ = getDefaultInstance().getFrom();
+      public Builder clearMsgFrom() {
+        
+        msgFrom_ = getDefaultInstance().getMsgFrom();
         onChanged();
         return this;
       }
       /**
-       * <code>string from = 4;</code>
+       * <code>string msgFrom = 4;</code>
        */
-      public Builder setFromBytes(
+      public Builder setMsgFromBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
-        from_ = value;
+        
+        msgFrom_ = value;
         onChanged();
         return this;
       }
 
-      private Object to_ = "";
+      private Object msgTo_ = "";
       /**
-       * <code>string to = 5;</code>
+       * <code>string msgTo = 5;</code>
        */
-      public String getTo() {
-        Object ref = to_;
+      public String getMsgTo() {
+        Object ref = msgTo_;
         if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           String s = bs.toStringUtf8();
-          to_ = s;
+          msgTo_ = s;
           return s;
         } else {
           return (String) ref;
         }
       }
       /**
-       * <code>string to = 5;</code>
+       * <code>string msgTo = 5;</code>
        */
       public com.google.protobuf.ByteString
-          getToBytes() {
-        Object ref = to_;
+          getMsgToBytes() {
+        Object ref = msgTo_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
-          to_ = b;
+          msgTo_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string to = 5;</code>
+       * <code>string msgTo = 5;</code>
        */
-      public Builder setTo(
+      public Builder setMsgTo(
           String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-
-        to_ = value;
+  
+        msgTo_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string to = 5;</code>
+       * <code>string msgTo = 5;</code>
        */
-      public Builder clearTo() {
-
-        to_ = getDefaultInstance().getTo();
+      public Builder clearMsgTo() {
+        
+        msgTo_ = getDefaultInstance().getMsgTo();
         onChanged();
         return this;
       }
       /**
-       * <code>string to = 5;</code>
+       * <code>string msgTo = 5;</code>
        */
-      public Builder setToBytes(
+      public Builder setMsgToBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
-        to_ = value;
+        
+        msgTo_ = value;
         onChanged();
         return this;
       }
@@ -1128,7 +1128,7 @@ public final class CmdMessageProto {
        * <code>int64 time = 6;</code>
        */
       public Builder setTime(long value) {
-
+        
         time_ = value;
         onChanged();
         return this;
@@ -1137,7 +1137,7 @@ public final class CmdMessageProto {
        * <code>int64 time = 6;</code>
        */
       public Builder clearTime() {
-
+        
         time_ = 0L;
         onChanged();
         return this;
@@ -1316,12 +1316,12 @@ public final class CmdMessageProto {
 
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_org_spoom_im_sdk_server_model_proto_CmdMessage_descriptor;
-  private static final
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_org_spoom_im_sdk_server_model_proto_CmdMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_org_spoom_im_sdk_server_model_proto_CmdMessage_DataEntry_descriptor;
-  private static final
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_org_spoom_im_sdk_server_model_proto_CmdMessage_DataEntry_fieldAccessorTable;
 
@@ -1334,13 +1334,13 @@ public final class CmdMessageProto {
   static {
     String[] descriptorData = {
       "\n\020CmdMessage.proto\022#org.spoom.im.sdk.ser" +
-      "ver.model.proto\"\333\001\n\nCmdMessage\022\r\n\005msgId\030" +
+      "ver.model.proto\"\341\001\n\nCmdMessage\022\r\n\005msgId\030" +
       "\001 \001(\t\022\020\n\010chatType\030\002 \001(\005\022\016\n\006action\030\003 \001(\005\022" +
-      "\014\n\004from\030\004 \001(\t\022\n\n\002to\030\005 \001(\t\022\014\n\004time\030\006 \001(\003\022" +
-      "G\n\004data\030\007 \003(\01329.org.spoom.im.sdk.server." +
-      "model.proto.CmdMessage.DataEntry\032+\n\tData" +
-      "Entry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\021B" +
-      "\017CmdMessageProtob\006proto3"
+      "\017\n\007msgFrom\030\004 \001(\t\022\r\n\005msgTo\030\005 \001(\t\022\014\n\004time\030" +
+      "\006 \001(\003\022G\n\004data\030\007 \003(\01329.org.spoom.im.sdk.s" +
+      "erver.model.proto.CmdMessage.DataEntry\032+" +
+      "\n\tDataEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:" +
+      "\0028\001B\021B\017CmdMessageProtob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1359,7 +1359,7 @@ public final class CmdMessageProto {
     internal_static_org_spoom_im_sdk_server_model_proto_CmdMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_org_spoom_im_sdk_server_model_proto_CmdMessage_descriptor,
-        new String[] { "MsgId", "ChatType", "Action", "From", "To", "Time", "Data", });
+        new String[] { "MsgId", "ChatType", "Action", "MsgFrom", "MsgTo", "Time", "Data", });
     internal_static_org_spoom_im_sdk_server_model_proto_CmdMessage_DataEntry_descriptor =
       internal_static_org_spoom_im_sdk_server_model_proto_CmdMessage_descriptor.getNestedTypes().get(0);
     internal_static_org_spoom_im_sdk_server_model_proto_CmdMessage_DataEntry_fieldAccessorTable = new

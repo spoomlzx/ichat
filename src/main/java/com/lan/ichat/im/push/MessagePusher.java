@@ -27,7 +27,7 @@ public class MessagePusher {
 
     @Async
     public void push(ChatMessage msg) {
-        IMSession session = sessionManager.get(msg.getTo());
+        IMSession session = sessionManager.get(msg.getMsgTo());
         logger.info("thread name: " + Thread.currentThread().getName() + " id: " + Thread.currentThread().getId());
         this.push(msg, session);
     }

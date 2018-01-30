@@ -30,6 +30,7 @@ public class IMSession implements Serializable {
     public IMSession(Channel channel) {
         this.channel = channel;
         this.id = channel.id().asShortText();
+        this.account = (String) getAttribute(IMConstant.SESSION_KEY);
     }
 
     public IMSession() {

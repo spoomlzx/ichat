@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spoom.im.sdk.server.coder.MessageDecoder;
 import org.spoom.im.sdk.server.coder.MessageEncoder;
-import org.spoom.im.sdk.server.model.CmdMessage;
 import org.spoom.im.sdk.server.model.ChatMessage;
+import org.spoom.im.sdk.server.model.CmdMessage;
 import org.spoom.im.sdk.server.model.HeartbeatRequest;
 import org.spoom.im.sdk.server.model.HeartbeatResponse;
 
@@ -62,27 +62,25 @@ public class ChannelManager extends SimpleChannelInboundHandler<Object> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext context, Object obj) throws Exception {
-        IMSession session = new IMSession(context.channel());
         if (obj instanceof HeartbeatRequest) {
             context.channel().writeAndFlush(HeartbeatResponse.getInstance());
         }
         if (obj instanceof CmdMessage) {
             CmdMessage message = (CmdMessage) obj;
-            dispatcher.dispatchCallMessage(session, message);
+            dispatcher.dispatchCmdMessage(context.channel(), message);
         }
         if (obj instanceof ChatMessage) {
             ChatMessage chatMessage = (ChatMessage) obj;
-            dispatcher.dispatchChatMessage(session, chatMessage);
+            dispatcher.dispatchChatMessage(context.channel(), chatMessage);
         }
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext context) throws Exception {
-        IMSession session = new IMSession(context.channel());
-        logger.warn("sessionClosed()... from " + context.channel().remoteAddress() + " id:" + session.getId() + ",isConnected:" + context.channel().isActive());
+        logger.warn("sessionClosed()... from " + context.channel().remoteAddress() + " id:" + context.channel().id().asShortText() + ",isConnected:" + context.channel().isActive());
         CmdMessage cmdMessage = new CmdMessage();
         cmdMessage.setAction(IMConstant.MessageAction.ACTION_LOGOUT);
-        dispatcher.dispatchCallMessage(session, cmdMessage);
+        dispatcher.dispatchCmdMessage(context.channel(), cmdMessage);
     }
 
     @Override

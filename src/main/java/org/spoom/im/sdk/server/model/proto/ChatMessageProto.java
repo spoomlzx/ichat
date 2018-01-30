@@ -43,24 +43,24 @@ public final class ChatMessageProto {
     int getMsgType();
 
     /**
-     * <code>string from = 4;</code>
+     * <code>string msgFrom = 4;</code>
      */
-    String getFrom();
+    String getMsgFrom();
     /**
-     * <code>string from = 4;</code>
+     * <code>string msgFrom = 4;</code>
      */
     com.google.protobuf.ByteString
-        getFromBytes();
+        getMsgFromBytes();
 
     /**
-     * <code>string to = 5;</code>
+     * <code>string msgTo = 5;</code>
      */
-    String getTo();
+    String getMsgTo();
     /**
-     * <code>string to = 5;</code>
+     * <code>string msgTo = 5;</code>
      */
     com.google.protobuf.ByteString
-        getToBytes();
+        getMsgToBytes();
 
     /**
      * <code>string body = 6;</code>
@@ -103,8 +103,8 @@ public final class ChatMessageProto {
       msgId_ = "";
       chatType_ = 0;
       msgType_ = 0;
-      from_ = "";
-      to_ = "";
+      msgFrom_ = "";
+      msgTo_ = "";
       body_ = "";
       extra_ = "";
       time_ = 0L;
@@ -160,13 +160,13 @@ public final class ChatMessageProto {
             case 34: {
               String s = input.readStringRequireUtf8();
 
-              from_ = s;
+              msgFrom_ = s;
               break;
             }
             case 42: {
               String s = input.readStringRequireUtf8();
 
-              to_ = s;
+              msgTo_ = s;
               break;
             }
             case 50: {
@@ -220,7 +220,7 @@ public final class ChatMessageProto {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         msgId_ = s;
@@ -234,7 +234,7 @@ public final class ChatMessageProto {
         getMsgIdBytes() {
       Object ref = msgId_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         msgId_ = b;
@@ -266,68 +266,68 @@ public final class ChatMessageProto {
       return msgType_;
     }
 
-    public static final int FROM_FIELD_NUMBER = 4;
-    private volatile Object from_;
+    public static final int MSGFROM_FIELD_NUMBER = 4;
+    private volatile Object msgFrom_;
     /**
-     * <code>string from = 4;</code>
+     * <code>string msgFrom = 4;</code>
      */
-    public String getFrom() {
-      Object ref = from_;
+    public String getMsgFrom() {
+      Object ref = msgFrom_;
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
-        from_ = s;
+        msgFrom_ = s;
         return s;
       }
     }
     /**
-     * <code>string from = 4;</code>
+     * <code>string msgFrom = 4;</code>
      */
     public com.google.protobuf.ByteString
-        getFromBytes() {
-      Object ref = from_;
+        getMsgFromBytes() {
+      Object ref = msgFrom_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
-        from_ = b;
+        msgFrom_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int TO_FIELD_NUMBER = 5;
-    private volatile Object to_;
+    public static final int MSGTO_FIELD_NUMBER = 5;
+    private volatile Object msgTo_;
     /**
-     * <code>string to = 5;</code>
+     * <code>string msgTo = 5;</code>
      */
-    public String getTo() {
-      Object ref = to_;
+    public String getMsgTo() {
+      Object ref = msgTo_;
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
-        to_ = s;
+        msgTo_ = s;
         return s;
       }
     }
     /**
-     * <code>string to = 5;</code>
+     * <code>string msgTo = 5;</code>
      */
     public com.google.protobuf.ByteString
-        getToBytes() {
-      Object ref = to_;
+        getMsgToBytes() {
+      Object ref = msgTo_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
-        to_ = b;
+        msgTo_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -344,7 +344,7 @@ public final class ChatMessageProto {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         body_ = s;
@@ -358,7 +358,7 @@ public final class ChatMessageProto {
         getBodyBytes() {
       Object ref = body_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         body_ = b;
@@ -378,7 +378,7 @@ public final class ChatMessageProto {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         extra_ = s;
@@ -392,7 +392,7 @@ public final class ChatMessageProto {
         getExtraBytes() {
       Object ref = extra_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         extra_ = b;
@@ -432,11 +432,11 @@ public final class ChatMessageProto {
       if (msgType_ != 0) {
         output.writeInt32(3, msgType_);
       }
-      if (!getFromBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, from_);
+      if (!getMsgFromBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, msgFrom_);
       }
-      if (!getToBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, to_);
+      if (!getMsgToBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, msgTo_);
       }
       if (!getBodyBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 6, body_);
@@ -466,11 +466,11 @@ public final class ChatMessageProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, msgType_);
       }
-      if (!getFromBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, from_);
+      if (!getMsgFromBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, msgFrom_);
       }
-      if (!getToBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, to_);
+      if (!getMsgToBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, msgTo_);
       }
       if (!getBodyBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, body_);
@@ -504,10 +504,10 @@ public final class ChatMessageProto {
           == other.getChatType());
       result = result && (getMsgType()
           == other.getMsgType());
-      result = result && getFrom()
-          .equals(other.getFrom());
-      result = result && getTo()
-          .equals(other.getTo());
+      result = result && getMsgFrom()
+          .equals(other.getMsgFrom());
+      result = result && getMsgTo()
+          .equals(other.getMsgTo());
       result = result && getBody()
           .equals(other.getBody());
       result = result && getExtra()
@@ -531,10 +531,10 @@ public final class ChatMessageProto {
       hash = (53 * hash) + getChatType();
       hash = (37 * hash) + MSGTYPE_FIELD_NUMBER;
       hash = (53 * hash) + getMsgType();
-      hash = (37 * hash) + FROM_FIELD_NUMBER;
-      hash = (53 * hash) + getFrom().hashCode();
-      hash = (37 * hash) + TO_FIELD_NUMBER;
-      hash = (53 * hash) + getTo().hashCode();
+      hash = (37 * hash) + MSGFROM_FIELD_NUMBER;
+      hash = (53 * hash) + getMsgFrom().hashCode();
+      hash = (37 * hash) + MSGTO_FIELD_NUMBER;
+      hash = (53 * hash) + getMsgTo().hashCode();
       hash = (37 * hash) + BODY_FIELD_NUMBER;
       hash = (53 * hash) + getBody().hashCode();
       hash = (37 * hash) + EXTRA_FIELD_NUMBER;
@@ -677,9 +677,9 @@ public final class ChatMessageProto {
 
         msgType_ = 0;
 
-        from_ = "";
+        msgFrom_ = "";
 
-        to_ = "";
+        msgTo_ = "";
 
         body_ = "";
 
@@ -712,8 +712,8 @@ public final class ChatMessageProto {
         result.msgId_ = msgId_;
         result.chatType_ = chatType_;
         result.msgType_ = msgType_;
-        result.from_ = from_;
-        result.to_ = to_;
+        result.msgFrom_ = msgFrom_;
+        result.msgTo_ = msgTo_;
         result.body_ = body_;
         result.extra_ = extra_;
         result.time_ = time_;
@@ -768,12 +768,12 @@ public final class ChatMessageProto {
         if (other.getMsgType() != 0) {
           setMsgType(other.getMsgType());
         }
-        if (!other.getFrom().isEmpty()) {
-          from_ = other.from_;
+        if (!other.getMsgFrom().isEmpty()) {
+          msgFrom_ = other.msgFrom_;
           onChanged();
         }
-        if (!other.getTo().isEmpty()) {
-          to_ = other.to_;
+        if (!other.getMsgTo().isEmpty()) {
+          msgTo_ = other.msgTo_;
           onChanged();
         }
         if (!other.getBody().isEmpty()) {
@@ -837,7 +837,7 @@ public final class ChatMessageProto {
           getMsgIdBytes() {
         Object ref = msgId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           msgId_ = b;
@@ -854,7 +854,7 @@ public final class ChatMessageProto {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         msgId_ = value;
         onChanged();
         return this;
@@ -863,7 +863,7 @@ public final class ChatMessageProto {
        * <code>string msgId = 1;</code>
        */
       public Builder clearMsgId() {
-
+        
         msgId_ = getDefaultInstance().getMsgId();
         onChanged();
         return this;
@@ -877,7 +877,7 @@ public final class ChatMessageProto {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         msgId_ = value;
         onChanged();
         return this;
@@ -902,7 +902,7 @@ public final class ChatMessageProto {
        * <code>int32 chatType = 2;</code>
        */
       public Builder setChatType(int value) {
-
+        
         chatType_ = value;
         onChanged();
         return this;
@@ -915,7 +915,7 @@ public final class ChatMessageProto {
        * <code>int32 chatType = 2;</code>
        */
       public Builder clearChatType() {
-
+        
         chatType_ = 0;
         onChanged();
         return this;
@@ -932,7 +932,7 @@ public final class ChatMessageProto {
        * <code>int32 msgType = 3;</code>
        */
       public Builder setMsgType(int value) {
-
+        
         msgType_ = value;
         onChanged();
         return this;
@@ -941,146 +941,146 @@ public final class ChatMessageProto {
        * <code>int32 msgType = 3;</code>
        */
       public Builder clearMsgType() {
-
+        
         msgType_ = 0;
         onChanged();
         return this;
       }
 
-      private Object from_ = "";
+      private Object msgFrom_ = "";
       /**
-       * <code>string from = 4;</code>
+       * <code>string msgFrom = 4;</code>
        */
-      public String getFrom() {
-        Object ref = from_;
+      public String getMsgFrom() {
+        Object ref = msgFrom_;
         if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           String s = bs.toStringUtf8();
-          from_ = s;
+          msgFrom_ = s;
           return s;
         } else {
           return (String) ref;
         }
       }
       /**
-       * <code>string from = 4;</code>
+       * <code>string msgFrom = 4;</code>
        */
       public com.google.protobuf.ByteString
-          getFromBytes() {
-        Object ref = from_;
+          getMsgFromBytes() {
+        Object ref = msgFrom_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
-          from_ = b;
+          msgFrom_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string from = 4;</code>
+       * <code>string msgFrom = 4;</code>
        */
-      public Builder setFrom(
+      public Builder setMsgFrom(
           String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-
-        from_ = value;
+  
+        msgFrom_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string from = 4;</code>
+       * <code>string msgFrom = 4;</code>
        */
-      public Builder clearFrom() {
-
-        from_ = getDefaultInstance().getFrom();
+      public Builder clearMsgFrom() {
+        
+        msgFrom_ = getDefaultInstance().getMsgFrom();
         onChanged();
         return this;
       }
       /**
-       * <code>string from = 4;</code>
+       * <code>string msgFrom = 4;</code>
        */
-      public Builder setFromBytes(
+      public Builder setMsgFromBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
-        from_ = value;
+        
+        msgFrom_ = value;
         onChanged();
         return this;
       }
 
-      private Object to_ = "";
+      private Object msgTo_ = "";
       /**
-       * <code>string to = 5;</code>
+       * <code>string msgTo = 5;</code>
        */
-      public String getTo() {
-        Object ref = to_;
+      public String getMsgTo() {
+        Object ref = msgTo_;
         if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           String s = bs.toStringUtf8();
-          to_ = s;
+          msgTo_ = s;
           return s;
         } else {
           return (String) ref;
         }
       }
       /**
-       * <code>string to = 5;</code>
+       * <code>string msgTo = 5;</code>
        */
       public com.google.protobuf.ByteString
-          getToBytes() {
-        Object ref = to_;
+          getMsgToBytes() {
+        Object ref = msgTo_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
-          to_ = b;
+          msgTo_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string to = 5;</code>
+       * <code>string msgTo = 5;</code>
        */
-      public Builder setTo(
+      public Builder setMsgTo(
           String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-
-        to_ = value;
+  
+        msgTo_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string to = 5;</code>
+       * <code>string msgTo = 5;</code>
        */
-      public Builder clearTo() {
-
-        to_ = getDefaultInstance().getTo();
+      public Builder clearMsgTo() {
+        
+        msgTo_ = getDefaultInstance().getMsgTo();
         onChanged();
         return this;
       }
       /**
-       * <code>string to = 5;</code>
+       * <code>string msgTo = 5;</code>
        */
-      public Builder setToBytes(
+      public Builder setMsgToBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
-        to_ = value;
+        
+        msgTo_ = value;
         onChanged();
         return this;
       }
@@ -1108,7 +1108,7 @@ public final class ChatMessageProto {
           getBodyBytes() {
         Object ref = body_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           body_ = b;
@@ -1125,7 +1125,7 @@ public final class ChatMessageProto {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         body_ = value;
         onChanged();
         return this;
@@ -1134,7 +1134,7 @@ public final class ChatMessageProto {
        * <code>string body = 6;</code>
        */
       public Builder clearBody() {
-
+        
         body_ = getDefaultInstance().getBody();
         onChanged();
         return this;
@@ -1148,7 +1148,7 @@ public final class ChatMessageProto {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         body_ = value;
         onChanged();
         return this;
@@ -1177,7 +1177,7 @@ public final class ChatMessageProto {
           getExtraBytes() {
         Object ref = extra_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           extra_ = b;
@@ -1194,7 +1194,7 @@ public final class ChatMessageProto {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         extra_ = value;
         onChanged();
         return this;
@@ -1203,7 +1203,7 @@ public final class ChatMessageProto {
        * <code>string extra = 7;</code>
        */
       public Builder clearExtra() {
-
+        
         extra_ = getDefaultInstance().getExtra();
         onChanged();
         return this;
@@ -1217,7 +1217,7 @@ public final class ChatMessageProto {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         extra_ = value;
         onChanged();
         return this;
@@ -1234,7 +1234,7 @@ public final class ChatMessageProto {
        * <code>int64 time = 9;</code>
        */
       public Builder setTime(long value) {
-
+        
         time_ = value;
         onChanged();
         return this;
@@ -1243,7 +1243,7 @@ public final class ChatMessageProto {
        * <code>int64 time = 9;</code>
        */
       public Builder clearTime() {
-
+        
         time_ = 0L;
         onChanged();
         return this;
@@ -1299,7 +1299,7 @@ public final class ChatMessageProto {
 
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_org_spoom_im_sdk_server_model_proto_ChatMessage_descriptor;
-  private static final
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_org_spoom_im_sdk_server_model_proto_ChatMessage_fieldAccessorTable;
 
@@ -1312,11 +1312,11 @@ public final class ChatMessageProto {
   static {
     String[] descriptorData = {
       "\n\021ChatMessage.proto\022#org.spoom.im.sdk.se" +
-      "rver.model.proto\"\204\001\n\013ChatMessage\022\r\n\005msgI" +
+      "rver.model.proto\"\212\001\n\013ChatMessage\022\r\n\005msgI" +
       "d\030\001 \001(\t\022\020\n\010chatType\030\002 \001(\005\022\017\n\007msgType\030\003 \001" +
-      "(\005\022\014\n\004from\030\004 \001(\t\022\n\n\002to\030\005 \001(\t\022\014\n\004body\030\006 \001" +
-      "(\t\022\r\n\005extra\030\007 \001(\t\022\014\n\004time\030\t \001(\003B\022B\020ChatM" +
-      "essageProtob\006proto3"
+      "(\005\022\017\n\007msgFrom\030\004 \001(\t\022\r\n\005msgTo\030\005 \001(\t\022\014\n\004bo" +
+      "dy\030\006 \001(\t\022\r\n\005extra\030\007 \001(\t\022\014\n\004time\030\t \001(\003B\022B" +
+      "\020ChatMessageProtob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1335,7 +1335,7 @@ public final class ChatMessageProto {
     internal_static_org_spoom_im_sdk_server_model_proto_ChatMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_org_spoom_im_sdk_server_model_proto_ChatMessage_descriptor,
-        new String[] { "MsgId", "ChatType", "MsgType", "From", "To", "Body", "Extra", "Time", });
+        new String[] { "MsgId", "ChatType", "MsgType", "MsgFrom", "MsgTo", "Body", "Extra", "Time", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
