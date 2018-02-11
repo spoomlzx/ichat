@@ -1,10 +1,10 @@
 package com.lan.ichat;
 
+import com.lan.common.util.ServerUtils;
 import com.lan.ichat.dao.UserMapper;
+import com.lan.ichat.model.FriendEntity;
 import com.lan.ichat.model.UserEntity;
-import com.lan.ichat.service.AdminService;
 import com.lan.ichat.service.UserService;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Date;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -24,6 +24,25 @@ public class IchatApplicationTests {
     private UserService userService;
     @Autowired
     private UserMapper userMapper;
+
+    @Test
+    public void testUser() {
+//        List<UserEntity> users = userMapper.getFriendList(2L);
+//        List<FriendEntity> friends = new ArrayList<>();
+//        for (UserEntity user : users) {
+//            FriendEntity friend = new FriendEntity();
+//            int hideMyMM = user.getHideMyMM();
+//            int hideHisMM = user.getHideHisMM();
+//            int star = user.getStar();
+//            int blacklist = user.getBlacklist();
+//            int chatroom = user.getChatroom();
+//            int type = (star << 6) + (blacklist << 5) + (hideHisMM << 4) + (hideMyMM << 3) + (chatroom << 2) + 3;
+//            logger.debug("type: " + type);
+//            type = (star << 6) | (blacklist << 5) | (hideHisMM << 4) | (hideMyMM << 3) | (chatroom << 2) | 3;
+//            logger.debug("type ***: " + type);
+//        }
+        logger.debug("0^1: " + (1 ^ 0));
+    }
 
     @Test
     public void contextLoads() {

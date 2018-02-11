@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
             int star = user.getStar();
             int blacklist = user.getBlacklist();
             int chatroom = user.getChatroom();
-            int type = (star << 6) + (blacklist << 5) + (hideHisMM << 4) + (hideMyMM << 3) + (chatroom << 2) + 3;
+            int type = (star << 6) | (blacklist << 5) | (hideHisMM << 4) | (hideMyMM << 3) | (chatroom << 2) | 3;
             friend.setUsername(user.getUsername());
             friend.setNickname(user.getNickname());
             friend.setType(type);

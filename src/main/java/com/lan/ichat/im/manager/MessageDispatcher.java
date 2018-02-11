@@ -1,6 +1,7 @@
 package com.lan.ichat.im.manager;
 
 import com.lan.common.util.StringUtils;
+import com.lan.ichat.im.handler.ChatBot;
 import com.lan.ichat.service.ChatMessageService;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
@@ -29,6 +30,8 @@ public class MessageDispatcher implements IDispatcher {
     private SessionManager sessionManager;
     @Autowired
     private ChatMessageService chatMessageService;
+    @Autowired
+    private ChatBot chatBot;
 
     @Override
     public void dispatchCmdMessage(Channel channel, CmdMessage message) {
@@ -57,12 +60,17 @@ public class MessageDispatcher implements IDispatcher {
                 logger.info("chat message to transmit： " + chatMessage.toString());
             }
             chatMessageService.insert(chatMessage);
+
+            chatBot.replyChatMessage(chatMessage);
+
             CmdMessage replyMessage = new CmdMessage();
             replyMessage.setMsgId(StringUtils.getUUID());
             replyMessage.setAction(IMConstant.MessageAction.ACTION_MESSAGE_SEND_SUCCEED);
             replyMessage.setMsgFrom("system");
-            replyMessage.put("msgId",chatMessage.getMsgId());
+            replyMessage.put("msgId", chatMessage.getMsgId());
             session.write(replyMessage);
+        } else {
+            channel.close();
         }
     }
 

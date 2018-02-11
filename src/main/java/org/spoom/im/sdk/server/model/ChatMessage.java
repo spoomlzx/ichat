@@ -64,13 +64,13 @@ public class ChatMessage implements Protobufable, Serializable {
         return IMConstant.ProtobufType.CHAT_MESSAGE;
     }
 
-    interface ChatType {
+    public interface ChatType {
         int CHAT_SINGLE = 0;
         int CHAT_GROUP = 1;
         int CHAT_PUBLIC = 2;
     }
 
-    interface MessageType {
+    public interface MessageType {
         int MSG_TEXT = 0;
         int MSG_IMAGE = 1;
         int MSG_VOICE = 2;

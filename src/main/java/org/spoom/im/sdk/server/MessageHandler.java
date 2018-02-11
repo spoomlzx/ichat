@@ -10,5 +10,5 @@ import org.spoom.im.sdk.server.model.CmdMessage;
  */
 public interface MessageHandler {
 
-    CmdMessage process(IMSession session, CmdMessage callMessage);
+    CmdMessage process(IMSession session, CmdMessage cmdMessage);
 }
