@@ -1,8 +1,8 @@
 package com.lan.ichat.dao;
 
+import com.lan.ichat.model.ChatMessage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.spoom.im.sdk.server.model.ChatMessage;
 
 import java.util.List;
 

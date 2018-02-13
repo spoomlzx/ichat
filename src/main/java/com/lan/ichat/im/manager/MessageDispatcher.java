@@ -59,10 +59,7 @@ public class MessageDispatcher implements IDispatcher {
                 toSession.write(chatMessage);
                 logger.info("chat message to transmit： " + chatMessage.toString());
             }
-            chatMessageService.insert(chatMessage);
-
             chatBot.replyChatMessage(chatMessage);
-
             CmdMessage replyMessage = new CmdMessage();
             replyMessage.setMsgId(StringUtils.getUUID());
             replyMessage.setAction(IMConstant.MessageAction.ACTION_MESSAGE_SEND_SUCCEED);

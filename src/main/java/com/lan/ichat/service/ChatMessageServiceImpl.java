@@ -1,7 +1,7 @@
 package com.lan.ichat.service;
 
 import com.lan.ichat.dao.ChatMessageMapper;
-import org.spoom.im.sdk.server.model.ChatMessage;
+import com.lan.ichat.model.ChatMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

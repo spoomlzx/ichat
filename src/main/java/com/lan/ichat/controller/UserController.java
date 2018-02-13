@@ -24,7 +24,7 @@ import java.util.*;
  * @date 2017/10/30
  */
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/user")
 public class UserController {
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -41,7 +41,7 @@ public class UserController {
      * @param oldToken
      * @return
      */
-    @PostMapping(value = "/user/login")
+    @PostMapping(value = "/login")
     public BaseResult login(@RequestBody UserEntity user, @Token String oldToken) {
         UserEntity userEntity;
         BaseResult baseResult = new BaseResult();
@@ -65,8 +65,7 @@ public class UserController {
                设置expire=-1,表示一直不过期 */
             tokenService.set(token, userEntity, -1L);
             userEntity.setPassword(null);
-            // 只在服务器控制图片服务器
-            userEntity.setAvatar(ServerUtils.getAvatarUrl(userEntity.getAvatar()));
+            userEntity.setAvatar(userEntity.getAvatar());
             Map<String, Object> data = new HashMap<>();
             data.put("token", token);
             data.put("user", userEntity);
@@ -86,7 +85,7 @@ public class UserController {
      * @param token
      * @return
      */
-    @PostMapping(value = "/user/logout")
+    @PostMapping(value = "/logout")
     public BaseResult logout(@Token String token) {
         BaseResult baseResult = new BaseResult();
         if (token == null) {
@@ -108,7 +107,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping(value = "/user/register")
+    @PostMapping(value = "/register")
     public BaseResult registerUser(@RequestBody UserEntity user) {
         BaseResult baseResult = new BaseResult();
         try {
@@ -133,7 +132,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @GetMapping(value = "/user/info")
+    @GetMapping(value = "/info")
     public BaseResult getLoginUser(@LoginUser UserEntity user) {
         BaseResult baseResult = new BaseResult("获取当前登录用户成功");
         baseResult.setData(user);
@@ -147,7 +146,7 @@ public class UserController {
      * @param loginUser
      * @return
      */
-    @PostMapping(value = "/user/update")
+    @PostMapping(value = "/update")
     public BaseResult updateUser(@RequestBody UserEntity user, @LoginUser UserEntity loginUser) {
         BaseResult baseResult = new BaseResult();
         // 将id设置为当前token登录的id
@@ -164,7 +163,7 @@ public class UserController {
         return baseResult;
     }
 
-    @GetMapping(value = "/user/fetchFriends")
+    @GetMapping(value = "/fetchFriends")
     public BaseResult fetchFriendList(HttpServletRequest request) {
         BaseResult baseResult = new BaseResult("fetch friends success");
         Object obj = request.getAttribute(AuthenticationInterceptor.USER_KEY);

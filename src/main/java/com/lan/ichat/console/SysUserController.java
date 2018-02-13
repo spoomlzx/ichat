@@ -3,12 +3,11 @@ package com.lan.ichat.console;
 import com.lan.common.annotation.OpenApi;
 import com.lan.common.util.BaseResult;
 import com.lan.common.util.IChatStatus;
-import com.lan.ichat.im.push.MessagePusher;
+import com.lan.ichat.im.push.DefaultMessagePusher;
 import com.lan.ichat.model.UserEntity;
 import com.lan.ichat.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spoom.im.sdk.server.model.ChatMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +21,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/admin")
 public class SysUserController {
-
     private final static Logger logger = LoggerFactory.getLogger(SysUserController.class);
     @Autowired
     private UserService userService;
     @Autowired
-    private MessagePusher messagePusher;
+    private DefaultMessagePusher messagePusher;
 
     /**
      * 搜索user
@@ -72,7 +70,6 @@ public class SysUserController {
     }
 
 
-
     /**
      * delete user
      * 只能由管理员才能删除用户
@@ -91,21 +88,4 @@ public class SysUserController {
         }
         return baseResult;
     }
-
-    /**
-     * 推送message
-     *
-     * @param msg
-     * @return
-     */
-    @PostMapping(value = "/pushMessage")
-    public BaseResult pushMessage(@RequestBody ChatMessage msg) {
-        BaseResult baseResult = new BaseResult();
-        messagePusher.push(msg);
-        logger.info("ready to send");
-        baseResult.setMsg("Message send success");
-        baseResult.setData(msg);
-        return baseResult;
-    }
-
 }

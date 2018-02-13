@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
             friend.setType(type);
             friend.setTelephone(user.getTelephone());
             friend.setMotto(user.getMotto());
-            friend.setAvatar(ServerUtils.getAvatarUrl(user.getAvatar()));
+            friend.setAvatar(user.getAvatar());
             friend.setGender(user.getGender());
             friend.setRegion(user.getRegion());
             friend.setRemark(user.getRemark());

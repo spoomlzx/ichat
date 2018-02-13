@@ -1,5 +1,7 @@
 package com.lan.ichat.im.push;
 
+import com.lan.common.util.MessageUtil;
+import com.lan.ichat.service.ChatMessageService;
 import com.lan.ichat.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,8 @@ public class MessagePusher {
     protected SessionManager sessionManager;
     @Autowired
     protected UserService userService;
+    @Autowired
+    protected ChatMessageService messageService;
 
     @Async
     public void push(ChatMessage msg) {
@@ -50,5 +54,9 @@ public class MessagePusher {
             // 05/12/2017 TODO save this msg to database
             logger.info("send finish");
         }
+    }
+
+    public void push(com.lan.ichat.model.ChatMessage message) {
+        this.push(MessageUtil.transform(message));
     }
 }

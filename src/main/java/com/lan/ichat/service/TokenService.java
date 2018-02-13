@@ -28,25 +28,29 @@ public class TokenService implements BaseService<Object> {
     @Override
     public void set(String token, Object obj) {
         // 28/12/2017 TODO 持久化到db
-        this.redisTemplate.boundValueOps(token).set(obj);
-        this.redisTemplate.expire(token, DEFAULT_EXPIRE, TimeUnit.SECONDS);
+        this.redisTemplate.boundValueOps(getTokenKey(token)).set(obj);
+        this.redisTemplate.expire(getTokenKey(token), DEFAULT_EXPIRE, TimeUnit.SECONDS);
     }
 
     public void set(String token, Object obj, Long expire) {
-        this.redisTemplate.boundValueOps(token).set(obj);
+        this.redisTemplate.boundValueOps(getTokenKey(token)).set(obj);
         if (expire != NOT_EXPIRE) {
-            this.redisTemplate.expire(token, expire, TimeUnit.SECONDS);
+            this.redisTemplate.expire(getTokenKey(token), expire, TimeUnit.SECONDS);
         }
     }
 
     @Override
     public Object get(String token) {
         // 28/12/2017 TODO 若redis中没有，则从db中取
-        return this.redisTemplate.boundValueOps(token).get();
+        return this.redisTemplate.boundValueOps(getTokenKey(token)).get();
     }
 
     @Override
     public void delete(String token) {
-        this.redisTemplate.delete(token);
+        this.redisTemplate.delete(getTokenKey(token));
+    }
+
+    private String getTokenKey(String token) {
+        return "user_token:" + token;
     }
 }

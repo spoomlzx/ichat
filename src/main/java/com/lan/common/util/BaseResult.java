@@ -28,32 +28,36 @@ public class BaseResult {
         this.msg = msg;
     }
 
-    public void setStatus(IChatStatus status) {
+    public BaseResult setStatus(IChatStatus status) {
         this.code = status.code();
         this.msg = status.getInfo();
+        return this;
     }
 
     public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public BaseResult setMsg(String msg) {
         this.msg = msg;
+        return this;
     }
 
     public int getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public BaseResult setCode(int code) {
         this.code = code;
+        return this;
     }
 
     public Object getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public BaseResult setData(Object data) {
         this.data = data;
+        return this;
     }
 }
