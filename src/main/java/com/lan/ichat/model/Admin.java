@@ -9,7 +9,7 @@ import java.util.Date;
  * @author spoomlan
  * @date 28/12/2017
  */
-public class AdminEntity implements Serializable {
+public class Admin implements Serializable {
 
     private static final long serialVersionUID = -8315001063328205558L;
     private Long id;

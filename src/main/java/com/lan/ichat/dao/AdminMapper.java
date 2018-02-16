@@ -1,15 +1,15 @@
 package com.lan.ichat.dao;
 
-import com.lan.ichat.model.AdminEntity;
+import com.lan.ichat.model.Admin;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface AdminMapper {
 
-    AdminEntity getAdminByUsername(@Param("username") String username);
+    Admin getAdminByUsername(@Param("username") String username);
 
-    int insert(@Param("adminEntity") AdminEntity adminEntity);
+    int insert(@Param("admin") Admin admin);
 
-    int update(@Param("adminEntity") AdminEntity adminEntity);
+    int update(@Param("admin") Admin admin);
 }

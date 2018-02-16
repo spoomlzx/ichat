@@ -9,7 +9,7 @@ import java.util.Date;
  * @author lanzongxiao
  * @date 2017/10/30
  */
-public class UserEntity implements Serializable {
+public class User implements Serializable {
 
     private static final long serialVersionUID = -6392066827261775844L;
     private Long id;

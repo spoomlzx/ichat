@@ -12,5 +12,5 @@ public interface ChatMessageMapper {
 
     int insertList(@Param("chatMessages") List<ChatMessage> chatMessages);
 
-    int update(@Param("chatMessage") ChatMessage chatMessage);
+    int update(@Param("msgId") String msgId, @Param("status") Integer status);
 }

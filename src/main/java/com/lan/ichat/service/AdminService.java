@@ -1,12 +1,12 @@
 package com.lan.ichat.service;
 
-import com.lan.ichat.model.AdminEntity;
+import com.lan.ichat.model.Admin;
 
 public interface AdminService {
 
-    AdminEntity getAdminByUsername(String username);
+    Admin getAdminByUsername(String username);
 
-    int insert(AdminEntity adminEntity);
+    int insert(Admin admin);
 
-    int update(AdminEntity adminEntity);
+    int update(Admin admin);
 }

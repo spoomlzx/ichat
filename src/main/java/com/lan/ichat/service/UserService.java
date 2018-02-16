@@ -1,24 +1,33 @@
 package com.lan.ichat.service;
 
-import com.lan.ichat.model.FriendEntity;
-import com.lan.ichat.model.UserEntity;
+import com.lan.ichat.model.Friend;
+import com.lan.ichat.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
-    List<UserEntity> getUserList();
+    List<User> getUserList();
 
-    UserEntity getUserByUsername(String username);
+    User getUserByUsername(String username);
 
-    UserEntity getUserById(Long id);
+    User getUserById(Long id);
 
-    List<FriendEntity> getFriendList(Long id);
+    Map<String, Friend> getFriendList(Long id);
 
-    int insert(UserEntity userEntity);
+    int insertFriend(Long userId, Long friendId);
 
-    int insertList(List<UserEntity> userEntitys);
+    int updateRemark(Long userId, Long friendId, String remark);
 
-    int update(UserEntity userEntity);
+    int updateMomentSetting(Long userId, Long friendId, Integer hideMyMM, Integer hideHisMM);
+
+    int updateStar(Long userId, Long friendId, int star);
+
+    int insert(User user);
+
+    int insertList(List<User> users);
+
+    int update(User user);
 
     int delete(Long id);
 }

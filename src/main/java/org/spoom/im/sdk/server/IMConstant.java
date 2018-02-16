@@ -33,6 +33,8 @@ public interface IMConstant {
         int ACTION_LOGIN = 901;
         int ACTION_LOGOUT = 902;
 
+        int ACTION_MESSAGE_RECEIVED = 100;
+
         int ACTION_MESSAGE_SEND_SUCCEED = 200;
     }
 }

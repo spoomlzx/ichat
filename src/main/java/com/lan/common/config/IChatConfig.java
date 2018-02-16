@@ -1,6 +1,7 @@
 package com.lan.common.config;
 
 import com.lan.ichat.im.handler.BindHandler;
+import com.lan.ichat.im.handler.ChatMessageReceivedHandler;
 import com.lan.ichat.im.handler.SessionClosedHandler;
 import com.lan.ichat.im.manager.MessageDispatcher;
 import org.spoom.im.sdk.server.ChannelManager;
@@ -24,6 +25,8 @@ public class IChatConfig {
     @Autowired
     private SessionClosedHandler sessionClosedHandler;
     @Autowired
+    private ChatMessageReceivedHandler chatMessageReceivedHandler;
+    @Autowired
     private MessageDispatcher messageDispatcher;
 
     /**
@@ -45,5 +48,6 @@ public class IChatConfig {
     private void initDispatcher() {
         messageDispatcher.put(IMConstant.MessageAction.ACTION_LOGIN, bindHandler);
         messageDispatcher.put(IMConstant.MessageAction.ACTION_LOGOUT, sessionClosedHandler);
+        messageDispatcher.put(IMConstant.MessageAction.ACTION_MESSAGE_RECEIVED, chatMessageReceivedHandler);
     }
 }

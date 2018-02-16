@@ -2,8 +2,8 @@ package com.lan.common.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lan.common.annotation.OpenApi;
-import com.lan.ichat.model.AdminEntity;
-import com.lan.ichat.model.UserEntity;
+import com.lan.ichat.model.Admin;
+import com.lan.ichat.model.User;
 import com.lan.ichat.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,8 +59,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         }
 
         // 将登录用户的id存入request，当有@LoginUser注解时，通过id拉取用户信息
-        if (userObj instanceof UserEntity) {
-            request.setAttribute(USER_KEY, ((UserEntity) userObj).getId());
+        if (userObj instanceof User) {
+            request.setAttribute(USER_KEY, ((User) userObj).getId());
             // 禁止非管理员用户访问/console/**
             if (request.getRequestURI().startsWith("/api/console")) {
                 responseReturn(IChatStatus.OVERSTEP_AUTHORITY, response);
@@ -69,7 +69,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        if (userObj instanceof AdminEntity) {
+        if (userObj instanceof Admin) {
             return true;
         } else {
             responseReturn(IChatStatus.TOKEN_INVALID, response);

@@ -1,7 +1,7 @@
 package com.lan.ichat.service;
 
 import com.lan.ichat.dao.AdminMapper;
-import com.lan.ichat.model.AdminEntity;
+import com.lan.ichat.model.Admin;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,15 +15,15 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Override
-    public AdminEntity getAdminByUsername(String username) {
+    public Admin getAdminByUsername(String username) {
         return adminMapper.getAdminByUsername(username);
     }
 
     @Override
     @Transactional
-    public int insert(AdminEntity adminEntity) {
+    public int insert(Admin admin) {
         try {
-            return adminMapper.insert(adminEntity);
+            return adminMapper.insert(admin);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -31,9 +31,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
-    public int update(AdminEntity adminEntity) {
+    public int update(Admin admin) {
         try {
-            return adminMapper.update(adminEntity);
+            return adminMapper.update(admin);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

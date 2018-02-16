@@ -9,14 +9,14 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class ChatMessageServiceImpl implements ChatMessageService{
+public class ChatMessageServiceImpl implements ChatMessageService {
 
     @Resource
     private ChatMessageMapper chatMessageMapper;
 
     @Override
     @Transactional
-    public int insert(ChatMessage chatMessage){
+    public int insert(ChatMessage chatMessage) {
         try {
             return chatMessageMapper.insert(chatMessage);
         } catch (Exception e) {
@@ -26,7 +26,7 @@ public class ChatMessageServiceImpl implements ChatMessageService{
 
     @Override
     @Transactional
-    public int insertList(List<ChatMessage> chatMessages){
+    public int insertList(List<ChatMessage> chatMessages) {
         try {
             return chatMessageMapper.insertList(chatMessages);
         } catch (Exception e) {
@@ -36,9 +36,9 @@ public class ChatMessageServiceImpl implements ChatMessageService{
 
     @Override
     @Transactional
-    public int update(ChatMessage chatMessage){
+    public int update(String msgId, Integer status) {
         try {
-            return chatMessageMapper.update(chatMessage);
+            return chatMessageMapper.update(msgId, status);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

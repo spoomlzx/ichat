@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lan.ichat.dao.AdminMapper">
 
-    <select id="getAdminByUsername" resultType="com.lan.ichat.model.AdminEntity">
+    <select id="getAdminByUsername" resultType="com.lan.ichat.model.Admin">
         SELECT
             `id`,
             `username`,
@@ -15,29 +15,29 @@
     </select>
 
     <!--auto generated Code-->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="adminEntity.id">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="admin.id">
         INSERT INTO ichat_admin
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="adminEntity.id!=null">id,</if>
-            <if test="adminEntity.username!=null">username,</if>
-            <if test="adminEntity.password!=null">password,</if>
-            <if test="adminEntity.lastLoginTime!=null">last_login_time,</if>
-            <if test="adminEntity.avatar!=null">avatar,</if>
-            <if test="adminEntity.email!=null">email,</if>
+            <if test="admin.id!=null">id,</if>
+            <if test="admin.username!=null">username,</if>
+            <if test="admin.password!=null">password,</if>
+            <if test="admin.lastLoginTime!=null">last_login_time,</if>
+            <if test="admin.avatar!=null">avatar,</if>
+            <if test="admin.email!=null">email,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="adminEntity.id!=null">#{adminEntity.id,jdbcType=BIGINT},
+            <if test="admin.id!=null">#{admin.id,jdbcType=BIGINT},
             </if>
-            <if test="adminEntity.username!=null">#{adminEntity.username,jdbcType=VARCHAR},
+            <if test="admin.username!=null">#{admin.username,jdbcType=VARCHAR},
             </if>
-            <if test="adminEntity.password!=null">#{adminEntity.password,jdbcType=VARCHAR},
+            <if test="admin.password!=null">#{admin.password,jdbcType=VARCHAR},
             </if>
-            <if test="adminEntity.lastLoginTime!=null">#{adminEntity.lastLoginTime,jdbcType=DATE},
+            <if test="admin.lastLoginTime!=null">#{admin.lastLoginTime,jdbcType=DATE},
             </if>
-            <if test="adminEntity.avatar!=null">#{adminEntity.avatar,jdbcType=VARCHAR},
+            <if test="admin.avatar!=null">#{admin.avatar,jdbcType=VARCHAR},
             </if>
-            <if test="adminEntity.email!=null">#{adminEntity.email,jdbcType=VARCHAR},
+            <if test="admin.email!=null">#{admin.email,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -46,14 +46,14 @@
     <update id="update">
         UPDATE ichat_admin
         <set>
-            <if test="adminEntity.id != null">id= #{adminEntity.id,jdbcType=BIGINT},</if>
-            <if test="adminEntity.username != null">username= #{adminEntity.username,jdbcType=VARCHAR},</if>
-            <if test="adminEntity.password != null">password= #{adminEntity.password,jdbcType=VARCHAR},</if>
-            <if test="adminEntity.lastLoginTime != null">last_login_time= #{adminEntity.lastLoginTime,jdbcType=DATE},</if>
-            <if test="adminEntity.avatar != null">avatar= #{adminEntity.avatar,jdbcType=VARCHAR},</if>
-            <if test="adminEntity.email != null">email= #{adminEntity.email,jdbcType=VARCHAR}</if>
+            <if test="admin.id != null">id= #{admin.id,jdbcType=BIGINT},</if>
+            <if test="admin.username != null">username= #{admin.username,jdbcType=VARCHAR},</if>
+            <if test="admin.password != null">password= #{admin.password,jdbcType=VARCHAR},</if>
+            <if test="admin.lastLoginTime != null">last_login_time= #{admin.lastLoginTime,jdbcType=DATE},</if>
+            <if test="admin.avatar != null">avatar= #{admin.avatar,jdbcType=VARCHAR},</if>
+            <if test="admin.email != null">email= #{admin.email,jdbcType=VARCHAR}</if>
         </set>
-        WHERE id = #{adminEntity.id,jdbcType=BIGINT}
+        WHERE id = #{admin.id,jdbcType=BIGINT}
     </update>
 </mapper>
 

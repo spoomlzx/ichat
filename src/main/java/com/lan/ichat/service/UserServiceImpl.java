@@ -1,17 +1,17 @@
 package com.lan.ichat.service;
 
-import com.lan.common.util.ServerUtils;
 import com.lan.ichat.dao.UserMapper;
-import com.lan.ichat.model.FriendEntity;
-import com.lan.ichat.model.UserEntity;
+import com.lan.ichat.model.Friend;
+import com.lan.ichat.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,32 +21,33 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public List<UserEntity> getUserList() {
+    public List<User> getUserList() {
         return userMapper.getUserList();
     }
 
     @Override
-    public UserEntity getUserByUsername(String username) {
+    public User getUserByUsername(String username) {
         return userMapper.getUserByUsername(username);
     }
 
     @Override
-    public UserEntity getUserById(Long id) {
+    public User getUserById(Long id) {
         return userMapper.getUserById(id);
     }
 
     @Override
-    public List<FriendEntity> getFriendList(Long id) {
-        List<UserEntity> users = userMapper.getFriendList(id);
-        List<FriendEntity> friends = new ArrayList<>();
-        for (UserEntity user : users) {
-            FriendEntity friend = new FriendEntity();
+    public Map<String, Friend> getFriendList(Long id) {
+        List<User> users = userMapper.getFriendList(id);
+        Map<String,Friend> friendMap=new HashMap<>();
+        for (User user : users) {
+            Friend friend = new Friend();
             int hideMyMM = user.getHideMyMM();
             int hideHisMM = user.getHideHisMM();
             int star = user.getStar();
             int blacklist = user.getBlacklist();
             int chatroom = user.getChatroom();
             int type = (star << 6) | (blacklist << 5) | (hideHisMM << 4) | (hideMyMM << 3) | (chatroom << 2) | 3;
+            friend.setId(user.getId());
             friend.setUsername(user.getUsername());
             friend.setNickname(user.getNickname());
             friend.setType(type);
@@ -56,16 +57,16 @@ public class UserServiceImpl implements UserService {
             friend.setGender(user.getGender());
             friend.setRegion(user.getRegion());
             friend.setRemark(user.getRemark());
-            friends.add(friend);
+            friendMap.put(user.getUsername(),friend);
         }
-        return friends;
+        return friendMap;
     }
 
     @Override
     @Transactional
-    public int insert(UserEntity userEntity) {
+    public int insertFriend(Long userId, Long friendId) {
         try {
-            return userMapper.insert(userEntity);
+            return userMapper.insertFriend(userId, friendId, 0, 0, 0, 0, 0);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -73,9 +74,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public int insertList(List<UserEntity> userEntitys) {
+    public int updateRemark(Long userId, Long friendId, String remark) {
         try {
-            return userMapper.insertList(userEntitys);
+            return userMapper.updateRemark(userId, friendId, remark);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -83,9 +84,51 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public int update(UserEntity userEntity) {
+    public int updateMomentSetting(Long userId, Long friendId, Integer hideMyMM, Integer hideHisMM) {
         try {
-            return userMapper.update(userEntity);
+            return userMapper.updateMomentSetting(userId, friendId, hideMyMM, hideHisMM);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+
+
+    @Override
+    @Transactional
+    public int updateStar(Long userId, Long friendId, int star) {
+        try {
+            return userMapper.updateStar(userId, friendId, star);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public int insert(User user) {
+        try {
+            return userMapper.insert(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public int insertList(List<User> users) {
+        try {
+            return userMapper.insertList(users);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public int update(User user) {
+        try {
+            return userMapper.update(user);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

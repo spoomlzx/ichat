@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lan.ichat.dao.UserMapper">
-    <select id="getUserList" resultType="com.lan.ichat.model.UserEntity">
+    <select id="getUserList" resultType="com.lan.ichat.model.User">
         SELECT
             `id`,
             `username`,
@@ -20,7 +20,7 @@
         FROM ichat_user
     </select>
 
-    <select id="getUserByUsername" resultType="com.lan.ichat.model.UserEntity">
+    <select id="getUserByUsername" resultType="com.lan.ichat.model.User">
         SELECT
             `id`,
             `username`,
@@ -40,7 +40,7 @@
         WHERE username = #{username}
     </select>
 
-    <select id="getUserById" resultType="com.lan.ichat.model.UserEntity">
+    <select id="getUserById" resultType="com.lan.ichat.model.User">
         SELECT
             `id`,
             `username`,
@@ -60,8 +60,9 @@
         WHERE id = #{id}
     </select>
 
-    <select id="getFriendList" resultType="com.lan.ichat.model.UserEntity">
+    <select id="getFriendList" resultType="com.lan.ichat.model.User">
         SELECT
+            b.`friend_id` AS id,
             a.`username`,
             a.`nickname`,
             a.`telephone`,
@@ -79,61 +80,86 @@
         FROM ichat_friend b INNER JOIN ichat_user a ON a.id = b.friend_id AND b.user_id = #{id}
     </select>
 
-    <insert id="addFriend">
+    <insert id="insertFriend">
         INSERT INTO ichat_friend
         (user_id, friend_id, hide_my_mm, hide_his_mm, star, blacklist, chatroom)
         VALUES
             (#{userId}, #{friendId}, #{hideMyMM}, #{hideHisMM}, #{star}, #{blacklist}, #{chatroom})
     </insert>
 
+    <update id="updateRemark">
+        UPDATE ichat_friend
+        <set>
+            <if test="remark != null">remark=#{remark,jdbcType=VARCHAR}</if>
+        </set>
+        WHERE user_id=#{userId} and friend_id=#{friendId}
+    </update>
+
+    <update id="updateMomentSetting">
+        UPDATE ichat_friend
+        <set>
+            <if test="hideMyMM != null">hideMyMM=#{hideMyMM,jdbcType=INTEGER},</if>
+            <if test="hideHisMM != null">hideHisMM=#{hideHisMM,jdbcType=INTEGER}</if>
+        </set>
+        WHERE user_id=#{userId} and friend_id=#{friendId}
+    </update>
+
+    <update id="updateStar">
+        UPDATE ichat_friend
+        <set>
+            <if test="star != null">star=#{star,jdbcType=INTEGER}</if>
+        </set>
+        WHERE user_id=#{userId} and friend_id=#{friendId}
+    </update>
+
     <!--auto generated Code-->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="userEntity.id">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="user.id">
         INSERT INTO ichat_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userEntity.id!=null">id,</if>
-            <if test="userEntity.username!=null">username,</if>
-            <if test="userEntity.nickname!=null">nickname,</if>
-            <if test="userEntity.telephone!=null">telephone,</if>
-            <if test="userEntity.motto!=null">motto,</if>
-            <if test="userEntity.password!=null">password,</if>
-            <if test="userEntity.avatar!=null">avatar,</if>
-            <if test="userEntity.createTime!=null">create_time,</if>
-            <if test="userEntity.online!=null">online,</if>
-            <if test="userEntity.enabled!=null">enabled,</if>
-            <if test="userEntity.lastLoginTime!=null">last_login_time,</if>
-            <if test="userEntity.gender!=null">gender,</if>
-            <if test="userEntity.email!=null">email,</if>
-            <if test="userEntity.region!=null">region,</if>
+            <if test="user.id!=null">id,</if>
+            <if test="user.username!=null">username,</if>
+            <if test="user.nickname!=null">nickname,</if>
+            <if test="user.telephone!=null">telephone,</if>
+            <if test="user.motto!=null">motto,</if>
+            <if test="user.password!=null">password,</if>
+            <if test="user.avatar!=null">avatar,</if>
+            <if test="user.createTime!=null">create_time,</if>
+            <if test="user.online!=null">online,</if>
+            <if test="user.enabled!=null">enabled,</if>
+            <if test="user.lastLoginTime!=null">last_login_time,</if>
+            <if test="user.gender!=null">gender,</if>
+            <if test="user.email!=null">email,</if>
+            <if test="user.region!=null">region,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userEntity.id!=null">#{userEntity.id,jdbcType=BIGINT},
+            <if test="user.id!=null">#{user.id,jdbcType=BIGINT},
             </if>
-            <if test="userEntity.username!=null">#{userEntity.username,jdbcType=VARCHAR},
+            <if test="user.username!=null">#{user.username,jdbcType=VARCHAR},
             </if>
-            <if test="userEntity.nickname!=null">#{userEntity.nickname,jdbcType=VARCHAR},
+            <if test="user.nickname!=null">#{user.nickname,jdbcType=VARCHAR},
             </if>
-            <if test="userEntity.telephone!=null">#{userEntity.telephone,jdbcType=VARCHAR},
+            <if test="user.telephone!=null">#{user.telephone,jdbcType=VARCHAR},
             </if>
-            <if test="userEntity.motto!=null">#{userEntity.motto,jdbcType=VARCHAR},
+            <if test="user.motto!=null">#{user.motto,jdbcType=VARCHAR},
             </if>
-            <if test="userEntity.password!=null">#{userEntity.password,jdbcType=VARCHAR},
+            <if test="user.password!=null">#{user.password,jdbcType=VARCHAR},
             </if>
-            <if test="userEntity.avatar!=null">#{userEntity.avatar,jdbcType=VARCHAR},
+            <if test="user.avatar!=null">#{user.avatar,jdbcType=VARCHAR},
             </if>
-            <if test="userEntity.createTime!=null">#{userEntity.createTime,jdbcType=DATE},
+            <if test="user.createTime!=null">#{user.createTime,jdbcType=DATE},
             </if>
-            <if test="userEntity.online!=null">#{userEntity.online,jdbcType=TINYINT},
+            <if test="user.online!=null">#{user.online,jdbcType=TINYINT},
             </if>
-            <if test="userEntity.enabled!=null">#{userEntity.enabled,jdbcType=TINYINT},
+            <if test="user.enabled!=null">#{user.enabled,jdbcType=TINYINT},
             </if>
-            <if test="userEntity.lastLoginTime!=null">#{userEntity.lastLoginTime,jdbcType=DATE},
+            <if test="user.lastLoginTime!=null">#{user.lastLoginTime,jdbcType=DATE},
             </if>
-            <if test="userEntity.gender!=null">#{userEntity.gender,jdbcType=INTEGER},
+            <if test="user.gender!=null">#{user.gender,jdbcType=INTEGER},
             </if>
-            <if test="userEntity.email!=null">#{userEntity.email,jdbcType=VARCHAR},
+            <if test="user.email!=null">#{user.email,jdbcType=VARCHAR},
             </if>
-            <if test="userEntity.region!=null">#{userEntity.region,jdbcType=VARCHAR},
+            <if test="user.region!=null">#{user.region,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -156,22 +182,22 @@
         `email`,
         `region`
         )VALUES
-        <foreach collection="userEntitys" item="userEntity" index="index" separator=",">
+        <foreach collection="users" item="user" index="index" separator=",">
             (
-            #{userEntity.id,jdbcType=BIGINT},
-            #{userEntity.username,jdbcType=VARCHAR},
-            #{userEntity.nickname,jdbcType=VARCHAR},
-            #{userEntity.telephone,jdbcType=VARCHAR},
-            #{userEntity.motto,jdbcType=VARCHAR},
-            #{userEntity.password,jdbcType=VARCHAR},
-            #{userEntity.avatar,jdbcType=VARCHAR},
-            #{userEntity.createTime,jdbcType=DATE},
-            #{userEntity.online,jdbcType=TINYINT},
-            #{userEntity.enabled,jdbcType=TINYINT},
-            #{userEntity.lastLoginTime,jdbcType=DATE},
-            #{userEntity.gender,jdbcType=INTEGER},
-            #{userEntity.email,jdbcType=VARCHAR},
-            #{userEntity.region,jdbcType=VARCHAR}
+            #{user.id,jdbcType=BIGINT},
+            #{user.username,jdbcType=VARCHAR},
+            #{user.nickname,jdbcType=VARCHAR},
+            #{user.telephone,jdbcType=VARCHAR},
+            #{user.motto,jdbcType=VARCHAR},
+            #{user.password,jdbcType=VARCHAR},
+            #{user.avatar,jdbcType=VARCHAR},
+            #{user.createTime,jdbcType=DATE},
+            #{user.online,jdbcType=TINYINT},
+            #{user.enabled,jdbcType=TINYINT},
+            #{user.lastLoginTime,jdbcType=DATE},
+            #{user.gender,jdbcType=INTEGER},
+            #{user.email,jdbcType=VARCHAR},
+            #{user.region,jdbcType=VARCHAR}
             )
         </foreach>
     </insert>
@@ -180,22 +206,22 @@
     <update id="update">
         UPDATE ichat_user
         <set>
-            <if test="userEntity.id != null">id= #{userEntity.id,jdbcType=BIGINT},</if>
-            <if test="userEntity.username != null">username= #{userEntity.username,jdbcType=VARCHAR},</if>
-            <if test="userEntity.nickname != null">name= #{userEntity.nickname,jdbcType=VARCHAR},</if>
-            <if test="userEntity.telephone != null">telephone= #{userEntity.telephone,jdbcType=VARCHAR},</if>
-            <if test="userEntity.motto != null">motto= #{userEntity.motto,jdbcType=VARCHAR},</if>
-            <if test="userEntity.password != null">password= #{userEntity.password,jdbcType=VARCHAR},</if>
-            <if test="userEntity.avatar != null">avatar= #{userEntity.avatar,jdbcType=VARCHAR},</if>
-            <if test="userEntity.createTime != null">create_time= #{userEntity.createTime,jdbcType=DATE},</if>
-            <if test="userEntity.online != null">online= #{userEntity.online,jdbcType=TINYINT},</if>
-            <if test="userEntity.enabled != null">enabled= #{userEntity.enabled,jdbcType=TINYINT},</if>
-            <if test="userEntity.lastLoginTime != null">last_login_time= #{userEntity.lastLoginTime,jdbcType=DATE},</if>
-            <if test="userEntity.gender != null">gender= #{userEntity.gender,jdbcType=INTEGER},</if>
-            <if test="userEntity.email != null">email= #{userEntity.email,jdbcType=VARCHAR},</if>
-            <if test="userEntity.region != null">region= #{userEntity.region,jdbcType=VARCHAR}</if>
+            <if test="user.id != null">id= #{user.id,jdbcType=BIGINT},</if>
+            <if test="user.username != null">username= #{user.username,jdbcType=VARCHAR},</if>
+            <if test="user.nickname != null">name= #{user.nickname,jdbcType=VARCHAR},</if>
+            <if test="user.telephone != null">telephone= #{user.telephone,jdbcType=VARCHAR},</if>
+            <if test="user.motto != null">motto= #{user.motto,jdbcType=VARCHAR},</if>
+            <if test="user.password != null">password= #{user.password,jdbcType=VARCHAR},</if>
+            <if test="user.avatar != null">avatar= #{user.avatar,jdbcType=VARCHAR},</if>
+            <if test="user.createTime != null">create_time= #{user.createTime,jdbcType=DATE},</if>
+            <if test="user.online != null">online= #{user.online,jdbcType=TINYINT},</if>
+            <if test="user.enabled != null">enabled= #{user.enabled,jdbcType=TINYINT},</if>
+            <if test="user.lastLoginTime != null">last_login_time= #{user.lastLoginTime,jdbcType=DATE},</if>
+            <if test="user.gender != null">gender= #{user.gender,jdbcType=INTEGER},</if>
+            <if test="user.email != null">email= #{user.email,jdbcType=VARCHAR},</if>
+            <if test="user.region != null">region= #{user.region,jdbcType=VARCHAR}</if>
         </set>
-        WHERE id = #{userEntity.id,jdbcType=BIGINT}
+        WHERE id = #{user.id,jdbcType=BIGINT}
     </update>
 
     <delete id="delete">

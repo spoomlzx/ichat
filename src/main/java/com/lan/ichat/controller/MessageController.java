@@ -6,7 +6,8 @@ import com.lan.common.util.IChatStatus;
 import com.lan.common.util.StringUtils;
 import com.lan.ichat.im.push.PusherManager;
 import com.lan.ichat.model.ChatMessage;
-import com.lan.ichat.model.UserEntity;
+import com.lan.ichat.model.User;
+import com.lan.ichat.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class MessageController {
     private final static Logger logger = LoggerFactory.getLogger(MessageController.class);
     @Autowired
     private PusherManager pusherManager;
+    @Autowired
+    private TokenService tokenService;
 
     /**
      * 推送message
@@ -35,16 +38,13 @@ public class MessageController {
      * @return
      */
     @PostMapping(value = "/send")
-    public BaseResult send(@RequestBody ChatMessage message, @LoginUser UserEntity user) {
+    public BaseResult send(@RequestBody ChatMessage message, @LoginUser User user) {
         BaseResult baseResult = new BaseResult();
         try {
-            // 13/02/2018 TODO 这里应该进行msgTo是否是user的好友的判断，初步思路是基于redis的set实现
-            if (StringUtils.isEmpty(message.getMsgTo())) {
-                throw new IllegalArgumentException("msgTo can not be null");
+            if (StringUtils.isEmpty(message.getMsgTo()) || !tokenService.isFriend(user.getUsername(), message.getMsgTo())) {
+                throw new IllegalArgumentException("msgTo valid");
             }
-            if (!message.getMsgFrom().equals(user.getUsername())) {
-                throw new IllegalArgumentException("message from invalid user");
-            }
+            message.setMsgFrom(user.getUsername());
             pusherManager.push(message);
             baseResult.setMsg("Message send success");
             Map<String, Object> data = new HashMap<>();
@@ -77,8 +77,8 @@ public class MessageController {
      * @param user 当前登录用户
      * @return
      */
-    @GetMapping(value = "/offline")
-    public BaseResult offlineMessage(@LoginUser UserEntity user) {
+    @GetMapping(value = "/pullOffline")
+    public BaseResult offlineMessage(@LoginUser User user) {
         BaseResult baseResult = new BaseResult();
         return baseResult;
     }

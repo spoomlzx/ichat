@@ -4,7 +4,7 @@ import com.lan.common.annotation.OpenApi;
 import com.lan.common.util.BaseResult;
 import com.lan.common.util.IChatStatus;
 import com.lan.ichat.im.push.DefaultMessagePusher;
-import com.lan.ichat.model.UserEntity;
+import com.lan.ichat.model.User;
 import com.lan.ichat.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +60,7 @@ public class SysUserController {
     public BaseResult getUserInfoById(@PathVariable String chatId) {
         BaseResult baseResult = new BaseResult();
         try {
-            UserEntity user = userService.getUserByUsername(chatId);
+            User user = userService.getUserByUsername(chatId);
             baseResult.setStatus(IChatStatus.SUCCESS);
             baseResult.setData(user);
         } catch (Exception e) {

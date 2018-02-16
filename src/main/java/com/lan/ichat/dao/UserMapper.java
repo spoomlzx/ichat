@@ -1,6 +1,6 @@
 package com.lan.ichat.dao;
 
-import com.lan.ichat.model.UserEntity;
+import com.lan.ichat.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -8,15 +8,15 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    List<UserEntity> getUserList();
+    List<User> getUserList();
 
-    UserEntity getUserByUsername(@Param("username") String username);
+    User getUserByUsername(@Param("username") String username);
 
-    UserEntity getUserById(@Param("id") Long id);
+    User getUserById(@Param("id") Long id);
 
-    List<UserEntity> getFriendList(@Param("id") Long id);
+    List<User> getFriendList(@Param("id") Long id);
 
-    int addFriend(
+    int insertFriend(
             @Param("userId") Long userId,
             @Param("friendId") Long friendId,
             @Param("hideMyMM") int hideMyMM,
@@ -25,11 +25,20 @@ public interface UserMapper {
             @Param("blacklist") int blacklist,
             @Param("chatroom") int chatroom);
 
-    int insert(@Param("userEntity") UserEntity userEntity);
+    int updateRemark(@Param("userId") Long userId, @Param("friendId") Long friendId,
+                     @Param("remark") String remark);
 
-    int insertList(@Param("userEntitys") List<UserEntity> userEntitys);
+    int updateMomentSetting(@Param("userId") Long userId, @Param("friendId") Long friendId,
+                            @Param("hideMyMM") Integer hideMyMM, @Param("hideHisMM") Integer hideHisMM);
 
-    int update(@Param("userEntity") UserEntity userEntity);
+    int updateStar(@Param("userId") Long userId, @Param("friendId") Long friendId,
+                   @Param("star") int star);
+
+    int insert(@Param("user") User user);
+
+    int insertList(@Param("users") List<User> users);
+
+    int update(@Param("user") User user);
 
     int delete(@Param("id") Long id);
 }

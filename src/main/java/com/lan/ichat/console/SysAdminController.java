@@ -5,7 +5,7 @@ import com.lan.common.exception.IChatException;
 import com.lan.common.util.BaseResult;
 import com.lan.common.util.IChatStatus;
 import com.lan.common.util.StringUtils;
-import com.lan.ichat.model.AdminEntity;
+import com.lan.ichat.model.Admin;
 import com.lan.ichat.service.AdminService;
 import com.lan.ichat.service.TokenService;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -34,31 +34,31 @@ public class SysAdminController {
     private TokenService tokenService;
 
     @PostMapping(value = "/login")
-    public BaseResult login(@RequestBody AdminEntity admin, @Token String oldToken) {
-        AdminEntity adminEntity;
+    public BaseResult login(@RequestBody Admin loginAdmin, @Token String oldToken) {
+        Admin admin;
         BaseResult baseResult = new BaseResult();
         // 携带token重复登录的，先删除原有token
         if (oldToken != null) {
             tokenService.delete(oldToken);
         }
         try {
-            adminEntity = adminService.getAdminByUsername(admin.getUsername());
+            admin = adminService.getAdminByUsername(loginAdmin.getUsername());
         } catch (Exception e) {
             logger.error(e.getClass().getName() + ":" + e.getMessage());
             throw new IChatException(IChatStatus.SQL_EXCEPTION);
         }
-        if (adminEntity == null) {
+        if (admin == null) {
             throw new IChatException(IChatStatus.USER_NOT_EXIST);
         }
-        if (DigestUtils.sha256Hex(admin.getPassword()).equals(adminEntity.getPassword())) {
+        if (DigestUtils.sha256Hex(loginAdmin.getPassword()).equals(admin.getPassword())) {
             // 使用UUID生成token
             String token = StringUtils.getUUID();
             // 将<token,userEntity>存入redis
-            tokenService.set(token, adminEntity);
+            tokenService.set(token, admin);
             baseResult.setStatus(IChatStatus.SUCCESS);
-            adminEntity.setPassword(null);
-            adminEntity.setToken(token);
-            baseResult.setData(adminEntity);
+            admin.setPassword(null);
+            admin.setToken(token);
+            baseResult.setData(admin);
         } else {
             throw new IChatException(IChatStatus.CREDENTIAL_INVALID);
         }

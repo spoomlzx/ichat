@@ -6,7 +6,8 @@ package com.lan.ichat.model;
  * @author spoomlan
  * @date 13/01/2018
  */
-public class FriendEntity {
+public class Friend {
+    private Long id;
     private String username;
     private String nickname;
     private Integer type;
@@ -16,6 +17,14 @@ public class FriendEntity {
     private Integer gender;
     private String region;
     private String remark;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getRemark() {
         return remark;

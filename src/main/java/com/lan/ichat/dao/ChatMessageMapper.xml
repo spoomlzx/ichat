@@ -61,18 +61,8 @@
     <!--auto generated Code-->
     <update id="update">
         UPDATE ichat_message
-        <set>
-            <if test="chatMessage.msgId != null">msg_id= #{chatMessage.msgId,jdbcType=VARCHAR},</if>
-            <if test="chatMessage.chatType != null">chat_type= #{chatMessage.chatType,jdbcType=INTEGER},</if>
-            <if test="chatMessage.msgType != null">msg_type= #{chatMessage.msgType,jdbcType=INTEGER},</if>
-            <if test="chatMessage.msgFrom != null">msg_from= #{chatMessage.msgFrom,jdbcType=VARCHAR},</if>
-            <if test="chatMessage.msgTo != null">msg_to= #{chatMessage.msgTo,jdbcType=VARCHAR},</if>
-            <if test="chatMessage.body != null">body= #{chatMessage.body,jdbcType=VARCHAR},</if>
-            <if test="chatMessage.extra != null">extra= #{chatMessage.extra,jdbcType=VARCHAR},</if>
-            <if test="chatMessage.time != null">`time`= #{chatMessage.time,jdbcType=BIGINT},</if>
-            <if test="chatMessage.status != null">`status`= #{chatMessage.status,jdbcType=INTEGER}</if>
-        </set>
-        WHERE msg_id = #{chatMessage.msgId,jdbcType=VARCHAR}
+        SET status = #{status}
+        WHERE msg_id = #{msgId}
     </update>
 </mapper>
 

@@ -1,9 +1,6 @@
 package com.lan.ichat;
 
-import com.lan.common.util.ServerUtils;
 import com.lan.ichat.dao.UserMapper;
-import com.lan.ichat.model.FriendEntity;
-import com.lan.ichat.model.UserEntity;
 import com.lan.ichat.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,9 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -963,7 +957,7 @@ public class IchatApplicationTests {
 //                boolean isFriend = random.nextBoolean();
 //                if (isFriend && i != j) {
 //                    try {
-//                        userMapper.addFriend(
+//                        userMapper.insertFriend(
 //                                (long) i,
 //                                (long) j,
 //                                random.nextInt(2),
@@ -971,7 +965,7 @@ public class IchatApplicationTests {
 //                                random.nextInt(2),
 //                                random.nextInt(2),
 //                                random.nextInt(2));
-//                        userMapper.addFriend(
+//                        userMapper.insertFriend(
 //                                (long) j,
 //                                (long) i,
 //                                random.nextInt(2),

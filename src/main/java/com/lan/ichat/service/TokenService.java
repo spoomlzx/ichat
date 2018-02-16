@@ -2,8 +2,10 @@ package com.lan.ichat.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -24,6 +26,8 @@ public class TokenService implements BaseService<Object> {
     public final static long NOT_EXPIRE = -1L;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public void set(String token, Object obj) {
@@ -52,5 +56,28 @@ public class TokenService implements BaseService<Object> {
 
     private String getTokenKey(String token) {
         return "user_token:" + token;
+    }
+
+    public void set(String key, Set<String> friends) {
+        String[] a = new String[friends.size()];
+        friends.toArray(a);
+        this.stringRedisTemplate.boundSetOps(getFriendsSetKey(key)).add(a);
+    }
+
+    public void add(String key, String username) {
+        this.stringRedisTemplate.boundSetOps(getFriendsSetKey(key)).add(username);
+
+    }
+
+    public void delete(String key, String username) {
+        this.stringRedisTemplate.boundSetOps(getFriendsSetKey(key)).remove(username);
+    }
+
+    public boolean isFriend(String key, String username) {
+        return this.stringRedisTemplate.boundSetOps(getFriendsSetKey(key)).isMember(username);
+    }
+
+    private String getFriendsSetKey(String username) {
+        return "user_friends:" + username;
     }
 }

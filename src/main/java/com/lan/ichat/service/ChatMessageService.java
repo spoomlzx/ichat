@@ -10,5 +10,5 @@ public interface ChatMessageService {
 
     int insertList(List<ChatMessage> chatMessages);
 
-    int update(ChatMessage chatMessage);
+    int update(String msgId, Integer status);
 }
